@@ -1,18 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mvcgui;
 
-import Controler.Koneksi;
+import Controler.MainFrameController;
+import View.MainFrame;
+import View.theme.SwingTheme;
 
-/**
- *
- * @author human
- */
-public class MVCGUI {
+import javax.swing.SwingUtilities;
+
+public final class MVCGUI {
+    private MVCGUI() {
+    }
+
     public static void main(String[] args) {
-        Koneksi kn = new Koneksi();
-        kn.config();
+        SwingUtilities.invokeLater(() -> {
+            SwingTheme.install();
+            MainFrame frame = new MainFrame();
+            new MainFrameController(frame).initialize();
+            frame.setVisible(true);
+        });
     }
 }

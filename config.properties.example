@@ -1,0 +1,12 @@
+# Konfigurasi database untuk Sistem Booking Tiket Bioskop
+# Salin file ini menjadi config.properties dan isi nilainya.
+# File config.properties diabaikan oleh Git.
+
+# URL koneksi MySQL (format: jdbc:mysql://host:port/nama_database)
+db.url=jdbc:mysql://localhost:3306/bioskop_db
+
+# Username MySQL
+db.username=root
+
+# Password MySQL
+db.password=

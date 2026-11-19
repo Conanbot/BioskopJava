@@ -1,9 +1,19 @@
 package Controler;
 
+import Controler.admin.AdminMainController;
+import Model.dao.ScheduleDao;
+import Model.dao.StudioDao;
+import Model.dao.UserDao;
+import Model.entity.User;
+import Model.enums.Role;
+import Model.service.AuthService;
+import Model.service.BookingService;
 import Model.service.DatabaseHealthService;
+import View.AccountsPanel;
 import View.PendingModulePanel;
 import View.StartupPanel;
 import View.MainFrame;
+import View.admin.AdminPanel;
 
 import java.awt.CardLayout;
 import java.util.List;
@@ -38,14 +48,29 @@ public final class MainFrameController {
 
         StartupPanel startupPanel = new StartupPanel();
         registerPage(DIAGNOSTICS, "Pemeriksaan sistem", startupPanel, view.getDiagnosticsButton());
+
+        // ── Jonathan: Modul Akun & Autentikasi ────────────────────────────────────
+        AccountsPanel accountsPanel = new AccountsPanel();
+        AuthService authService = new AuthService(new UserDao());
+
+        new LoginController(authService, accountsPanel.getLoginPanel(), accountsPanel, user -> {
+            // Setelah login berhasil, arahkan sesuai role
+            if (user.getRole() == Role.ADMIN) {
+                navigationController.showPage(ADMIN);
+            } else {
+                navigationController.showPage(CUSTOMER);
+            }
+        });
+
+        new RegisterController(authService, accountsPanel.getRegisterPanel(), accountsPanel);
+
         registerPage(
                 ACCOUNTS,
                 "Akun dan sesi",
-                new PendingModulePanel(
-                        "Akun dan sesi",
-                        "Jonathan",
-                        List.of("Login", "Register", "SessionManager", "User, Admin, dan Customer")),
+                accountsPanel,
                 view.getAccountsButton());
+
+        // ── Dava: Modul Layanan Customer (Dilarang diubah) ────────────────────────
         registerPage(
                 CUSTOMER,
                 "Layanan customer",
@@ -60,14 +85,42 @@ public final class MainFrameController {
                                 "E-Ticket dan Booking History",
                                 "Animasi dan interaktivitas")),
                 view.getCustomerButton());
+
+        // ── Jonathan: Modul Operasional Admin ─────────────────────────────────────
+        AdminPanel adminPanel = new AdminPanel();
+        BookingService bookingService = new BookingService();
+        StudioDao studioDao = new StudioDao();
+        ScheduleDao scheduleDao = new ScheduleDao();
+
+        AdminMainController adminMainController = new AdminMainController(
+                adminPanel,
+                bookingService,
+                studioDao,
+                scheduleDao,
+                () -> {
+                    // Saat admin logout, kembali ke Login
+                    accountsPanel.showLogin();
+                    navigationController.showPage(ACCOUNTS);
+                }
+        );
+
+        // Saat tombol Admin di sidebar diklik, periksa akses role
+        view.getAdminButton().addActionListener(e -> {
+            if (!SessionManager.getInstance().isAdmin()) {
+                AlertUtil.showWarning(view, "Akses Terbatas", "Halaman ini memerlukan login dengan Role ADMIN.");
+                navigationController.showPage(ACCOUNTS);
+                return;
+            }
+            adminMainController.onAdminOpened();
+        });
+
         registerPage(
                 ADMIN,
                 "Operasional admin",
-                new PendingModulePanel(
-                        "Operasional admin",
-                        "Jonathan",
-                        List.of("Dashboard Admin", "CRUD Studio", "CRUD Jadwal", "Validasi jadwal bentrok")),
+                adminPanel,
                 view.getAdminButton());
+
+        // ── Tian: Modul Pengelolaan Film (Dilarang diubah) ────────────────────────
         registerPage(
                 FILMS,
                 "Pengelolaan film",

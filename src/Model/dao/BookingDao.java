@@ -395,22 +395,30 @@ public class BookingDao {
     }
 
     public DashboardSummary getDashboardSummary() throws SQLException {
+        return getDashboardSummary(LocalDate.now(java.time.ZoneId.of("Asia/Jakarta")));
+    }
+
+    public DashboardSummary getDashboardSummary(LocalDate today) throws SQLException {
         String sql = """
-                SELECT COUNT(*) AS total_bookings,
-                       COALESCE(SUM(CASE WHEN p.status = 'PAID' THEN p.amount_paid ELSE 0 END), 0)
-                           AS total_revenue
-                FROM bookings b
-                JOIN payments p ON p.booking_id = b.id
+                SELECT
+                    (SELECT COUNT(*) FROM films) AS total_films,
+                    (SELECT COUNT(*) FROM schedules WHERE show_date = ?) AS total_schedules_today,
+                    (SELECT COUNT(*) FROM bookings) AS total_bookings,
+                    (SELECT COALESCE(SUM(amount_paid), 0) FROM payments WHERE status = 'PAID') AS total_revenue
                 """;
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet result = statement.executeQuery()) {
-            if (!result.next()) {
-                throw new SQLException("Ringkasan dashboard tidak dapat dibaca.");
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setDate(1, java.sql.Date.valueOf(today));
+            try (ResultSet result = statement.executeQuery()) {
+                if (!result.next()) {
+                    return new DashboardSummary(0L, 0L, 0L, BigDecimal.ZERO);
+                }
+                return new DashboardSummary(
+                        result.getLong("total_films"),
+                        result.getLong("total_schedules_today"),
+                        result.getLong("total_bookings"),
+                        result.getBigDecimal("total_revenue"));
             }
-            return new DashboardSummary(
-                    result.getLong("total_bookings"),
-                    result.getBigDecimal("total_revenue"));
         }
     }
 

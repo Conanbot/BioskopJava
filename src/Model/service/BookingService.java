@@ -30,6 +30,7 @@ import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Clock;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -266,7 +267,8 @@ public class BookingService {
         if (actorRole != Role.ADMIN) {
             throw new BookingAccessDeniedException();
         }
-        return bookingDao.getDashboardSummary();
+        LocalDate today = LocalDate.now(clock);
+        return bookingDao.getDashboardSummary(today);
     }
 
     private void validateActor(long actorUserId, Role actorRole) throws ValidationException {

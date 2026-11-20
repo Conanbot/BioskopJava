@@ -134,6 +134,11 @@ public class StudioController {
                 if (studioDao.nameExistsForOther(name, selected.getId())) {
                     throw new IllegalArgumentException("Nama studio '" + name + "' sudah digunakan.");
                 }
+                if ((rows != selected.getSeatRows() || cols != selected.getSeatCols())
+                        && studioDao.isUsedBySchedule(selected.getId())) {
+                    throw new IllegalStateException(
+                            "Dimensi kursi studio (baris/kolom) tidak dapat diubah karena studio sudah digunakan oleh jadwal tayang.");
+                }
                 return studioDao.update(selected.getId(), name, rows, cols);
             }
 

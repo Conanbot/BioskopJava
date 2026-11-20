@@ -18,10 +18,16 @@ import javax.swing.border.EmptyBorder;
 
 /**
  * Panel Dashboard Admin.
- * Menampilkan ringkasan total booking dan revenue yang diambil dari BookingService.getDashboardSummary().
- * Data tidak pernah statis — selalu berasal dari service.
+ * Menampilkan ringkasan:
+ * 1. Total film
+ * 2. Total jadwal hari ini
+ * 3. Total booking
+ * 4. Total pendapatan
+ * Data tidak pernah statis — selalu berasal dari database/service aktual.
  */
 public final class AdminDashboardPanel extends JPanel {
+    private final JLabel totalFilmsValue = new JLabel("—");
+    private final JLabel totalSchedulesTodayValue = new JLabel("—");
     private final JLabel totalBookingsValue = new JLabel("—");
     private final JLabel totalRevenueValue = new JLabel("—");
     private final JLabel statusLabel = new JLabel(" ");
@@ -46,7 +52,7 @@ public final class AdminDashboardPanel extends JPanel {
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
         title.setForeground(SwingTheme.TEXT);
 
-        JLabel subtitle = new JLabel("Ringkasan data transaksi dari sistem booking.");
+        JLabel subtitle = new JLabel("Ringkasan operasional dan data transaksi sistem booking bioskop.");
         subtitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
         subtitle.setForeground(SwingTheme.MUTED_TEXT);
 
@@ -57,9 +63,11 @@ public final class AdminDashboardPanel extends JPanel {
     }
 
     private JPanel buildStatsPanel() {
-        JPanel stats = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
+        JPanel stats = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
         stats.setOpaque(false);
 
+        stats.add(buildStatCard("Total Film", totalFilmsValue));
+        stats.add(buildStatCard("Jadwal Hari Ini", totalSchedulesTodayValue));
         stats.add(buildStatCard("Total Booking", totalBookingsValue));
         stats.add(buildStatCard("Total Pendapatan (Rp)", totalRevenueValue));
 
@@ -111,6 +119,14 @@ public final class AdminDashboardPanel extends JPanel {
 
     // ── Update methods (harus dipanggil dari EDT) ─────────────────────────────
 
+    public void setTotalFilms(long count) {
+        totalFilmsValue.setText(String.valueOf(count));
+    }
+
+    public void setTotalSchedulesToday(long count) {
+        totalSchedulesTodayValue.setText(String.valueOf(count));
+    }
+
     public void setTotalBookings(long count) {
         totalBookingsValue.setText(String.valueOf(count));
     }
@@ -126,6 +142,8 @@ public final class AdminDashboardPanel extends JPanel {
     public void setStatusLoading() {
         statusLabel.setText("Memuat data...");
         statusLabel.setForeground(SwingTheme.MUTED_TEXT);
+        totalFilmsValue.setText("—");
+        totalSchedulesTodayValue.setText("—");
         totalBookingsValue.setText("—");
         totalRevenueValue.setText("—");
     }

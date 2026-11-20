@@ -3,10 +3,19 @@
 # File config.properties diabaikan oleh Git.
 
 # URL koneksi MySQL (format: jdbc:mysql://host:port/nama_database)
-db.url=jdbc:mysql://localhost:3306/bioskop_db
+# Pastikan database bioskop_db sudah dibuat dari database/schema.sql
+db.url=jdbc:mysql://localhost:3306/bioskop_db?serverTimezone=Asia/Jakarta
 
-# Username MySQL
-db.username=root
+# Username MySQL (CATATAN: password tidak boleh kosong, buat user khusus jika pakai root tanpa password)
+# Contoh buat user khusus via MySQL CLI:
+#   CREATE USER 'bioskop_app'@'localhost' IDENTIFIED BY 'PasswordAnda';
+#   GRANT ALL PRIVILEGES ON bioskop_db.* TO 'bioskop_app'@'localhost';
+db.username=bioskop_app
 
-# Password MySQL
-db.password=
+# Password MySQL (wajib diisi, tidak boleh kosong)
+db.password=PasswordAnda
+
+# Kredensial Admin untuk initial provisioning (opsional, dibaca oleh AdminProvisioningService)
+# Jalankan: java -cp "target/classes;..." Model.service.AdminProvisioningService admin <password>
+# admin.username=admin
+# admin.password=

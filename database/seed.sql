@@ -4,11 +4,11 @@ USE bioskop_db;
 -- Username: admin / Password: admin (ADMIN)
 -- Username: user / Password: user123 (CUSTOMER)
 -- Username: dava / Password: dava123 (CUSTOMER)
-INSERT INTO users (username, password_hash, role) VALUES
+INSERT INTO users (username, password, role) VALUES
 ('admin', 'admin', 'ADMIN'),
 ('user', 'user123', 'CUSTOMER'),
 ('dava', 'dava123', 'CUSTOMER')
-ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash), role = VALUES(role);
+ON DUPLICATE KEY UPDATE password = VALUES(password), role = VALUES(role);
 
 -- 2. Studios
 INSERT INTO studios (id, name, seat_rows, seat_cols) VALUES

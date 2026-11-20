@@ -67,8 +67,7 @@ public class AdminProvisioningService {
             return ProvisionStatus.ALREADY_EXISTS;
         }
 
-        String passwordHash = AuthService.hashPassword(rawPassword);
-        boolean created = userDao.provisionAdmin(trimmedUsername, passwordHash);
+        boolean created = userDao.provisionAdmin(trimmedUsername, rawPassword);
         return created ? ProvisionStatus.SUCCESS : ProvisionStatus.ALREADY_EXISTS;
     }
 

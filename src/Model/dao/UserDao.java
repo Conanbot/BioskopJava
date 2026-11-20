@@ -32,10 +32,10 @@ public class UserDao {
 
     /**
      * Mencari pengguna berdasarkan username.
-     * Mengembalikan Optional yang memuat password_hash untuk verifikasi.
+     * Mengembalikan Optional yang memuat password untuk verifikasi.
      */
     public Optional<UserCredential> findCredentialByUsername(String username) throws SQLException {
-        String sql = "SELECT id, username, password_hash, role FROM users WHERE username = ?";
+        String sql = "SELECT id, username, password, role FROM users WHERE username = ?";
         try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -45,15 +45,15 @@ public class UserDao {
                 }
                 long id = rs.getLong("id");
                 String dbUsername = rs.getString("username");
-                String passwordHash = rs.getString("password_hash");
+                String password = rs.getString("password");
                 Role role = Role.valueOf(rs.getString("role"));
-                return Optional.of(new UserCredential(id, dbUsername, passwordHash, role));
+                return Optional.of(new UserCredential(id, dbUsername, password, role));
             }
         }
     }
 
     /**
-     * Mencari entitas User berdasarkan ID (tanpa password_hash).
+     * Mencari entitas User berdasarkan ID (tanpa password).
      */
     public Optional<User> findById(long userId) throws SQLException {
         String sql = "SELECT id, username, role, created_at FROM users WHERE id = ?";
@@ -88,12 +88,12 @@ public class UserDao {
      * melalui registrasi publik. Admin hanya dibuat melalui seed.sql atau provisioning.
      * Mengembalikan entitas User dengan ID yang di-generate database.
      */
-    public User insertCustomer(String username, String passwordHash) throws SQLException {
-        String sql = "INSERT INTO users (username, password_hash, role) VALUES (?, ?, 'CUSTOMER')";
+    public User insertCustomer(String username, String password) throws SQLException {
+        String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, 'CUSTOMER')";
         try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, username);
-            stmt.setString(2, passwordHash);
+            stmt.setString(2, password);
             int affected = stmt.executeUpdate();
             if (affected == 0) {
                 throw new SQLException("Gagal menyimpan pengguna baru.");
@@ -113,9 +113,9 @@ public class UserDao {
      * Menyimpan akun Admin secara aman dan idempoten (tidak membuat duplikasi).
      * Jika username sudah ada, query tidak menyisipkan baris baru dan mengembalikan false.
      */
-    public boolean provisionAdmin(String username, String passwordHash) throws SQLException {
+    public boolean provisionAdmin(String username, String password) throws SQLException {
         String sql = """
-                INSERT INTO users (username, password_hash, role)
+                INSERT INTO users (username, password, role)
                 SELECT ?, ?, 'ADMIN'
                 WHERE NOT EXISTS (
                     SELECT 1 FROM users WHERE username = ?
@@ -124,7 +124,7 @@ public class UserDao {
         try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
-            stmt.setString(2, passwordHash);
+            stmt.setString(2, password);
             stmt.setString(3, username);
             return stmt.executeUpdate() > 0;
         }
@@ -140,9 +140,9 @@ public class UserDao {
     }
 
     /**
-     * Record untuk membawa data kredensial login (termasuk password_hash).
+     * Record untuk membawa data kredensial login (termasuk password).
      * Hanya digunakan di lapisan autentikasi; jangan di-expose ke View.
      */
-    public record UserCredential(long id, String username, String passwordHash, Role role) {
+    public record UserCredential(long id, String username, String password, Role role) {
     }
 }

@@ -57,8 +57,8 @@ public class AuthService {
         }
 
         UserDao.UserCredential cred = credential.get();
-        // Cek kecocokan password secara langsung (tanpa enkripsi)
-        boolean passwordMatches = rawPassword.equals(cred.passwordHash());
+        // Cek kecocokan password secara langsung (tanpa hashing)
+        boolean passwordMatches = rawPassword.equals(cred.password());
 
         if (!passwordMatches) {
             throw new AuthenticationException("Username atau password salah.");
@@ -86,8 +86,7 @@ public class AuthService {
             throw new ValidationException("Username '" + trimmedUsername + "' sudah digunakan. Pilih username lain.");
         }
 
-        String passwordHash = rawPassword;
-        return userDao.insertCustomer(trimmedUsername, passwordHash);
+        return userDao.insertCustomer(trimmedUsername, rawPassword);
     }
 
     /**

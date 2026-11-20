@@ -33,8 +33,8 @@ class AuthServiceTest {
         assertNotNull(user);
         assertEquals("newuser", user.getUsername());
         assertEquals(Role.CUSTOMER, user.getRole());
-        assertNotNull(fakeUserDao.savedHash);
-        assertEquals("password123", fakeUserDao.savedHash);
+        assertNotNull(fakeUserDao.savedPassword);
+        assertEquals("password123", fakeUserDao.savedPassword);
     }
 
     @Test
@@ -109,7 +109,7 @@ class AuthServiceTest {
     // Fake DAO untuk isolasi unit test tanpa dependensi ke MySQL
     private static class FakeUserDao extends UserDao {
         boolean userExists = false;
-        String savedHash = null;
+        String savedPassword = null;
         UserCredential foundCredential = null;
 
         @Override
@@ -118,8 +118,8 @@ class AuthServiceTest {
         }
 
         @Override
-        public User insertCustomer(String username, String passwordHash) {
-            this.savedHash = passwordHash;
+        public User insertCustomer(String username, String password) {
+            this.savedPassword = password;
             return new User(100L, username, Role.CUSTOMER, java.time.LocalDateTime.now());
         }
 

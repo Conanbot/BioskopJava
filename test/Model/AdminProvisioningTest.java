@@ -31,14 +31,14 @@ class AdminProvisioningTest {
 
         assertEquals(ProvisionStatus.SUCCESS, status);
         assertEquals("admin", fakeUserDao.savedUsername);
-        assertEquals("AdminSecret123", fakeUserDao.savedPasswordHash);
+        assertEquals("AdminSecret123", fakeUserDao.savedPassword);
     }
 
     @Test
     @DisplayName("Password admin yang tersimpan dapat diverifikasi")
     void testPasswordVerifiable() throws Exception {
         provisioningService.provisionAdmin("admin", "SuperSecurePassword99");
-        assertEquals("SuperSecurePassword99", fakeUserDao.savedPasswordHash);
+        assertEquals("SuperSecurePassword99", fakeUserDao.savedPassword);
     }
 
     @Test
@@ -77,7 +77,7 @@ class AdminProvisioningTest {
     private static class FakeAdminUserDao extends UserDao {
         boolean userExists = false;
         String savedUsername = null;
-        String savedPasswordHash = null;
+        String savedPassword = null;
 
         @Override
         public boolean usernameExists(String username) {
@@ -85,12 +85,12 @@ class AdminProvisioningTest {
         }
 
         @Override
-        public boolean provisionAdmin(String username, String passwordHash) {
+        public boolean provisionAdmin(String username, String password) {
             if (userExists) {
                 return false;
             }
             this.savedUsername = username;
-            this.savedPasswordHash = passwordHash;
+            this.savedPassword = password;
             this.userExists = true;
             return true;
         }

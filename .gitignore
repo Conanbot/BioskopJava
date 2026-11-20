@@ -1,6 +1,7 @@
 target/
 build/
 dist/
+nbproject/private/
 config.properties
 src/config.properties
 .idea/

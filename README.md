@@ -1,97 +1,111 @@
-# Sistem Booking Tiket Bioskop
+# Sistem Booking Tiket Bioskop (BioskopJava)
 
-Project foundation for a Java 17 and Java Swing cinema ticket booking system. The shared database schema, connection manager, booking/payment services, admin operations (dashboard, studio management, schedule management with interval conflict detection, cancel/refund), user authentication, and diagnostic screens are fully implemented and integrated.
+Aplikasi Desktop Sistem Pemesanan Tiket Bioskop berbasis Java 17 dan Java Swing dengan arsitektur MVC, terintegrasi dengan MySQL 8 (Laragon / XAMPP) dan mendukung NetBeans GUI Builder serta Maven Build System.
 
-## Requirements
+---
 
-- JDK 17
-- Maven 3.9+
-- MySQL 8.0.16+
+## 1. Persyaratan Sistem & Lingkungan
+- **JDK**: Java Development Kit 17 (LTS)
+- **Build System**: Maven 3.9+ & NetBeans Ant Build System (`build.xml`)
+- **IDE**: Apache NetBeans 17+
+- **Database**: MySQL 8.0+ (Laragon / XAMPP)
 
-## Project Structure
+---
 
-The project follows the standard MVC architecture:
-- `src/Controler`: Controllers, navigation, session management, and database connection utilities (`DBConnection`, `ConnectionProvider`).
-- `src/Model`: Entity definitions, Data Access Objects (`UserDao`, `StudioDao`, `ScheduleDao`, `BookingDao`), business services (`AuthService`, `BookingService`, `AdminProvisioningService`, `DatabaseHealthService`), and domain exceptions.
-- `src/View`: Java Swing user interface components and theme resources (`SwingTheme`, `MainFrame`, `AdminPanel`, `ScheduleManagementPanel`, `StudioManagementPanel`, `AdminDashboardPanel`, `AccountsPanel`, `StartupPanel`).
-- `src/mvcgui`: Application main entry point (`MVCGUI`).
-- `database/`: Database DDL schema (`schema.sql`) and initial seed script (`seed.sql`).
-- `tests/`: Automated unit and integration test suite using JUnit 5.
+## 2. Struktur Direktori Proyek
 
-The Swing interface is built entirely in standard programmatic Java without dependency on NetBeans GUI Builder or `.form` files.
+Struktur proyek telah diselaraskan dengan standar NetBeans Ant + Maven (`build.xml` + `pom.xml`):
 
-## Database Configuration
+```text
+BioskopJava/
+├── build.xml                 # NetBeans Ant build script
+├── manifest.mf               # Application manifest
+├── nbproject/                # NetBeans project configuration & metadata
+│   ├── project.properties    # Konfigurasi source root, Java 17, & main class
+│   ├── project.xml           # Definisi modul NetBeans J2SE
+│   ├── build-impl.xml        # NetBeans Ant runtime tasks
+│   └── genfiles.properties   # NetBeans build generation metadata
+├── pom.xml                   # Maven single-module build configuration
+├── README.md                 # Dokumentasi proyek
+├── src/                      # Source code aplikasi (Java + NetBeans .form)
+│   ├── Controler/            # Controllers, SessionManager, AlertUtil, DBConnection
+│   ├── Model/                # DAO, Entity, Enums, Service, Payment, Exception
+│   ├── View/                 # Swing views, Admin forms, Customer portal, Themes
+│   └── mvcgui/               # Main entry point (MVCGUI.java)
+├── test/                     # Unit test & MySQL integration test (JUnit 5)
+│   ├── Controler/            # Controller & Session unit tests
+│   └── Model/                # Model, DAO, Service, & Integration tests
+└── database/                 # Skrip SQL database
+    ├── schema.sql            # DDL skema database MySQL
+    └── seed.sql              # DML data awal & akun default
+```
 
-1. Execute `database/schema.sql` in MySQL to initialize `bioskop_db` and the core tables (`users`, `films`, `studios`, `schedules`, `bookings`, `booking_seats`, `payments`).
-2. Copy `config.properties.example` to `config.properties`.
-3. Configure your MySQL credentials in `config.properties`:
-   ```properties
-   db.url=jdbc:mysql://localhost:3306/bioskop_db
-   db.username=root
-   db.password=your_mysql_password
-   ```
-   *Note: `config.properties` is ignored by Git and must never be committed.*
-4. Alternatively, configure via environment variables:
-   - `BIOSKOP_DB_URL`
-   - `BIOSKOP_DB_USERNAME`
-   - `BIOSKOP_DB_PASSWORD`
+---
 
-`DBConnection` acts as a connection manager; each invocation of `getConnection()` opens a new `Connection` that should be closed by the caller using try-with-resources.
+## 3. Konfigurasi Koneksi Database
 
-## Admin Provisioning
+Koneksi database dikelola secara terpusat dan langsung melalui class:
+**`src/Controler/DBConnection.java`**
 
-Akun Administrator dibuat secara langsung pada database (menggunakan username dan password teks biasa sesuai materi pembelajaran PBO). Mekanisme ini bersifat idempoten (dapat dijalankan berulang tanpa membuat akun duplikat).
+Aplikasi **tidak lagi membutuhkan** file `config.properties` atau environment variable tambahan untuk penggunaan lokal standar.
 
-### Opsi 1: Melalui database/seed.sql (Paling Mudah)
+- **Default Lingkungan (Laragon / XAMPP)**:
+  - **Host**: `localhost`
+  - **Port**: `3306`
+  - **Database Aplikasi**: `bioskop_db`
+  - **Database Testing**: `bioskop_test_db` (terisolasi untuk integration test)
+  - **Username**: `root`
+  - **Password**: *(kosong)*
 
-Cukup import file `database/seed.sql` melalui phpMyAdmin atau MySQL CLI. Akun default telah disediakan:
+---
+
+## 4. Persiapan Database MySQL Laragon
+
+1. Pastikan service **MySQL** pada Laragon / XAMPP sudah aktif.
+2. Buka terminal atau GUI database (HeidiSQL / phpMyAdmin), lalu jalankan:
+   - `database/schema.sql` (membuat database `bioskop_db` dan 7 tabel inti).
+   - `database/seed.sql` (mengisi data awal studio, film, jadwal tayang, dan akun pengguna).
+3. Untuk keperluan testing, jalankan juga skema pada database pengujian `bioskop_test_db`.
+
+### Akun Bawaan (Default):
 - **Admin**: `admin` / `admin`
 - **Customer**: `user` / `user123`
 - **Customer**: `dava` / `dava123`
 
-## Running the Application
+*Catatan: Sistem menggunakan penyimpanan dan verifikasi password secara langsung (plain text) sesuai dengan kebutuhan tugas perkuliahan PBO.*
 
-1. Compile the project:
-   ```bash
-   mvn clean compile
-   ```
-2. Run the application:
-   ```bash
-   mvn exec:java
-   ```
-3. Or package into an executable JAR:
-   ```bash
-   mvn clean package
-   java -jar target/BioskopJava-1.0-SNAPSHOT.jar
-   ```
+---
 
-On the startup diagnostic screen, use **Periksa koneksi MySQL** to verify connectivity, the 7 core tables, and constraints. Navigate to **Akun dan sesi** to login as ADMIN or register as CUSTOMER.
+## 5. Cara Menjalankan Aplikasi
 
-## Automated Testing
-
-Automated testing is maintained in the `tests/` directory and executed using Maven Surefire with JUnit 5.
-
-### Menjalankan Test Suite
-
-Jalankan seluruh test:
-```bash
-mvn test
+### Melalui Maven (Terminal):
+```powershell
+mvn compile exec:java
+```
+atau menggunakan binary Maven NetBeans:
+```powershell
+& "C:\Apps\NetBeans\netbeans\java\maven\bin\mvn.cmd" compile exec:java
 ```
 
-Atau jalankan clean test:
-```bash
+### Melalui NetBeans IDE:
+- Buka project **BioskopJava** di Apache NetBeans.
+- Tekan **F6** atau klik kanan project → **Run**. Main class otomatis mengarah ke `mvcgui.MVCGUI`.
+
+---
+
+## 6. Pengujian Otomatis (Automated Testing)
+
+Automated testing tersimpan di folder `test/` dan dijalankan melalui Maven Surefire (JUnit 5):
+
+```powershell
+mvn test
+```
+atau:
+```powershell
 mvn clean test
 ```
 
-### Cakupan Pengujian (Test Coverage)
-
-Test suite mencakup pengujian unit dan validasi domain (44 test cases):
-1. **Model.ScheduleConflictValidationTest**: Validasi konflik jadwal berbasis interval waktu penayangan film (`existing_start < new_end AND existing_end > new_start`), jadwal berurutan tanpa konflik, jadwal studio berbeda, tanggal berbeda, update jadwal tanpa false conflict, serta variasi durasi film.
-2. **Model.StudioCapacityConsistencyTest**: Validasi pencegahan pengubahan dimensi studio yang sudah digunakan jadwal, izin pengubahan untuk studio belum digunakan, sinkronisasi `total_seats` dan `available_seats`, serta pencegahan penurunan kapasitas di bawah kursi yang telah dipesan.
-3. **Model.ScheduleDeletionValidationTest**: Validasi proteksi integritas FK; pemblokiran penghapusan jadwal yang memiliki riwayat booking dalam status apa pun (`ACTIVE`, `CANCELLED`, `REFUNDED`), dan keberhasilan penghapusan jadwal tanpa transaksi.
-4. **Model.AdminProvisioningTest**: Pembuatan akun admin, verifikasi password, sifat idempoten provisioning berulang, dan validasi kredensial.
-5. **Model.DashboardSummaryTest**: Validasi kelengkapan 4 metrik dashboard admin (Total Film, Total Jadwal Hari Ini, Total Booking, Total Pendapatan) dan validasi non-negatif.
-6. **Model.service.AuthServiceTest**: Validasi registrasi customer, penyimpanan password, dan verifikasi login admin/customer.
-7. **Controler.SessionManagerTest**: Manajemen sesi login/logout dan otorisasi role.
-8. **Model.entity.StudioScheduleModelTest**: Validasi domain entity Studio dan Schedule.
-9. **Model.integration.MySqlIntegrationTest**: Pengujian konektivitas live database MySQL (secara aman di-skip jika MySQL server lokal tidak aktif).
+### Hasil Pengujian:
+- **Total Test**: 50 tests.
+- **Unit Tests**: Menguji logika bisnis, validasi konflik jadwal tayang (`ScheduleConflictValidationTest`), integritas kapasitas studio, otorisasi login, dan session management.
+- **Integration Test (`MySqlIntegrationTest`)**: Terisolasi pada database `bioskop_test_db` sehingga aman dari modifikasi database utama.

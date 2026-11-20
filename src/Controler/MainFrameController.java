@@ -55,6 +55,21 @@ public final class MainFrameController {
         AccountsPanel accountsPanel = new AccountsPanel();
         AuthService authService = new AuthService(new UserDao());
 
+        // ── Dava: Modul Layanan Customer ──────────────────────────────────────────
+        CustomerPanel customerPanel = new CustomerPanel();
+        customerPanel.setOnLogout(() -> {
+            SessionManager.getInstance().clearSession();
+            applyRoleNavigation(null);
+            accountsPanel.showLogin();
+            navigationController.showPage(ACCOUNTS);
+        });
+
+        registerPage(
+                CUSTOMER,
+                "Layanan Customer",
+                customerPanel,
+                view.getCustomerButton());
+
         new LoginController(authService, accountsPanel.getLoginPanel(), accountsPanel, user -> {
             applyRoleNavigation(user.getRole());
             if (user.getRole() == Role.ADMIN) {
@@ -63,6 +78,8 @@ public final class MainFrameController {
                 }
                 navigationController.showPage(ADMIN);
             } else {
+                customerPanel.updateGreeting();
+                customerPanel.loadFilmCards();
                 navigationController.showPage(CUSTOMER);
             }
         });
@@ -74,13 +91,6 @@ public final class MainFrameController {
                 "Akun dan sesi",
                 accountsPanel,
                 view.getAccountsButton());
-
-        // ── Dava: Modul Layanan Customer ──────────────────────────────────────────
-        CustomerPanel customerPanel = new CustomerPanel();
-        customerPanel.setOnLogout(() -> {
-            accountsPanel.showLogin();
-            navigationController.showPage(ACCOUNTS);
-        });
 
         // ── Jonathan: Modul Operasional Admin ─────────────────────────────────────
         AdminPanel adminPanel = new AdminPanel();
@@ -117,6 +127,9 @@ public final class MainFrameController {
             if (!SessionManager.getInstance().isLoggedIn()) {
                 AlertUtil.showWarning(view, "Akses Terbatas", "Silakan login terlebih dahulu untuk mengakses layanan Customer.");
                 navigationController.showPage(ACCOUNTS);
+            } else {
+                customerPanel.updateGreeting();
+                customerPanel.loadFilmCards();
             }
         });
 

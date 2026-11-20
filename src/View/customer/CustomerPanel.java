@@ -70,14 +70,14 @@ public class CustomerPanel extends JPanel {
         JPanel actions = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 6));
         actions.setOpaque(false);
 
-        JButton launchFrameBtn = BaseCinemaFrame.createCinemaButton("🎬 Buka Portal Customer (JFrame Penuh)", true);
+        JButton launchFrameBtn = BaseCinemaFrame.createCinemaButton("Buka Portal Customer", true);
         launchFrameBtn.setPreferredSize(new Dimension(270, 42));
         launchFrameBtn.addActionListener(e -> {
             CustomerHomeFrame homeFrame = new CustomerHomeFrame();
             homeFrame.setVisible(true);
         });
 
-        JButton historyBtn = BaseCinemaFrame.createCinemaButton("🎟 Riwayat Tiket", false);
+        JButton historyBtn = BaseCinemaFrame.createCinemaButton("Riwayat Tiket", false);
         historyBtn.addActionListener(e -> {
             User currentUser = SessionManager.getInstance().getCurrentUser();
             if (currentUser == null) {

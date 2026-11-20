@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package View.customer;
 
 import Controler.AlertUtil;
@@ -23,53 +27,54 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 /**
  * JFrame Beranda Layanan Pelanggan Bioskop (Customer Home Portal).
- * Menerapkan seluruh materi PBO:
- * - Inheritance (extends BaseCinemaFrame)
- * - Polymorphism (Displayable interface pada Film)
- * - Java Stream API (pencarian, penyaringan genre, dan status film)
- * - JDBC Data Access (FilmDao)
- * - Array & List Collections
- * - Exception Handling (SQLException)
- * - Animasi & Interaktivitas UI Bioskop (Golden dark mode, hover, hero banner)
+ * Diformat sebagai NetBeans JFrame Form (Matisse GUI Builder).
+ * Memiliki tab Source dan Design di NetBeans IDE.
+ *
+ * @author human
  */
-public class CustomerHomeFrame extends BaseCinemaFrame {
+public class CustomerHomeFrame extends javax.swing.JFrame {
 
     private final FilmDao filmDao = new FilmDao();
     private List<Film> allFilms = new ArrayList<>();
-
-    // Komponen Filter & Pencarian
-    private final JTextField searchField = new JTextField(18);
-    private final JComboBox<String> genreFilterCombo = new JComboBox<>(new String[]{
-            "Semua Genre", "Action", "Sci-Fi", "Comedy", "Horror", "Drama"
-    });
     private String selectedStatusTab = "ALL"; // ALL, NOW_SHOWING, COMING_SOON
 
-    private final JPanel moviesGridPanel = new JPanel();
-    private final JLabel resultCountLabel = new JLabel("Menampilkan film...");
-
+    /**
+     * Creates new form CustomerHomeFrame
+     */
     public CustomerHomeFrame() {
-        super("Portal Pemesanan Tiket Bioskop - Customer Home", 1000, 750);
-        // Pastikan demo data tersedia jika tabel kosong
+        initComponents();
+        postInitCustomStyles();
         filmDao.ensureDemoDataAvailable();
-        buildUI();
         loadFilmsFromDatabase();
     }
 
-    @Override
-    protected void setupHeaderRightContent(JPanel rightPanel) {
-        JButton historyBtn = createCinemaButton("🎟 Riwayat Booking", false);
-        historyBtn.addActionListener(e -> {
+    private void postInitCustomStyles() {
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(BaseCinemaFrame.CINEMA_BG);
+
+        // Header style
+        headerPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
+                new EmptyBorder(0, 16, 0, 16)
+        ));
+
+        BaseCinemaFrame.createCinemaButton("🎟 Riwayat Booking", false);
+        historyButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
+        historyButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        historyButton.setFocusPainted(false);
+        historyButton.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BaseCinemaFrame.CINEMA_MUTED, 1),
+                new EmptyBorder(8, 14, 8, 14)
+        ));
+        historyButton.addActionListener(e -> {
             User currentUser = SessionManager.getInstance().getCurrentUser();
             if (currentUser == null) {
                 AlertUtil.showWarning(this, "Login Diperlukan", "Silakan login di menu utama untuk melihat riwayat tiket Anda.");
@@ -77,129 +82,42 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
             }
             new BookingHistoryFrame(currentUser).setVisible(true);
         });
-        rightPanel.add(historyBtn);
-    }
 
-    private void buildUI() {
-        JPanel wrapper = new JPanel(new BorderLayout(0, 14));
-        wrapper.setBackground(CINEMA_BG);
-        wrapper.setBorder(new EmptyBorder(14, 24, 20, 24));
-
-        // 1. Hero Promo Banner Bioskop
-        wrapper.add(createHeroBanner(), BorderLayout.NORTH);
-
-        // 2. Center: Filter Bar + Movie Grid
-        JPanel centerContainer = new JPanel(new BorderLayout(0, 12));
-        centerContainer.setOpaque(false);
-
-        centerContainer.add(createFilterBar(), BorderLayout.NORTH);
-
-        // Movie Grid (3 kolom)
-        moviesGridPanel.setLayout(new GridLayout(0, 3, 16, 16));
-        moviesGridPanel.setBackground(CINEMA_BG);
-
-        JScrollPane scrollPane = new JScrollPane(moviesGridPanel);
-        scrollPane.setBorder(null);
-        scrollPane.getViewport().setBackground(CINEMA_BG);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        centerContainer.add(scrollPane, BorderLayout.CENTER);
-
-        // Result count status di bawah
-        resultCountLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        resultCountLabel.setForeground(CINEMA_MUTED);
-        centerContainer.add(resultCountLabel, BorderLayout.SOUTH);
-
-        wrapper.add(centerContainer, BorderLayout.CENTER);
-        mainContentPanel.add(wrapper, BorderLayout.CENTER);
-    }
-
-    /**
-     * Hero Banner interaktif dengan visual promo bioskop.
-     */
-    private JPanel createHeroBanner() {
-        JPanel banner = new JPanel(new BorderLayout());
-        banner.setBackground(new Color(24, 27, 32));
-        banner.setBorder(BorderFactory.createCompoundBorder(
+        // Hero banner style
+        heroBannerPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(50, 55, 65), 1),
                 new EmptyBorder(16, 20, 16, 20)
         ));
 
-        JPanel textPanel = new JPanel();
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-        textPanel.setOpaque(false);
+        // Tab buttons styling
+        styleTabButton(tabAllButton, true);
+        styleTabButton(tabNowButton, false);
+        styleTabButton(tabSoonButton, false);
 
-        JLabel promoTag = new JLabel("⭐ PREMIERE ENTERTAINMENT");
-        promoTag.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 11));
-        promoTag.setForeground(CINEMA_GOLD);
-
-        JLabel promoTitle = new JLabel("Nikmati Film Pilihan Terbaik dengan Kualitas Studio Premium");
-        promoTitle.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 17));
-        promoTitle.setForeground(CINEMA_TEXT);
-
-        JLabel promoDesc = new JLabel("Pilih kursi favorit Anda sekarang secara langsung & bayar mudah via QRIS / Tunai.");
-        promoDesc.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        promoDesc.setForeground(CINEMA_MUTED);
-
-        textPanel.add(promoTag);
-        textPanel.add(Box.createVerticalStrut(4));
-        textPanel.add(promoTitle);
-        textPanel.add(Box.createVerticalStrut(2));
-        textPanel.add(promoDesc);
-
-        banner.add(textPanel, BorderLayout.CENTER);
-        return banner;
-    }
-
-    /**
-     * Filter & Search Bar menggunakan Java Stream API.
-     */
-    private JPanel createFilterBar() {
-        JPanel bar = new JPanel(new BorderLayout(14, 0));
-        bar.setOpaque(false);
-
-        // Bagian Kiri: Tab Status Tayang (Semua, Now Showing, Coming Soon)
-        JPanel tabButtons = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
-        tabButtons.setOpaque(false);
-
-        JButton tabAll = createCinemaButton("Semua Film", true);
-        JButton tabNow = createCinemaButton("Sedang Tayang", false);
-        JButton tabSoon = createCinemaButton("Akan Datang", false);
-
-        tabAll.addActionListener(e -> {
+        tabAllButton.addActionListener(e -> {
             selectedStatusTab = "ALL";
-            applyTabStyle(tabAll, tabNow, tabSoon);
+            applyTabStyle(tabAllButton, tabNowButton, tabSoonButton);
             filterAndDisplayFilms();
         });
-        tabNow.addActionListener(e -> {
+        tabNowButton.addActionListener(e -> {
             selectedStatusTab = "NOW_SHOWING";
-            applyTabStyle(tabNow, tabAll, tabSoon);
+            applyTabStyle(tabNowButton, tabAllButton, tabSoonButton);
             filterAndDisplayFilms();
         });
-        tabSoon.addActionListener(e -> {
+        tabSoonButton.addActionListener(e -> {
             selectedStatusTab = "COMING_SOON";
-            applyTabStyle(tabSoon, tabAll, tabNow);
+            applyTabStyle(tabSoonButton, tabAllButton, tabNowButton);
             filterAndDisplayFilms();
         });
 
-        tabButtons.add(tabAll);
-        tabButtons.add(tabNow);
-        tabButtons.add(tabSoon);
-        bar.add(tabButtons, BorderLayout.WEST);
-
-        // Bagian Kanan: Search Field & Genre Combo
-        JPanel searchControls = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
-        searchControls.setOpaque(false);
-
-        // Search Field
+        // Search field styling
         searchField.setBackground(new Color(28, 31, 37));
-        searchField.setForeground(CINEMA_TEXT);
-        searchField.setCaretColor(CINEMA_GOLD);
-        searchField.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        searchField.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        searchField.setCaretColor(BaseCinemaFrame.CINEMA_GOLD);
         searchField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(60, 68, 78), 1),
                 new EmptyBorder(6, 10, 6, 10)
         ));
-        searchField.putClientProperty("JTextField.placeholderText", "Cari judul film...");
         searchField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -207,26 +125,32 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
             }
         });
 
-        // Genre combo
+        // Genre filter combo styling
         genreFilterCombo.setBackground(new Color(28, 31, 37));
-        genreFilterCombo.setForeground(CINEMA_TEXT);
-        genreFilterCombo.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        genreFilterCombo.setForeground(BaseCinemaFrame.CINEMA_TEXT);
         genreFilterCombo.addActionListener(e -> filterAndDisplayFilms());
 
-        searchControls.add(new JLabel("🔍"));
-        searchControls.add(searchField);
-        searchControls.add(genreFilterCombo);
-        bar.add(searchControls, BorderLayout.EAST);
+        // Scroll pane speed
+        moviesScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        moviesScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_BG);
+    }
 
-        return bar;
+    private void styleTabButton(JButton btn, boolean active) {
+        btn.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        btn.setBackground(active ? BaseCinemaFrame.CINEMA_GOLD : BaseCinemaFrame.CINEMA_CARD);
+        btn.setForeground(active ? BaseCinemaFrame.CINEMA_BG : BaseCinemaFrame.CINEMA_TEXT);
+        btn.setFocusPainted(false);
+        btn.setOpaque(true);
+        btn.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(active ? BaseCinemaFrame.CINEMA_GOLD : BaseCinemaFrame.CINEMA_MUTED, 1),
+                new EmptyBorder(8, 14, 8, 14)
+        ));
     }
 
     private void applyTabStyle(JButton active, JButton... others) {
-        active.setBackground(CINEMA_GOLD);
-        active.setForeground(CINEMA_BG);
+        styleTabButton(active, true);
         for (JButton b : others) {
-            b.setBackground(CINEMA_CARD);
-            b.setForeground(CINEMA_TEXT);
+            styleTabButton(b, false);
         }
     }
 
@@ -239,27 +163,18 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
         }
     }
 
-    /**
-     * Memfilter daftar film menggunakan Java Stream API:
-     * - filter status film
-     * - filter keyword pencarian
-     * - filter genre terpilih
-     */
     private void filterAndDisplayFilms() {
         String keyword = searchField.getText().trim().toLowerCase();
         String selectedGenre = (String) genreFilterCombo.getSelectedItem();
 
-        // Menggunakan Stream API secara ekstensif (Materi Gambar 2)
         List<Film> filtered = allFilms.stream()
                 .filter(film -> {
-                    // Filter Status
                     if ("ALL".equals(selectedStatusTab)) {
                         return true;
                     }
                     return selectedStatusTab.equalsIgnoreCase(film.getStatus());
                 })
                 .filter(film -> {
-                    // Filter Keyword
                     if (keyword.isEmpty()) {
                         return true;
                     }
@@ -267,7 +182,6 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
                             || film.getGenre().toLowerCase().contains(keyword);
                 })
                 .filter(film -> {
-                    // Filter Genre
                     if (selectedGenre == null || "Semua Genre".equalsIgnoreCase(selectedGenre)) {
                         return true;
                     }
@@ -278,9 +192,6 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
         displayFilmCards(filtered);
     }
 
-    /**
-     * Menampilkan Card Film ke dalam GridLayout.
-     */
     private void displayFilmCards(List<Film> films) {
         moviesGridPanel.removeAll();
 
@@ -289,7 +200,7 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
             emptyPanel.setOpaque(false);
             JLabel noData = new JLabel("Tidak ada film yang cocok dengan kriteria pencarian.");
             noData.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
-            noData.setForeground(CINEMA_MUTED);
+            noData.setForeground(BaseCinemaFrame.CINEMA_MUTED);
             emptyPanel.add(noData);
             moviesGridPanel.add(emptyPanel);
         } else {
@@ -303,14 +214,10 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
         moviesGridPanel.repaint();
     }
 
-    /**
-     * Membuat kartu visual film individual.
-     */
     private JPanel createMovieCard(Film film) {
-        JPanel card = createCardPanel();
+        JPanel card = BaseCinemaFrame.createCardPanel();
         card.setLayout(new BorderLayout(0, 10));
 
-        // Poster Box
         JPanel posterArea = new JPanel(new BorderLayout());
         posterArea.setPreferredSize(new Dimension(0, 140));
         posterArea.setBackground(new Color(20, 22, 26));
@@ -320,37 +227,35 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
         icon.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
         posterArea.add(icon, BorderLayout.CENTER);
 
-        // Status badge di sudut kanan atas poster
         JPanel badgePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 4, 4));
         badgePanel.setOpaque(false);
         JLabel ageBadge = new JLabel(" " + film.getAgeRating() + " ");
         ageBadge.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
         ageBadge.setOpaque(true);
-        ageBadge.setBackground(CINEMA_RED);
+        ageBadge.setBackground(BaseCinemaFrame.CINEMA_RED);
         ageBadge.setForeground(Color.WHITE);
         badgePanel.add(ageBadge);
         posterArea.add(badgePanel, BorderLayout.NORTH);
 
         card.add(posterArea, BorderLayout.NORTH);
 
-        // Detail Teks Film
         JPanel info = new JPanel();
         info.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
         info.setOpaque(false);
 
         JLabel titleLbl = new JLabel(film.getTitle());
         titleLbl.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-        titleLbl.setForeground(CINEMA_GOLD);
+        titleLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
         titleLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel genreLbl = new JLabel("🎭 " + film.getGenre());
         genreLbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        genreLbl.setForeground(CINEMA_MUTED);
+        genreLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         genreLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel durLbl = new JLabel("⏱ " + film.getDurationMinutes() + " Menit");
         durLbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        durLbl.setForeground(CINEMA_MUTED);
+        durLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         durLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         info.add(titleLbl);
@@ -360,8 +265,7 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
         info.add(durLbl);
         card.add(info, BorderLayout.CENTER);
 
-        // Tombol Aksi Pesan
-        JButton detailBtn = createCinemaButton("Lihat Jadwal & Pesan ➔", true);
+        JButton detailBtn = BaseCinemaFrame.createCinemaButton("Lihat Jadwal & Pesan ➔", true);
         detailBtn.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
         detailBtn.setPreferredSize(new Dimension(0, 36));
         detailBtn.addActionListener(e -> {
@@ -374,13 +278,192 @@ public class CustomerHomeFrame extends BaseCinemaFrame {
     }
 
     /**
-     * Entry point mandiri (Main method) untuk pengujian langsung CustomerHomeFrame.
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
-    public static void main(String[] args) {
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        headerPanel = new javax.swing.JPanel();
+        brandPanel = new javax.swing.JPanel();
+        logoIcon = new javax.swing.JLabel();
+        brandTitle = new javax.swing.JLabel();
+        brandSubtitle = new javax.swing.JLabel();
+        headerRightPanel = new javax.swing.JPanel();
+        historyButton = new javax.swing.JButton();
+        mainContentPanel = new javax.swing.JPanel();
+        heroBannerPanel = new javax.swing.JPanel();
+        promoTag = new javax.swing.JLabel();
+        promoTitle = new javax.swing.JLabel();
+        promoDesc = new javax.swing.JLabel();
+        centerContainer = new javax.swing.JPanel();
+        filterBarPanel = new javax.swing.JPanel();
+        tabButtonsPanel = new javax.swing.JPanel();
+        tabAllButton = new javax.swing.JButton();
+        tabNowButton = new javax.swing.JButton();
+        tabSoonButton = new javax.swing.JButton();
+        searchControlsPanel = new javax.swing.JPanel();
+        searchIcon = new javax.swing.JLabel();
+        searchField = new javax.swing.JTextField();
+        genreFilterCombo = new javax.swing.JComboBox<>();
+        moviesScrollPane = new javax.swing.JScrollPane();
+        moviesGridPanel = new javax.swing.JPanel();
+        resultCountLabel = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Portal Pemesanan Tiket Bioskop - Customer Home");
+        setBackground(new java.awt.Color(18, 19, 22));
+        setMinimumSize(new java.awt.Dimension(750, 550));
+        setPreferredSize(new java.awt.Dimension(1000, 750));
+
+        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 60));
+        headerPanel.setLayout(new java.awt.BorderLayout());
+
+        brandPanel.setOpaque(false);
+        brandPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 14));
+
+        logoIcon.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        logoIcon.setText("🎬");
+        brandPanel.add(logoIcon);
+
+        brandTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        brandTitle.setForeground(new java.awt.Color(214, 169, 75));
+        brandTitle.setText("BIOSKOP NUSANTARA");
+        brandPanel.add(brandTitle);
+
+        brandSubtitle.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        brandSubtitle.setForeground(new java.awt.Color(160, 165, 172));
+        brandSubtitle.setText("| Layanan Pemesanan Tiket Customer");
+        brandPanel.add(brandSubtitle);
+
+        headerPanel.add(brandPanel, java.awt.BorderLayout.WEST);
+
+        headerRightPanel.setOpaque(false);
+        headerRightPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 12));
+
+        historyButton.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        historyButton.setText("🎟 Riwayat Booking");
+        headerRightPanel.add(historyButton);
+
+        headerPanel.add(headerRightPanel, java.awt.BorderLayout.EAST);
+
+        getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
+
+        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setLayout(new java.awt.BorderLayout(0, 14));
+
+        heroBannerPanel.setBackground(new java.awt.Color(24, 27, 32));
+        heroBannerPanel.setPreferredSize(new java.awt.Dimension(0, 90));
+        heroBannerPanel.setLayout(new javax.swing.BoxLayout(heroBannerPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        promoTag.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        promoTag.setForeground(new java.awt.Color(214, 169, 75));
+        promoTag.setText("⭐ PREMIERE ENTERTAINMENT");
+        heroBannerPanel.add(promoTag);
+
+        promoTitle.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        promoTitle.setForeground(new java.awt.Color(245, 241, 232));
+        promoTitle.setText("Nikmati Film Pilihan Terbaik dengan Kualitas Studio Premium");
+        heroBannerPanel.add(promoTitle);
+
+        promoDesc.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        promoDesc.setForeground(new java.awt.Color(160, 165, 172));
+        promoDesc.setText("Pilih kursi favorit Anda sekarang secara langsung & bayar mudah via QRIS / Tunai.");
+        heroBannerPanel.add(promoDesc);
+
+        mainContentPanel.add(heroBannerPanel, java.awt.BorderLayout.NORTH);
+
+        centerContainer.setOpaque(false);
+        centerContainer.setLayout(new java.awt.BorderLayout(0, 12));
+
+        filterBarPanel.setOpaque(false);
+        filterBarPanel.setLayout(new java.awt.BorderLayout());
+
+        tabButtonsPanel.setOpaque(false);
+        tabButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
+
+        tabAllButton.setText("Semua Film");
+        tabButtonsPanel.add(tabAllButton);
+
+        tabNowButton.setText("Sedang Tayang");
+        tabButtonsPanel.add(tabNowButton);
+
+        tabSoonButton.setText("Akan Datang");
+        tabButtonsPanel.add(tabSoonButton);
+
+        filterBarPanel.add(tabButtonsPanel, java.awt.BorderLayout.WEST);
+
+        searchControlsPanel.setOpaque(false);
+        searchControlsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 0));
+
+        searchIcon.setText("🔍");
+        searchControlsPanel.add(searchIcon);
+
+        searchField.setColumns(18);
+        searchControlsPanel.add(searchField);
+
+        genreFilterCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua Genre", "Action", "Sci-Fi", "Comedy", "Horror", "Drama" }));
+        searchControlsPanel.add(genreFilterCombo);
+
+        filterBarPanel.add(searchControlsPanel, java.awt.BorderLayout.EAST);
+
+        centerContainer.add(filterBarPanel, java.awt.BorderLayout.NORTH);
+
+        moviesScrollPane.setBorder(null);
+
+        moviesGridPanel.setBackground(new java.awt.Color(18, 19, 22));
+        moviesGridPanel.setLayout(new java.awt.GridLayout(0, 3, 16, 16));
+        moviesScrollPane.setViewportView(moviesGridPanel);
+
+        centerContainer.add(moviesScrollPane, java.awt.BorderLayout.CENTER);
+
+        resultCountLabel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        resultCountLabel.setForeground(new java.awt.Color(160, 165, 172));
+        resultCountLabel.setText("Menampilkan film...");
+        centerContainer.add(resultCountLabel, java.awt.BorderLayout.SOUTH);
+
+        mainContentPanel.add(centerContainer, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(mainContentPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    public static void main(String args[]) {
         SwingUtilities.invokeLater(() -> {
             SwingTheme.install();
-            CustomerHomeFrame frame = new CustomerHomeFrame();
-            frame.setVisible(true);
+            new CustomerHomeFrame().setVisible(true);
         });
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel brandPanel;
+    private javax.swing.JLabel brandSubtitle;
+    private javax.swing.JLabel brandTitle;
+    private javax.swing.JPanel centerContainer;
+    private javax.swing.JPanel filterBarPanel;
+    private javax.swing.JComboBox<String> genreFilterCombo;
+    private javax.swing.JPanel headerPanel;
+    private javax.swing.JPanel headerRightPanel;
+    private javax.swing.JPanel heroBannerPanel;
+    private javax.swing.JButton historyButton;
+    private javax.swing.JLabel logoIcon;
+    private javax.swing.JPanel mainContentPanel;
+    private javax.swing.JPanel moviesGridPanel;
+    private javax.swing.JScrollPane moviesScrollPane;
+    private javax.swing.JLabel promoDesc;
+    private javax.swing.JLabel promoTag;
+    private javax.swing.JLabel promoTitle;
+    private javax.swing.JLabel resultCountLabel;
+    private javax.swing.JTextField searchField;
+    private javax.swing.JLabel searchIcon;
+    private javax.swing.JButton tabAllButton;
+    private javax.swing.JPanel tabButtonsPanel;
+    private javax.swing.JButton tabNowButton;
+    private javax.swing.JButton tabSoonButton;
+    private javax.swing.JPanel searchControlsPanel;
+    // End of variables declaration//GEN-END:variables
 }

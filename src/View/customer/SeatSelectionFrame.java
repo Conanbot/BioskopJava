@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package View.customer;
 
 import Controler.AlertUtil;
@@ -30,21 +34,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 /**
  * JFrame Pemilihan Kursi Bioskop Interaktif (Seat Selection & SeatMapView).
- * Menerapkan materi PBO:
- * - Array 2 Dimensi (JButton[][] seatButtons untuk baris x kolom)
- * - Perulangan bersarang (Nested for-loop)
- * - Kondisi & Percabangan (penentuan status kursi: booked, available, selected)
- * - Java Stream API (pengurutan kode kursi terpilih & agregasi)
- * - Exception Handling (SQLException, validasi jumlah kursi 1-6)
- * - Animasi & interaktivitas (perubahan warna real-time, efek layar melengkung)
+ * Diformat sebagai NetBeans JFrame Form (Matisse GUI Builder).
+ * Memiliki tab Source dan Design di NetBeans IDE.
+ *
+ * @author human
  */
-public class SeatSelectionFrame extends BaseCinemaFrame {
+public class SeatSelectionFrame extends javax.swing.JFrame {
 
     public static final int MAX_SEATS = 6;
 
@@ -53,32 +52,80 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
     private final Set<String> bookedSeats = new HashSet<>();
     private final Set<String> selectedSeats = new HashSet<>();
 
-    // 2D Array untuk representasi matriks kursi studio
     private JButton[][] seatButtons;
     private int rows = 5;
     private int cols = 8;
 
-    // Label kalkulasi harga real-time
-    private final JLabel selectedSeatsLabel = new JLabel("-");
-    private final JLabel ticketCountLabel = new JLabel("0 Tiket");
-    private final JLabel totalPriceLabel = new JLabel("Rp 0,00");
-    private final JButton proceedPaymentButton = createCinemaButton("Lanjut ke Pembayaran ➔", true);
+    private final JLabel selectedSeatsValueLabel = new JLabel("-");
+    private final JLabel ticketCountValueLabel = new JLabel("0 Tiket");
 
+    /**
+     * Creates new form SeatSelectionFrame
+     */
     public SeatSelectionFrame(Schedule schedule) {
-        super("Pilih Kursi - " + (schedule != null ? schedule.getFilmTitle() : "Bioskop"), 950, 720);
         this.schedule = schedule;
-        loadDataAndBuildUI();
+        initComponents();
+        postInitStyles();
+        loadSeatDataAndBuildGrid();
     }
 
-    private void loadDataAndBuildUI() {
+    private void postInitStyles() {
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(BaseCinemaFrame.CINEMA_BG);
+
+        headerPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
+                new EmptyBorder(0, 16, 0, 16)
+        ));
+
+        infoBarPanel.setBorder(BorderFactory.createLineBorder(new Color(45, 50, 58), 1));
+        summaryCardPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(45, 50, 58), 1),
+                new EmptyBorder(16, 18, 16, 18)
+        ));
+
+        // Styling summary labels
+        summaryCardPanel.add(createSummaryRow("Harga Tiket", String.format("Rp %,.2f", schedule != null ? schedule.getTicketPrice() : BigDecimal.ZERO)), 2);
+        summaryCardPanel.add(Box.createVerticalStrut(8), 3);
+        summaryCardPanel.add(createSummaryRow("Kursi Dipilih", selectedSeatsValueLabel), 4);
+        summaryCardPanel.add(Box.createVerticalStrut(8), 5);
+        summaryCardPanel.add(createSummaryRow("Jumlah Kursi", ticketCountValueLabel), 6);
+        summaryCardPanel.add(Box.createVerticalStrut(12), 7);
+
+        proceedPaymentButton.setEnabled(false);
+        proceedPaymentButton.setBackground(BaseCinemaFrame.CINEMA_GOLD);
+        proceedPaymentButton.setForeground(BaseCinemaFrame.CINEMA_BG);
+        proceedPaymentButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        proceedPaymentButton.setFocusPainted(false);
+        proceedPaymentButton.addActionListener(e -> {
+            User currentUser = SessionManager.getInstance().getCurrentUser();
+            if (currentUser == null) {
+                AlertUtil.showWarning(this, "Login Diperlukan", "Silakan login terlebih dahulu untuk melanjutkan pembayaran.");
+                return;
+            }
+            List<String> seatsToBook = new ArrayList<>(selectedSeats);
+            PaymentFrame paymentFrame = new PaymentFrame(schedule, seatsToBook, currentUser);
+            paymentFrame.setVisible(true);
+            dispose();
+        });
+
+        backButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
+        backButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        backButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        backButton.setFocusPainted(false);
+        backButton.addActionListener(e -> dispose());
+    }
+
+    private void loadSeatDataAndBuildGrid() {
         if (schedule == null) {
-            JLabel err = new JLabel("Jadwal tidak valid.", SwingConstants.CENTER);
-            err.setForeground(CINEMA_TEXT);
-            mainContentPanel.add(err, BorderLayout.CENTER);
+            infoFilmTitleLabel.setText("Jadwal tidak valid.");
             return;
         }
 
-        // 1. Ambil data dimensi studio dan kursi yang sudah dibooking dari database via JDBC
+        infoFilmTitleLabel.setText(schedule.getFilmTitle());
+        String timeStr = schedule.getShowDate() + " " + schedule.getShowTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+        infoScheduleLabel.setText("• Studio: " + schedule.getStudioName() + " • " + timeStr);
+
         try {
             scheduleDao.findStudioDimensionsForSchedule(schedule.getId()).ifPresent(dim -> {
                 this.rows = dim.seatRows();
@@ -86,82 +133,27 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
             });
             this.bookedSeats.addAll(scheduleDao.findBookedSeats(schedule.getId()));
         } catch (SQLException ex) {
-            AlertUtil.showError(this, "Database Error", "Gagal mengambil denah kursi: " + ex.getMessage());
+            AlertUtil.showError(this, "Database Error", "Gagal memuat denah kursi: " + ex.getMessage());
         }
 
-        // 2. Setup layout utama: Center (Denah Kursi) & East (Summary Panel)
-        JPanel mainLayout = new JPanel(new BorderLayout(20, 0));
-        mainLayout.setBackground(CINEMA_BG);
-        mainLayout.setBorder(new EmptyBorder(16, 24, 16, 24));
+        seatsContentPanel.removeAll();
+        seatsContentPanel.add(new CinemaScreenWidget());
+        seatsContentPanel.add(Box.createVerticalStrut(20));
+        seatsContentPanel.add(buildSeatGrid());
+        seatsContentPanel.add(Box.createVerticalStrut(20));
+        seatsContentPanel.add(createSeatLegend());
 
-        mainLayout.add(createSeatMapArea(), BorderLayout.CENTER);
-        mainLayout.add(createSummaryPanel(), BorderLayout.EAST);
-
-        mainContentPanel.add(mainLayout, BorderLayout.CENTER);
+        seatsContentPanel.revalidate();
+        seatsContentPanel.repaint();
     }
 
-    /**
-     * Membuat area denah kursi (Layar Bioskop + Matriks Kursi 2D + Legenda Warna).
-     */
-    private JPanel createSeatMapArea() {
-        JPanel area = new JPanel(new BorderLayout(0, 16));
-        area.setOpaque(false);
-
-        // Header info jadwal singkat
-        JPanel infoBar = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 6));
-        infoBar.setBackground(CINEMA_SURFACE);
-        infoBar.setBorder(BorderFactory.createLineBorder(new Color(45, 50, 58), 1));
-
-        JLabel titleLbl = new JLabel(schedule.getFilmTitle());
-        titleLbl.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-        titleLbl.setForeground(CINEMA_GOLD);
-
-        String timeStr = schedule.getShowDate() + " " + schedule.getShowTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-        JLabel scheduleLbl = new JLabel("• Studio: " + schedule.getStudioName() + " • " + timeStr);
-        scheduleLbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
-        scheduleLbl.setForeground(CINEMA_TEXT);
-
-        infoBar.add(titleLbl);
-        infoBar.add(scheduleLbl);
-        area.add(infoBar, BorderLayout.NORTH);
-
-        // Center Panel: Layar bioskop melengkung + Matriks kursi
-        JPanel centerGridPanel = new JPanel();
-        centerGridPanel.setLayout(new BoxLayout(centerGridPanel, BoxLayout.Y_AXIS));
-        centerGridPanel.setBackground(CINEMA_BG);
-
-        // Layar Bioskop Khas Bioskop
-        centerGridPanel.add(new CinemaScreenWidget());
-        centerGridPanel.add(Box.createVerticalStrut(20));
-
-        // Matriks Kursi menggunakan Array 2D
-        JPanel seatsContainer = buildSeatGrid();
-        centerGridPanel.add(seatsContainer);
-        centerGridPanel.add(Box.createVerticalStrut(24));
-
-        // Legenda Warna Kursi
-        centerGridPanel.add(createSeatLegend());
-
-        JScrollPane scrollPane = new JScrollPane(centerGridPanel);
-        scrollPane.setBorder(null);
-        scrollPane.getViewport().setBackground(CINEMA_BG);
-        area.add(scrollPane, BorderLayout.CENTER);
-
-        return area;
-    }
-
-    /**
-     * Membangun Grid Kursi interaktif dengan Array 2D dan Perulangan Bersarang (Nested Loops).
-     */
     private JPanel buildSeatGrid() {
         JPanel gridWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
         gridWrapper.setOpaque(false);
 
-        // rows baris, cols kolom
         JPanel seatGrid = new JPanel(new GridLayout(rows, cols, 8, 8));
         seatGrid.setOpaque(false);
 
-        // Inisialisasi 2D Array
         this.seatButtons = new JButton[rows][cols];
 
         for (int r = 0; r < rows; r++) {
@@ -176,20 +168,15 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
                 btn.setFocusPainted(false);
                 btn.setOpaque(true);
 
-                // Percabangan status kursi (Kondisi)
                 if (bookedSeats.contains(seatCode)) {
-                    // Kursi sudah terisi (Booked)
-                    btn.setBackground(CINEMA_RED);
+                    btn.setBackground(BaseCinemaFrame.CINEMA_RED);
                     btn.setForeground(Color.WHITE);
                     btn.setBorder(BorderFactory.createLineBorder(new Color(100, 20, 22), 1));
                     btn.setEnabled(false);
                     btn.setToolTipText("Kursi " + seatCode + " sudah dipesan");
                 } else {
-                    // Kursi tersedia (Available)
                     styleAvailableSeat(btn);
                     btn.setToolTipText("Klik untuk memilih kursi " + seatCode);
-
-                    // Event listener untuk memilih/batal memilih kursi
                     btn.addActionListener(e -> toggleSeatSelection(btn, seatCode));
                 }
 
@@ -203,27 +190,22 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
     }
 
     private void styleAvailableSeat(JButton btn) {
-        btn.setBackground(CINEMA_CARD);
-        btn.setForeground(CINEMA_TEXT);
+        btn.setBackground(BaseCinemaFrame.CINEMA_CARD);
+        btn.setForeground(BaseCinemaFrame.CINEMA_TEXT);
         btn.setBorder(BorderFactory.createLineBorder(new Color(60, 68, 78), 1));
     }
 
     private void styleSelectedSeat(JButton btn) {
-        btn.setBackground(CINEMA_GOLD);
-        btn.setForeground(CINEMA_BG);
+        btn.setBackground(BaseCinemaFrame.CINEMA_GOLD);
+        btn.setForeground(BaseCinemaFrame.CINEMA_BG);
         btn.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
     }
 
-    /**
-     * Mengubah status pemilihan kursi dengan validasi maksimal 6 kursi.
-     */
     private void toggleSeatSelection(JButton btn, String seatCode) {
         if (selectedSeats.contains(seatCode)) {
-            // Batalkan pilihan
             selectedSeats.remove(seatCode);
             styleAvailableSeat(btn);
         } else {
-            // Pilih kursi baru
             if (selectedSeats.size() >= MAX_SEATS) {
                 AlertUtil.showWarning(this, "Batas Maksimal", "Maksimal pemesanan adalah " + MAX_SEATS + " tiket per transaksi.");
                 return;
@@ -231,104 +213,26 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
             selectedSeats.add(seatCode);
             styleSelectedSeat(btn);
         }
-
         updateSummary();
     }
 
-    /**
-     * Memperbarui label ringkasan, Stream API untuk mengurutkan kode kursi, dan hitung harga.
-     */
     private void updateSummary() {
         if (selectedSeats.isEmpty()) {
-            selectedSeatsLabel.setText("-");
-            ticketCountLabel.setText("0 Tiket");
+            selectedSeatsValueLabel.setText("-");
+            ticketCountValueLabel.setText("0 Tiket");
             totalPriceLabel.setText("Rp 0,00");
             proceedPaymentButton.setEnabled(false);
             return;
         }
 
-        // Menggunakan Java Stream API
-        String sortedSeats = selectedSeats.stream()
-                .sorted()
-                .collect(Collectors.joining(", "));
-
+        String sortedSeats = selectedSeats.stream().sorted().collect(Collectors.joining(", "));
         int count = selectedSeats.size();
         BigDecimal total = schedule.getTicketPrice().multiply(BigDecimal.valueOf(count));
 
-        selectedSeatsLabel.setText(sortedSeats);
-        ticketCountLabel.setText(count + " Tiket");
+        selectedSeatsValueLabel.setText(sortedSeats);
+        ticketCountValueLabel.setText(count + " Tiket");
         totalPriceLabel.setText(String.format("Rp %,.2f", total));
         proceedPaymentButton.setEnabled(true);
-    }
-
-    /**
-     * Panel ringkasan pesanan di sebelah kanan.
-     */
-    private JPanel createSummaryPanel() {
-        JPanel panel = createCardPanel();
-        panel.setPreferredSize(new Dimension(280, 0));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-        JLabel title = new JLabel("Ringkasan Pesanan");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 17));
-        title.setForeground(CINEMA_GOLD);
-        title.setAlignmentX(LEFT_ALIGNMENT);
-
-        panel.add(title);
-        panel.add(Box.createVerticalStrut(18));
-
-        panel.add(createSummaryRow("Harga Tiket", String.format("Rp %,.2f", schedule.getTicketPrice())));
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(createSummaryRow("Kursi Dipilih", selectedSeatsLabel));
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(createSummaryRow("Jumlah Kursi", ticketCountLabel));
-        panel.add(Box.createVerticalStrut(14));
-
-        JPanel separator = new JPanel();
-        separator.setBackground(new Color(60, 68, 78));
-        separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
-        panel.add(separator);
-        panel.add(Box.createVerticalStrut(14));
-
-        JLabel totalTitle = new JLabel("TOTAL HARGA");
-        totalTitle.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-        totalTitle.setForeground(CINEMA_MUTED);
-        panel.add(totalTitle);
-        panel.add(Box.createVerticalStrut(4));
-
-        totalPriceLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
-        totalPriceLabel.setForeground(CINEMA_GOLD);
-        panel.add(totalPriceLabel);
-
-        panel.add(Box.createVerticalGlue());
-
-        // Tombol lanjut ke pembayaran
-        proceedPaymentButton.setEnabled(false);
-        proceedPaymentButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
-        proceedPaymentButton.addActionListener(e -> {
-            // Periksa apakah user login
-            User currentUser = SessionManager.getInstance().getCurrentUser();
-            if (currentUser == null) {
-                AlertUtil.showWarning(this, "Login Diperlukan", "Silakan login terlebih dahulu untuk melanjutkan pembayaran.");
-                return;
-            }
-
-            // Buka PaymentFrame
-            List<String> seatsToBook = new ArrayList<>(selectedSeats);
-            PaymentFrame paymentFrame = new PaymentFrame(schedule, seatsToBook, currentUser);
-            paymentFrame.setVisible(true);
-            dispose();
-        });
-
-        JButton cancelBtn = createCinemaButton("Kembali", false);
-        cancelBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        cancelBtn.addActionListener(e -> dispose());
-
-        panel.add(proceedPaymentButton);
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(cancelBtn);
-
-        return panel;
     }
 
     private JPanel createSummaryRow(String label, Object valueWidget) {
@@ -338,20 +242,19 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
 
         JLabel lbl = new JLabel(label);
         lbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
-        lbl.setForeground(CINEMA_MUTED);
+        lbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         row.add(lbl, BorderLayout.WEST);
 
         if (valueWidget instanceof JLabel labelWidget) {
             labelWidget.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
-            labelWidget.setForeground(CINEMA_TEXT);
+            labelWidget.setForeground(BaseCinemaFrame.CINEMA_TEXT);
             row.add(labelWidget, BorderLayout.EAST);
         } else {
             JLabel val = new JLabel(String.valueOf(valueWidget));
             val.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
-            val.setForeground(CINEMA_TEXT);
+            val.setForeground(BaseCinemaFrame.CINEMA_TEXT);
             row.add(val, BorderLayout.EAST);
         }
-
         return row;
     }
 
@@ -359,9 +262,9 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
         JPanel legend = new JPanel(new FlowLayout(FlowLayout.CENTER, 24, 0));
         legend.setOpaque(false);
 
-        legend.add(createLegendItem(CINEMA_CARD, new Color(60, 68, 78), "Tersedia"));
-        legend.add(createLegendItem(CINEMA_GOLD, Color.WHITE, "Pilihan Anda"));
-        legend.add(createLegendItem(CINEMA_RED, new Color(100, 20, 22), "Sudah Dipesan"));
+        legend.add(createLegendItem(BaseCinemaFrame.CINEMA_CARD, new Color(60, 68, 78), "Tersedia"));
+        legend.add(createLegendItem(BaseCinemaFrame.CINEMA_GOLD, Color.WHITE, "Pilihan Anda"));
+        legend.add(createLegendItem(BaseCinemaFrame.CINEMA_RED, new Color(100, 20, 22), "Sudah Dipesan"));
 
         return legend;
     }
@@ -377,16 +280,13 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
 
         JLabel text = new JLabel(label);
         text.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        text.setForeground(CINEMA_MUTED);
+        text.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         item.add(box);
         item.add(text);
         return item;
     }
 
-    /**
-     * Komponen kustom: Animasi/Garis Lengkung Layar Bioskop dengan Efek Cahaya Emas.
-     */
     private static class CinemaScreenWidget extends JPanel {
         public CinemaScreenWidget() {
             setOpaque(false);
@@ -404,14 +304,12 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
             int screenWidth = Math.min(width - 60, 550);
             int startX = (width - screenWidth) / 2;
 
-            // Efek gradient cahaya bioskop
             GradientPaint gp = new GradientPaint(
                     startX, 10, new Color(214, 169, 75, 200),
                     startX + screenWidth, 10, new Color(214, 169, 75, 40));
             g2.setPaint(gp);
             g2.fillRoundRect(startX, 10, screenWidth, 8, 8, 8);
 
-            // Teks layar
             g2.setColor(new Color(214, 169, 75, 180));
             g2.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 11));
             String text = "--- LAYAR BIOSKOP / SCREEN ---";
@@ -421,4 +319,138 @@ public class SeatSelectionFrame extends BaseCinemaFrame {
             g2.dispose();
         }
     }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        headerPanel = new javax.swing.JPanel();
+        headerTitleLabel = new javax.swing.JLabel();
+        mainContentPanel = new javax.swing.JPanel();
+        seatMapContainer = new javax.swing.JPanel();
+        infoBarPanel = new javax.swing.JPanel();
+        infoFilmTitleLabel = new javax.swing.JLabel();
+        infoScheduleLabel = new javax.swing.JLabel();
+        seatsScrollPane = new javax.swing.JScrollPane();
+        seatsContentPanel = new javax.swing.JPanel();
+        summaryCardPanel = new javax.swing.JPanel();
+        summaryTitleLabel = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 16), new java.awt.Dimension(0, 16), new java.awt.Dimension(0, 16));
+        totalHeaderLabel = new javax.swing.JLabel();
+        totalPriceLabel = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        proceedPaymentButton = new javax.swing.JButton();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10));
+        backButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pilih Kursi - Bioskop Nusantara");
+        setBackground(new java.awt.Color(18, 19, 22));
+        setMinimumSize(new java.awt.Dimension(700, 520));
+        setPreferredSize(new java.awt.Dimension(950, 720));
+
+        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
+        headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
+
+        headerTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        headerTitleLabel.setText("🎬 DENAH & PEMILIHAN KURSI STUDIO");
+        headerPanel.add(headerTitleLabel);
+
+        getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
+
+        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setLayout(new java.awt.BorderLayout(20, 0));
+
+        seatMapContainer.setOpaque(false);
+        seatMapContainer.setLayout(new java.awt.BorderLayout(0, 14));
+
+        infoBarPanel.setBackground(new java.awt.Color(27, 30, 35));
+        infoBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 14, 8));
+
+        infoFilmTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        infoFilmTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        infoFilmTitleLabel.setText("Judul Film");
+        infoBarPanel.add(infoFilmTitleLabel);
+
+        infoScheduleLabel.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        infoScheduleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        infoScheduleLabel.setText("Studio & Jadwal");
+        infoBarPanel.add(infoScheduleLabel);
+
+        seatMapContainer.add(infoBarPanel, java.awt.BorderLayout.NORTH);
+
+        seatsScrollPane.setBorder(null);
+
+        seatsContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        seatsContentPanel.setLayout(new javax.swing.BoxLayout(seatsContentPanel, javax.swing.BoxLayout.Y_AXIS));
+        seatsScrollPane.setViewportView(seatsContentPanel);
+
+        seatMapContainer.add(seatsScrollPane, java.awt.BorderLayout.CENTER);
+
+        mainContentPanel.add(seatMapContainer, java.awt.BorderLayout.CENTER);
+
+        summaryCardPanel.setBackground(new java.awt.Color(34, 38, 44));
+        summaryCardPanel.setPreferredSize(new java.awt.Dimension(280, 0));
+        summaryCardPanel.setLayout(new javax.swing.BoxLayout(summaryCardPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        summaryTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        summaryTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        summaryTitleLabel.setText("Ringkasan Pesanan");
+        summaryCardPanel.add(summaryTitleLabel);
+        summaryCardPanel.add(filler1);
+
+        totalHeaderLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        totalHeaderLabel.setForeground(new java.awt.Color(160, 165, 172));
+        totalHeaderLabel.setText("TOTAL HARGA");
+        summaryCardPanel.add(totalHeaderLabel);
+
+        totalPriceLabel.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
+        totalPriceLabel.setForeground(new java.awt.Color(214, 169, 75));
+        totalPriceLabel.setText("Rp 0,00");
+        summaryCardPanel.add(totalPriceLabel);
+        summaryCardPanel.add(filler2);
+
+        proceedPaymentButton.setText("Lanjut ke Pembayaran ➔");
+        proceedPaymentButton.setMaximumSize(new java.awt.Dimension(2147483647, 46));
+        summaryCardPanel.add(proceedPaymentButton);
+        summaryCardPanel.add(filler3);
+
+        backButton.setText("Kembali");
+        backButton.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        summaryCardPanel.add(backButton);
+
+        mainContentPanel.add(summaryCardPanel, java.awt.BorderLayout.EAST);
+
+        getContentPane().add(mainContentPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel headerTitleLabel;
+    private javax.swing.JPanel infoBarPanel;
+    private javax.swing.JLabel infoFilmTitleLabel;
+    private javax.swing.JLabel infoScheduleLabel;
+    private javax.swing.JPanel mainContentPanel;
+    private javax.swing.JButton proceedPaymentButton;
+    private javax.swing.JPanel seatMapContainer;
+    private javax.swing.JPanel seatsContentPanel;
+    private javax.swing.JScrollPane seatsScrollPane;
+    private javax.swing.JPanel summaryCardPanel;
+    private javax.swing.JLabel summaryTitleLabel;
+    private javax.swing.JLabel totalHeaderLabel;
+    private javax.swing.JLabel totalPriceLabel;
+    // End of variables declaration//GEN-END:variables
 }

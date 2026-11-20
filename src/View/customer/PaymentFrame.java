@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package View.customer;
 
 import Controler.AlertUtil;
@@ -29,24 +33,20 @@ import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 /**
  * JFrame Antarmuka Pembayaran Bioskop (Payment UI).
- * Menerapkan:
- * - Inheritance (extends BaseCinemaFrame)
- * - Polymorphism (CASH vs QRIS payment processing)
- * - Kondisi & Validasi (pengecekan nominal uang cukup atau tidak)
- * - Exception Handling (InsufficientPaymentException, SeatAlreadyBookedException, SQLException)
- * - CardLayout untuk beralih antar metode bayar
+ * Diformat sebagai NetBeans JFrame Form (Matisse GUI Builder).
+ * Memiliki tab Source dan Design di NetBeans IDE.
+ *
+ * @author human
  */
-public class PaymentFrame extends BaseCinemaFrame {
+public class PaymentFrame extends javax.swing.JFrame {
 
     private final Schedule schedule;
     private final List<String> seatCodes;
@@ -54,132 +54,96 @@ public class PaymentFrame extends BaseCinemaFrame {
     private final BigDecimal totalPrice;
 
     private final BookingService bookingService = new BookingService();
-
-    // UI state
     private PaymentMethod selectedMethod = PaymentMethod.QRIS;
-    private final CardLayout methodCardLayout = new CardLayout();
-    private final JPanel methodDetailPanel = new JPanel(methodCardLayout);
 
-    // Cash components
+    private final CardLayout methodCardLayout = new CardLayout();
     private final JTextField cashInputField = new JTextField();
     private final JLabel changeAmountLabel = new JLabel("Rp 0,00");
 
+    /**
+     * Creates new form PaymentFrame
+     */
     public PaymentFrame(Schedule schedule, List<String> seatCodes, User user) {
-        super("Pembayaran Tiket Bioskop", 680, 680);
         this.schedule = schedule;
         this.seatCodes = seatCodes;
         this.user = user;
-        this.totalPrice = schedule.getTicketPrice().multiply(BigDecimal.valueOf(seatCodes.size()));
+        this.totalPrice = schedule != null && seatCodes != null
+                ? schedule.getTicketPrice().multiply(BigDecimal.valueOf(seatCodes.size()))
+                : BigDecimal.ZERO;
 
-        buildUI();
+        initComponents();
+        postInitStyles();
+        populateSummary();
     }
 
-    private void buildUI() {
-        JPanel wrapper = new JPanel(new BorderLayout(0, 16));
-        wrapper.setBackground(CINEMA_BG);
-        wrapper.setBorder(new EmptyBorder(20, 26, 20, 26));
+    private void postInitStyles() {
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(BaseCinemaFrame.CINEMA_BG);
 
-        // 1. Ringkasan Pesanan (Order Summary Card)
-        JPanel summaryCard = createCardPanel();
-        summaryCard.setLayout(new BoxLayout(summaryCard, BoxLayout.Y_AXIS));
+        headerPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
+                new EmptyBorder(0, 16, 0, 16)
+        ));
 
-        JLabel title = new JLabel("Rincian Transaksi");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
-        title.setForeground(CINEMA_GOLD);
-        summaryCard.add(title);
-        summaryCard.add(Box.createVerticalStrut(12));
+        summaryCardPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(45, 50, 58), 1),
+                new EmptyBorder(16, 18, 16, 18)
+        ));
 
-        String seatList = seatCodes.stream().sorted().collect(Collectors.joining(", "));
-        summaryCard.add(createSummaryRow("Film", schedule.getFilmTitle()));
-        summaryCard.add(createSummaryRow("Studio", schedule.getStudioName()));
-        summaryCard.add(createSummaryRow("Jadwal", schedule.getShowDate() + " - " + schedule.getShowTime()));
-        summaryCard.add(createSummaryRow("Kursi", seatList + " (" + seatCodes.size() + " Tiket)"));
-        summaryCard.add(Box.createVerticalStrut(6));
+        qrisRadio.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        cashRadio.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
-        JLabel totalLabel = new JLabel(String.format("TOTAL BAYAR: Rp %,.2f", totalPrice));
-        totalLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
-        totalLabel.setForeground(CINEMA_GOLD);
-        summaryCard.add(totalLabel);
-
-        wrapper.add(summaryCard, BorderLayout.NORTH);
-
-        // 2. Pemilihan Metode Pembayaran
-        JPanel paymentMethodSection = new JPanel();
-        paymentMethodSection.setLayout(new BoxLayout(paymentMethodSection, BoxLayout.Y_AXIS));
-        paymentMethodSection.setOpaque(false);
-
-        JLabel methodTitle = new JLabel("Pilih Metode Pembayaran:");
-        methodTitle.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
-        methodTitle.setForeground(CINEMA_TEXT);
-        paymentMethodSection.add(methodTitle);
-        paymentMethodSection.add(Box.createVerticalStrut(10));
-
-        // Radio Buttons
-        JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
-        radioPanel.setOpaque(false);
-
-        JRadioButton qrisRadio = new JRadioButton("QRIS (Instan & Non-Tunai)", true);
-        styleRadioButton(qrisRadio);
-        JRadioButton cashRadio = new JRadioButton("Tunai (CASH di Kasir)", false);
-        styleRadioButton(cashRadio);
-
-        ButtonGroup group = new ButtonGroup();
-        group.add(qrisRadio);
-        group.add(cashRadio);
-
-        radioPanel.add(qrisRadio);
-        radioPanel.add(cashRadio);
-        paymentMethodSection.add(radioPanel);
-        paymentMethodSection.add(Box.createVerticalStrut(14));
-
-        // 3. Card Panel Detail Metode (QRIS vs CASH)
-        methodDetailPanel.setOpaque(false);
-        methodDetailPanel.add(createQrisPanel(), "QRIS");
-        methodDetailPanel.add(createCashPanel(), "CASH");
-        paymentMethodSection.add(methodDetailPanel);
+        methodCardsPanel.setLayout(methodCardLayout);
+        methodCardsPanel.add(createQrisPanel(), "QRIS");
+        methodCardsPanel.add(createCashPanel(), "CASH");
 
         qrisRadio.addActionListener(e -> {
             selectedMethod = PaymentMethod.QRIS;
-            methodCardLayout.show(methodDetailPanel, "QRIS");
+            methodCardLayout.show(methodCardsPanel, "QRIS");
         });
 
         cashRadio.addActionListener(e -> {
             selectedMethod = PaymentMethod.CASH;
-            methodCardLayout.show(methodDetailPanel, "CASH");
+            methodCardLayout.show(methodCardsPanel, "CASH");
         });
 
-        wrapper.add(paymentMethodSection, BorderLayout.CENTER);
+        cancelButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
+        cancelButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        cancelButton.addActionListener(e -> dispose());
 
-        // 4. Action Buttons
-        JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 14, 10));
-        actionPanel.setOpaque(false);
+        payButton.setBackground(BaseCinemaFrame.CINEMA_GOLD);
+        payButton.setForeground(BaseCinemaFrame.CINEMA_BG);
+        payButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        payButton.addActionListener(e -> executePayment());
+    }
 
-        JButton cancelBtn = createCinemaButton("Batal", false);
-        JButton payBtn = createCinemaButton("Konfirmasi Pembayaran ✔", true);
+    private void populateSummary() {
+        if (schedule == null || seatCodes == null) {
+            return;
+        }
 
-        cancelBtn.addActionListener(e -> dispose());
-        payBtn.addActionListener(e -> executePayment());
+        String seatList = seatCodes.stream().sorted().collect(Collectors.joining(", "));
+        summaryCardPanel.add(createSummaryRow("Film", schedule.getFilmTitle()), 1);
+        summaryCardPanel.add(createSummaryRow("Studio", schedule.getStudioName()), 2);
+        summaryCardPanel.add(createSummaryRow("Jadwal", schedule.getShowDate() + " - " + schedule.getShowTime()), 3);
+        summaryCardPanel.add(createSummaryRow("Kursi", seatList + " (" + seatCodes.size() + " Tiket)"), 4);
+        summaryCardPanel.add(Box.createVerticalStrut(8), 5);
 
-        actionPanel.add(cancelBtn);
-        actionPanel.add(payBtn);
-        wrapper.add(actionPanel, BorderLayout.SOUTH);
-
-        mainContentPanel.add(wrapper, BorderLayout.CENTER);
+        totalPayLabel.setText(String.format("TOTAL BAYAR: Rp %,.2f", totalPrice));
     }
 
     private JPanel createQrisPanel() {
-        JPanel panel = createCardPanel();
+        JPanel panel = BaseCinemaFrame.createCardPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel qrisInfo = new JLabel("Pindai QR Code berikut menggunakan aplikasi e-Wallet atau Mobile Banking Anda:");
         qrisInfo.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        qrisInfo.setForeground(CINEMA_MUTED);
+        qrisInfo.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         qrisInfo.setAlignmentX(CENTER_ALIGNMENT);
 
         panel.add(qrisInfo);
         panel.add(Box.createVerticalStrut(12));
 
-        // Visual Mock QR Code Canvas
         MockQrisWidget qrWidget = new MockQrisWidget();
         qrWidget.setAlignmentX(CENTER_ALIGNMENT);
         panel.add(qrWidget);
@@ -187,7 +151,7 @@ public class PaymentFrame extends BaseCinemaFrame {
 
         JLabel prompt = new JLabel("Klik 'Konfirmasi Pembayaran' setelah memindai.");
         prompt.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 11));
-        prompt.setForeground(CINEMA_GOLD);
+        prompt.setForeground(BaseCinemaFrame.CINEMA_GOLD);
         prompt.setAlignmentX(CENTER_ALIGNMENT);
         panel.add(prompt);
 
@@ -195,43 +159,41 @@ public class PaymentFrame extends BaseCinemaFrame {
     }
 
     private JPanel createCashPanel() {
-        JPanel panel = createCardPanel();
+        JPanel panel = BaseCinemaFrame.createCardPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        JLabel cashInfo = new JLabel("Masukkan nominal uang tunai yang diterima dari pelanggan:");
+        JLabel cashInfo = new JLabel("Masukkan nominal uang tunai yang diterima:");
         cashInfo.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        cashInfo.setForeground(CINEMA_MUTED);
+        cashInfo.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         panel.add(cashInfo);
         panel.add(Box.createVerticalStrut(12));
 
-        // Input field
         cashInputField.setBackground(new Color(20, 22, 26));
-        cashInputField.setForeground(CINEMA_TEXT);
-        cashInputField.setCaretColor(CINEMA_GOLD);
+        cashInputField.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        cashInputField.setCaretColor(BaseCinemaFrame.CINEMA_GOLD);
         cashInputField.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
         cashInputField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(CINEMA_GOLD, 1),
+                BorderFactory.createLineBorder(BaseCinemaFrame.CINEMA_GOLD, 1),
                 new EmptyBorder(8, 12, 8, 12)
         ));
         cashInputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
-        // Quick buttons (Pas, 100k, 200k, 500k)
         JPanel quickPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         quickPanel.setOpaque(false);
 
-        JButton btnPas = createCinemaButton("Uang Pas", false);
+        JButton btnPas = BaseCinemaFrame.createCinemaButton("Uang Pas", false);
         btnPas.addActionListener(e -> {
             cashInputField.setText(String.valueOf(totalPrice.intValue()));
             calculateChange();
         });
 
-        JButton btn100k = createCinemaButton("Rp 100.000", false);
+        JButton btn100k = BaseCinemaFrame.createCinemaButton("Rp 100.000", false);
         btn100k.addActionListener(e -> {
             cashInputField.setText("100000");
             calculateChange();
         });
 
-        JButton btn200k = createCinemaButton("Rp 200.000", false);
+        JButton btn200k = BaseCinemaFrame.createCinemaButton("Rp 200.000", false);
         btn200k.addActionListener(e -> {
             cashInputField.setText("200000");
             calculateChange();
@@ -241,7 +203,6 @@ public class PaymentFrame extends BaseCinemaFrame {
         quickPanel.add(btn100k);
         quickPanel.add(btn200k);
 
-        // Listener untuk kalkulasi kembalian real-time
         cashInputField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -254,17 +215,16 @@ public class PaymentFrame extends BaseCinemaFrame {
         panel.add(quickPanel);
         panel.add(Box.createVerticalStrut(16));
 
-        // Label Kembalian
         JPanel changeRow = new JPanel(new BorderLayout());
         changeRow.setOpaque(false);
         changeRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 
         JLabel changeTitle = new JLabel("Kembalian:");
         changeTitle.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
-        changeTitle.setForeground(CINEMA_MUTED);
+        changeTitle.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         changeAmountLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 16));
-        changeAmountLabel.setForeground(CINEMA_GOLD);
+        changeAmountLabel.setForeground(BaseCinemaFrame.CINEMA_GOLD);
 
         changeRow.add(changeTitle, BorderLayout.WEST);
         changeRow.add(changeAmountLabel, BorderLayout.EAST);
@@ -278,21 +238,21 @@ public class PaymentFrame extends BaseCinemaFrame {
             String text = cashInputField.getText().trim().replaceAll("[^0-9]", "");
             if (text.isEmpty()) {
                 changeAmountLabel.setText("Rp 0,00");
-                changeAmountLabel.setForeground(CINEMA_MUTED);
+                changeAmountLabel.setForeground(BaseCinemaFrame.CINEMA_MUTED);
                 return;
             }
             BigDecimal cash = new BigDecimal(text);
             BigDecimal change = cash.subtract(totalPrice);
             if (change.compareTo(BigDecimal.ZERO) >= 0) {
                 changeAmountLabel.setText(String.format("Rp %,.2f", change));
-                changeAmountLabel.setForeground(new Color(40, 167, 69)); // Hijau
+                changeAmountLabel.setForeground(new Color(40, 167, 69));
             } else {
                 changeAmountLabel.setText(String.format("Kurang: Rp %,.2f", change.abs()));
-                changeAmountLabel.setForeground(CINEMA_RED); // Merah
+                changeAmountLabel.setForeground(BaseCinemaFrame.CINEMA_RED);
             }
         } catch (Exception ex) {
             changeAmountLabel.setText("Nominal tidak valid");
-            changeAmountLabel.setForeground(CINEMA_RED);
+            changeAmountLabel.setForeground(BaseCinemaFrame.CINEMA_RED);
         }
     }
 
@@ -317,7 +277,6 @@ public class PaymentFrame extends BaseCinemaFrame {
             }
         }
 
-        // Jalankan proses booking transaksi via BookingService
         try {
             CreateBookingRequest request = new CreateBookingRequest(
                     user.getId(),
@@ -333,7 +292,6 @@ public class PaymentFrame extends BaseCinemaFrame {
                     "Pemesanan Berhasil!",
                     "Tiket Anda berhasil dipesan dengan kode: " + receipt.booking().bookingCode());
 
-            // Buka E-Ticket
             ETicketFrame ticketFrame = new ETicketFrame(receipt);
             ticketFrame.setVisible(true);
             dispose();
@@ -350,13 +308,6 @@ public class PaymentFrame extends BaseCinemaFrame {
         }
     }
 
-    private void styleRadioButton(JRadioButton radio) {
-        radio.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
-        radio.setForeground(CINEMA_TEXT);
-        radio.setOpaque(false);
-        radio.setFocusPainted(false);
-    }
-
     private JPanel createSummaryRow(String label, String value) {
         JPanel row = new JPanel(new BorderLayout());
         row.setOpaque(false);
@@ -364,20 +315,17 @@ public class PaymentFrame extends BaseCinemaFrame {
 
         JLabel lbl = new JLabel(label + ": ");
         lbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        lbl.setForeground(CINEMA_MUTED);
+        lbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         JLabel val = new JLabel(value);
         val.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-        val.setForeground(CINEMA_TEXT);
+        val.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
         row.add(lbl, BorderLayout.WEST);
         row.add(val, BorderLayout.EAST);
         return row;
     }
 
-    /**
-     * Widget grafis tiruan QRIS dengan pola matriks kotak hitam-putih.
-     */
     private static class MockQrisWidget extends JPanel {
         public MockQrisWidget() {
             setPreferredSize(new Dimension(160, 160));
@@ -390,15 +338,11 @@ public class PaymentFrame extends BaseCinemaFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-
             g2.setColor(Color.BLACK);
-            // Pola sudut QR (Position markers)
             drawQrMarker(g2, 10, 10);
             drawQrMarker(g2, 110, 10);
             drawQrMarker(g2, 10, 110);
 
-            // Kotak-kotak acak representasi QR
             for (int r = 0; r < 14; r++) {
                 for (int c = 0; c < 14; c++) {
                     if ((r < 5 && c < 5) || (r < 5 && c > 8) || (r > 8 && c < 5)) {
@@ -409,7 +353,6 @@ public class PaymentFrame extends BaseCinemaFrame {
                     }
                 }
             }
-
             g2.dispose();
         }
 
@@ -421,4 +364,128 @@ public class PaymentFrame extends BaseCinemaFrame {
             g2.fillRect(x + 12, y + 12, 16, 16);
         }
     }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        paymentButtonGroup = new javax.swing.ButtonGroup();
+        headerPanel = new javax.swing.JPanel();
+        headerTitleLabel = new javax.swing.JLabel();
+        mainContentPanel = new javax.swing.JPanel();
+        summaryCardPanel = new javax.swing.JPanel();
+        summaryTitleLabel = new javax.swing.JLabel();
+        totalPayLabel = new javax.swing.JLabel();
+        methodSectionPanel = new javax.swing.JPanel();
+        methodTitleLabel = new javax.swing.JLabel();
+        radioPanel = new javax.swing.JPanel();
+        qrisRadio = new javax.swing.JRadioButton();
+        cashRadio = new javax.swing.JRadioButton();
+        methodCardsPanel = new javax.swing.JPanel();
+        bottomBarPanel = new javax.swing.JPanel();
+        cancelButton = new javax.swing.JButton();
+        payButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pembayaran Tiket Bioskop");
+        setBackground(new java.awt.Color(18, 19, 22));
+        setMinimumSize(new java.awt.Dimension(580, 520));
+        setPreferredSize(new java.awt.Dimension(680, 680));
+
+        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
+        headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
+
+        headerTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        headerTitleLabel.setText("💳 KASIR & PEMBAYARAN TIKET");
+        headerPanel.add(headerTitleLabel);
+
+        getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
+
+        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setLayout(new java.awt.BorderLayout(0, 16));
+
+        summaryCardPanel.setBackground(new java.awt.Color(34, 38, 44));
+        summaryCardPanel.setLayout(new javax.swing.BoxLayout(summaryCardPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        summaryTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        summaryTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        summaryTitleLabel.setText("Rincian Transaksi");
+        summaryCardPanel.add(summaryTitleLabel);
+
+        totalPayLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        totalPayLabel.setForeground(new java.awt.Color(214, 169, 75));
+        totalPayLabel.setText("TOTAL BAYAR: Rp 0,00");
+        summaryCardPanel.add(totalPayLabel);
+
+        mainContentPanel.add(summaryCardPanel, java.awt.BorderLayout.NORTH);
+
+        methodSectionPanel.setOpaque(false);
+        methodSectionPanel.setLayout(new javax.swing.BoxLayout(methodSectionPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        methodTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        methodTitleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        methodTitleLabel.setText("Pilih Metode Pembayaran:");
+        methodSectionPanel.add(methodTitleLabel);
+
+        radioPanel.setOpaque(false);
+        radioPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 8));
+
+        paymentButtonGroup.add(qrisRadio);
+        qrisRadio.setSelected(true);
+        qrisRadio.setText("QRIS (Instan & Non-Tunai)");
+        radioPanel.add(qrisRadio);
+
+        paymentButtonGroup.add(cashRadio);
+        cashRadio.setText("Tunai (CASH di Kasir)");
+        radioPanel.add(cashRadio);
+
+        methodSectionPanel.add(radioPanel);
+
+        methodCardsPanel.setOpaque(false);
+        methodCardsPanel.setLayout(new java.awt.CardLayout());
+        methodSectionPanel.add(methodCardsPanel);
+
+        mainContentPanel.add(methodSectionPanel, java.awt.BorderLayout.CENTER);
+
+        bottomBarPanel.setOpaque(false);
+        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 14, 10));
+
+        cancelButton.setText("Batal");
+        bottomBarPanel.add(cancelButton);
+
+        payButton.setText("Konfirmasi Pembayaran ✔");
+        bottomBarPanel.add(payButton);
+
+        mainContentPanel.add(bottomBarPanel, java.awt.BorderLayout.SOUTH);
+
+        getContentPane().add(mainContentPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bottomBarPanel;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JRadioButton cashRadio;
+    private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel headerTitleLabel;
+    private javax.swing.JPanel mainContentPanel;
+    private javax.swing.JPanel methodCardsPanel;
+    private javax.swing.JPanel methodSectionPanel;
+    private javax.swing.JLabel methodTitleLabel;
+    private javax.swing.JButton payButton;
+    private javax.swing.ButtonGroup paymentButtonGroup;
+    private javax.swing.JRadioButton qrisRadio;
+    private javax.swing.JPanel radioPanel;
+    private javax.swing.JPanel summaryCardPanel;
+    private javax.swing.JLabel summaryTitleLabel;
+    private javax.swing.JLabel totalPayLabel;
+    // End of variables declaration//GEN-END:variables
 }

@@ -4,3 +4,4 @@ config.properties
 .vscode/
 *.iml
 *.log
+.editorconfig

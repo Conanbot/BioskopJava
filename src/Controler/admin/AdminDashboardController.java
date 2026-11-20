@@ -54,6 +54,8 @@ public class AdminDashboardController {
             protected void done() {
                 try {
                     DashboardSummary summary = get();
+                    view.setTotalFilms(summary.totalFilms());
+                    view.setTotalSchedulesToday(summary.totalSchedulesToday());
                     view.setTotalBookings(summary.totalBookings());
                     view.setTotalRevenue(summary.totalRevenue());
                     view.setStatusReady();

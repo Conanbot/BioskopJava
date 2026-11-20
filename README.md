@@ -1,6 +1,6 @@
 # Sistem Booking Tiket Bioskop
 
-Project foundation for a Java 17 and Java Swing cinema ticket booking system. The shared database schema, connection manager, booking/payment services, and startup diagnostic screen are implemented; the full booking UI and other team-owned modules are still in progress.
+Project foundation for a Java 17 and Java Swing cinema ticket booking system. The shared database schema, connection manager, booking/payment services, admin operations (dashboard, studio management, schedule management with interval conflict detection, cancel/refund), user authentication, and diagnostic screens are fully implemented and integrated.
 
 ## Requirements
 
@@ -8,26 +8,111 @@ Project foundation for a Java 17 and Java Swing cinema ticket booking system. Th
 - Maven 3.9+
 - MySQL 8.0.16+
 
-## Project structure
+## Project Structure
 
-The source folders follow the supplied MVC reference: `src/Controler` contains controllers and connection utilities, `src/Model` contains booking, DAO, service, and payment classes, `src/View` contains Swing screens and theme resources (including `MainFrame`), and `src/mvcgui` contains the `MVCGUI` entry point. The Maven build uses these folders directly. Database scripts are in `database/`.
+The project follows the standard MVC architecture:
+- `src/Controler`: Controllers, navigation, session management, and database connection utilities (`DBConnection`, `ConnectionProvider`).
+- `src/Model`: Entity definitions, Data Access Objects (`UserDao`, `StudioDao`, `ScheduleDao`, `BookingDao`), business services (`AuthService`, `BookingService`, `AdminProvisioningService`, `DatabaseHealthService`), and domain exceptions.
+- `src/View`: Java Swing user interface components and theme resources (`SwingTheme`, `MainFrame`, `AdminPanel`, `ScheduleManagementPanel`, `StudioManagementPanel`, `AdminDashboardPanel`, `AccountsPanel`, `StartupPanel`).
+- `src/mvcgui`: Application main entry point (`MVCGUI`).
+- `database/`: Database DDL schema (`schema.sql`) and initial seed script (`seed.sql`).
+- `tests/`: Automated unit and integration test suite using JUnit 5.
 
-## Local database setup
+The Swing interface is built entirely in standard programmatic Java without dependency on NetBeans GUI Builder or `.form` files.
 
-1. Run `database/schema.sql` in MySQL.
+## Database Configuration
+
+1. Execute `database/schema.sql` in MySQL to initialize `bioskop_db` and the core tables (`users`, `films`, `studios`, `schedules`, `bookings`, `booking_seats`, `payments`).
 2. Copy `config.properties.example` to `config.properties`.
-3. Set `db.url`, `db.username`, and `db.password` in `config.properties`. The local configuration file is ignored by Git. Alternatively, set `BIOSKOP_DB_URL`, `BIOSKOP_DB_USERNAME`, and `BIOSKOP_DB_PASSWORD`.
-4. Run `mvn compile` to compile the application.
-5. Run `mvn exec:java` to open the startup diagnostic screen.
+3. Configure your MySQL credentials in `config.properties`:
+   ```properties
+   db.url=jdbc:mysql://localhost:3306/bioskop_db
+   db.username=root
+   db.password=your_mysql_password
+   ```
+   *Note: `config.properties` is ignored by Git and must never be committed.*
+4. Alternatively, configure via environment variables:
+   - `BIOSKOP_DB_URL`
+   - `BIOSKOP_DB_USERNAME`
+   - `BIOSKOP_DB_PASSWORD`
 
-On the startup screen, use **Periksa koneksi MySQL** to verify the configured connection, required tables, and seat uniqueness index. **Uji dialog** opens a sample informational dialog.
+`DBConnection` acts as a connection manager; each invocation of `getConnection()` opens a new `Connection` that should be closed by the caller using try-with-resources.
 
-The Swing interface is built programmatically in Java. It does not depend on NetBeans GUI Builder or `.form` files.
+## Admin Provisioning (BCrypt)
 
-This minimal distribution intentionally excludes `target/`, local `config.properties`, automated tests, and extended technical documents. Test and documentation backups are maintained separately. Only `config.properties.example` is included; copy it to `config.properties` locally and never distribute the local file.
+Akun Administrator dibuat secara aman menggunakan BCrypt hashing (tanpa plaintext password di repository atau SQL script). Mekanisme ini bersifat idempoten (dapat dijalankan berulang tanpa membuat akun duplikat).
 
-`DBConnection` is a singleton connection manager, not a shared JDBC connection. Each call to `getConnection()` returns a new connection, which must be closed by its caller.
+### Opsi 1: Melalui Maven / Java CLI (Disarankan)
 
-To add the initial admin account, set `@admin_password_hash` in `database/seed.sql` to a BCrypt hash before running it. The seed leaves it unset so a placeholder password cannot be used accidentally.
+1. Atur password admin melalui environment variable atau file `config.properties`:
+   - Environment variable:
+     ```bash
+     export BIOSKOP_ADMIN_PASSWORD="AdminSecurePassword123"
+     ```
+   - Atau di `config.properties`:
+     ```properties
+     admin.username=admin
+     admin.password=AdminSecurePassword123
+     ```
+2. Jalankan provisioning service:
+   ```bash
+   mvn exec:java -Dexec.mainClass="Model.service.AdminProvisioningService"
+   ```
+   *Jika password tidak dikonfigurasi dan terminal interaktif terdeteksi, service akan meminta input password secara aman via console prompt.*
 
-The current QRIS and CASH flow is a local simulation; no payment gateway is connected.
+### Opsi 2: Melalui MySQL CLI / Session Variable
+
+Jika menjalankan `database/seed.sql` secara manual di MySQL client, set hash BCrypt terlebih dahulu pada session:
+```sql
+USE bioskop_db;
+SET @admin_username = 'admin';
+SET @admin_password_hash = '$2a$12$...'; -- Hash BCrypt dari AuthService
+SOURCE database/seed.sql;
+```
+
+## Running the Application
+
+1. Compile the project:
+   ```bash
+   mvn clean compile
+   ```
+2. Run the application:
+   ```bash
+   mvn exec:java
+   ```
+3. Or package into an executable JAR:
+   ```bash
+   mvn clean package
+   java -jar target/BioskopJava-1.0-SNAPSHOT.jar
+   ```
+
+On the startup diagnostic screen, use **Periksa koneksi MySQL** to verify connectivity, the 7 core tables, and constraints. Navigate to **Akun dan sesi** to login as ADMIN or register as CUSTOMER.
+
+## Automated Testing
+
+Automated testing is maintained in the `tests/` directory and executed using Maven Surefire with JUnit 5.
+
+### Menjalankan Test Suite
+
+Jalankan seluruh test:
+```bash
+mvn test
+```
+
+Atau jalankan clean test:
+```bash
+mvn clean test
+```
+
+### Cakupan Pengujian (Test Coverage)
+
+Test suite mencakup pengujian unit dan validasi domain (44 test cases):
+1. **Model.ScheduleConflictValidationTest**: Validasi konflik jadwal berbasis interval waktu penayangan film (`existing_start < new_end AND existing_end > new_start`), jadwal berurutan tanpa konflik, jadwal studio berbeda, tanggal berbeda, update jadwal tanpa false conflict, serta variasi durasi film.
+2. **Model.StudioCapacityConsistencyTest**: Validasi pencegahan pengubahan dimensi studio yang sudah digunakan jadwal, izin pengubahan untuk studio belum digunakan, sinkronisasi `total_seats` dan `available_seats`, serta pencegahan penurunan kapasitas di bawah kursi yang telah dipesan.
+3. **Model.ScheduleDeletionValidationTest**: Validasi proteksi integritas FK; pemblokiran penghapusan jadwal yang memiliki riwayat booking dalam status apa pun (`ACTIVE`, `CANCELLED`, `REFUNDED`), dan keberhasilan penghapusan jadwal tanpa transaksi.
+4. **Model.AdminProvisioningTest**: Pembuatan akun admin dengan BCrypt hash, verifikasi password BCrypt, sifat idempoten provisioning berulang, dan validasi kredensial.
+5. **Model.DashboardSummaryTest**: Validasi kelengkapan 4 metrik dashboard admin (Total Film, Total Jadwal Hari Ini, Total Booking, Total Pendapatan) dan validasi non-negatif.
+6. **Model.service.AuthServiceTest**: Validasi registrasi customer, enkripsi password, dan verifikasi login admin/customer.
+7. **Controler.SessionManagerTest**: Manajemen sesi login/logout dan otorisasi role.
+8. **Model.entity.StudioScheduleModelTest**: Validasi domain entity Studio dan Schedule.
+9. **Model.integration.MySqlIntegrationTest**: Pengujian konektivitas live database MySQL (secara aman di-skip jika MySQL server lokal tidak aktif).

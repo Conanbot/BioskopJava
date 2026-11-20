@@ -1,5 +1,6 @@
 package Model.dao;
 
+import Controler.ConnectionProvider;
 import Controler.DBConnection;
 import Model.entity.Studio;
 
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -17,13 +19,23 @@ import java.util.Optional;
  */
 public class StudioDao {
 
+    private final ConnectionProvider connectionProvider;
+
+    public StudioDao() {
+        this(DBConnection.getInstance()::getConnection);
+    }
+
+    public StudioDao(ConnectionProvider connectionProvider) {
+        this.connectionProvider = Objects.requireNonNull(connectionProvider);
+    }
+
     /**
      * Mengambil seluruh daftar studio.
      */
     public List<Studio> findAll() throws SQLException {
         String sql = "SELECT id, name, seat_rows, seat_cols FROM studios ORDER BY name";
         List<Studio> studios = new ArrayList<>();
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -38,7 +50,7 @@ public class StudioDao {
      */
     public Optional<Studio> findById(long id) throws SQLException {
         String sql = "SELECT id, name, seat_rows, seat_cols FROM studios WHERE id = ?";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -56,7 +68,7 @@ public class StudioDao {
      */
     public Studio insert(String name, int seatRows, int seatCols) throws SQLException {
         String sql = "INSERT INTO studios (name, seat_rows, seat_cols) VALUES (?, ?, ?)";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, name);
             stmt.setInt(2, seatRows);
@@ -77,10 +89,21 @@ public class StudioDao {
 
     /**
      * Memperbarui data studio. Mengembalikan true jika baris berhasil diperbarui.
+     * Jika dimensi (baris atau kolom) diubah, studio tidak boleh sedang digunakan oleh jadwal.
      */
     public boolean update(long id, String name, int seatRows, int seatCols) throws SQLException {
+        Optional<Studio> currentOpt = findById(id);
+        if (currentOpt.isPresent()) {
+            Studio current = currentOpt.get();
+            if ((current.getSeatRows() != seatRows || current.getSeatCols() != seatCols)
+                    && isUsedBySchedule(id)) {
+                throw new IllegalStateException(
+                        "Dimensi kursi studio (baris/kolom) tidak dapat diubah karena studio sudah digunakan oleh jadwal tayang.");
+            }
+        }
+
         String sql = "UPDATE studios SET name = ?, seat_rows = ?, seat_cols = ? WHERE id = ?";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, name);
             stmt.setInt(2, seatRows);
@@ -97,7 +120,7 @@ public class StudioDao {
      */
     public boolean delete(long id) throws SQLException {
         String sql = "DELETE FROM studios WHERE id = ?";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, id);
             return stmt.executeUpdate() > 0;
@@ -109,7 +132,7 @@ public class StudioDao {
      */
     public boolean isUsedBySchedule(long studioId) throws SQLException {
         String sql = "SELECT 1 FROM schedules WHERE studio_id = ? LIMIT 1";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, studioId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -123,7 +146,7 @@ public class StudioDao {
      */
     public boolean nameExistsForOther(String name, long excludeId) throws SQLException {
         String sql = "SELECT 1 FROM studios WHERE name = ? AND id != ? LIMIT 1";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, name);
             stmt.setLong(2, excludeId);

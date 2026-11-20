@@ -1,5 +1,6 @@
 package Model.dao;
 
+import Controler.ConnectionProvider;
 import Controler.DBConnection;
 import Model.entity.User;
 import Model.enums.Role;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -18,13 +20,23 @@ import java.util.Optional;
  */
 public class UserDao {
 
+    private final ConnectionProvider connectionProvider;
+
+    public UserDao() {
+        this(DBConnection.getInstance()::getConnection);
+    }
+
+    public UserDao(ConnectionProvider connectionProvider) {
+        this.connectionProvider = Objects.requireNonNull(connectionProvider);
+    }
+
     /**
      * Mencari pengguna berdasarkan username.
      * Mengembalikan Optional yang memuat password_hash untuk verifikasi.
      */
     public Optional<UserCredential> findCredentialByUsername(String username) throws SQLException {
         String sql = "SELECT id, username, password_hash, role FROM users WHERE username = ?";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -45,7 +57,7 @@ public class UserDao {
      */
     public Optional<User> findById(long userId) throws SQLException {
         String sql = "SELECT id, username, role, created_at FROM users WHERE id = ?";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, userId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -62,7 +74,7 @@ public class UserDao {
      */
     public boolean usernameExists(String username) throws SQLException {
         String sql = "SELECT 1 FROM users WHERE username = ? LIMIT 1";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -73,12 +85,12 @@ public class UserDao {
 
     /**
      * Menyimpan pengguna baru. Hanya boleh membuat pengguna dengan role CUSTOMER
-     * melalui registrasi publik. Admin hanya dibuat melalui seed.sql.
+     * melalui registrasi publik. Admin hanya dibuat melalui seed.sql atau provisioning.
      * Mengembalikan entitas User dengan ID yang di-generate database.
      */
     public User insertCustomer(String username, String passwordHash) throws SQLException {
         String sql = "INSERT INTO users (username, password_hash, role) VALUES (?, ?, 'CUSTOMER')";
-        try (Connection conn = DBConnection.getInstance().getConnection();
+        try (Connection conn = connectionProvider.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, username);
             stmt.setString(2, passwordHash);
@@ -94,6 +106,27 @@ public class UserDao {
                 return findById(newId).orElseThrow(
                         () -> new SQLException("Pengguna baru tidak dapat ditemukan setelah disimpan."));
             }
+        }
+    }
+
+    /**
+     * Menyimpan akun Admin secara aman dan idempoten (tidak membuat duplikasi).
+     * Jika username sudah ada, query tidak menyisipkan baris baru dan mengembalikan false.
+     */
+    public boolean provisionAdmin(String username, String passwordHash) throws SQLException {
+        String sql = """
+                INSERT INTO users (username, password_hash, role)
+                SELECT ?, ?, 'ADMIN'
+                WHERE NOT EXISTS (
+                    SELECT 1 FROM users WHERE username = ?
+                )
+                """;
+        try (Connection conn = connectionProvider.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setString(2, passwordHash);
+            stmt.setString(3, username);
+            return stmt.executeUpdate() > 0;
         }
     }
 

@@ -1,0 +1,300 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package View.customer;
+
+import Controler.AlertUtil;
+import Model.entity.BookingCancellationResult;
+import Model.entity.BookingHistoryItem;
+import Model.entity.BookingReceipt;
+import Model.entity.User;
+import Model.enums.BookingResolution;
+import Model.enums.BookingStatus;
+import Model.service.BookingService;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+/**
+ * JFrame Riwayat Transaksi & Pembatalan Pemesanan (Booking History & Refund).
+ * Diformat sebagai NetBeans JFrame Form (Matisse GUI Builder).
+ * Memiliki tab Source dan Design di NetBeans IDE.
+ *
+ * @author human
+ */
+public class BookingHistoryFrame extends javax.swing.JFrame {
+
+    private final User user;
+    private final BookingService bookingService = new BookingService();
+
+    /**
+     * Creates new form BookingHistoryFrame
+     */
+    public BookingHistoryFrame(User user) {
+        this.user = user;
+        initComponents();
+        postInitStyles();
+        loadHistoryData();
+    }
+
+    private void postInitStyles() {
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(BaseCinemaFrame.CINEMA_BG);
+
+        headerPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
+                new EmptyBorder(0, 16, 0, 16)
+        ));
+
+        refreshButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
+        refreshButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        refreshButton.addActionListener(e -> loadHistoryData());
+
+        closeButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
+        closeButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        closeButton.addActionListener(e -> dispose());
+    }
+
+    private void loadHistoryData() {
+        historyListContainer.removeAll();
+
+        if (user == null) {
+            JLabel err = new JLabel("Anda belum login. Silakan login terlebih dahulu.", SwingConstants.CENTER);
+            err.setForeground(BaseCinemaFrame.CINEMA_MUTED);
+            historyListContainer.add(err);
+            historyListContainer.revalidate();
+            historyListContainer.repaint();
+            return;
+        }
+
+        try {
+            List<BookingHistoryItem> items = bookingService.getBookingHistory(
+                    user.getId(), user.getId(), user.getRole());
+
+            if (items.isEmpty()) {
+                JPanel emptyCard = BaseCinemaFrame.createCardPanel();
+                emptyCard.add(new JLabel("Belum ada transaksi pemesanan tiket yang tercatat."));
+                historyListContainer.add(emptyCard);
+            } else {
+                for (BookingHistoryItem item : items) {
+                    historyListContainer.add(createHistoryCard(item));
+                    historyListContainer.add(Box.createVerticalStrut(10));
+                }
+            }
+        } catch (Exception ex) {
+            JLabel err = new JLabel("Gagal memuat riwayat: " + ex.getMessage());
+            err.setForeground(BaseCinemaFrame.CINEMA_RED);
+            historyListContainer.add(err);
+        }
+
+        historyListContainer.revalidate();
+        historyListContainer.repaint();
+    }
+
+    private JPanel createHistoryCard(BookingHistoryItem item) {
+        JPanel card = BaseCinemaFrame.createCardPanel();
+        card.setLayout(new BorderLayout(14, 0));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
+
+        JPanel left = new JPanel();
+        left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
+        left.setOpaque(false);
+
+        JPanel codeRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        codeRow.setOpaque(false);
+
+        JLabel codeLbl = new JLabel(item.booking().bookingCode());
+        codeLbl.setFont(new Font(Font.MONOSPACED, Font.BOLD, 15));
+        codeLbl.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+
+        JLabel statusBadge = createStatusBadge(item.booking().status());
+        codeRow.add(codeLbl);
+        codeRow.add(statusBadge);
+
+        String dateStr = item.showDateTime() != null
+                ? item.showDateTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy - HH:mm"))
+                : "-";
+        JLabel detailLbl = new JLabel("🎬 " + item.filmTitle() + " | Studio: " + item.studioName() + " | " + dateStr);
+        detailLbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        detailLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
+
+        JLabel priceLbl = new JLabel(item.booking().ticketCount() + " Tiket | Total: " + String.format("Rp %,.2f", item.totalPrice()));
+        priceLbl.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        priceLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+
+        left.add(codeRow);
+        left.add(Box.createVerticalStrut(4));
+        left.add(detailLbl);
+        left.add(Box.createVerticalStrut(4));
+        left.add(priceLbl);
+
+        card.add(left, BorderLayout.CENTER);
+
+        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 14));
+        right.setOpaque(false);
+
+        JButton viewTicketBtn = BaseCinemaFrame.createCinemaButton("Lihat Tiket", false);
+        viewTicketBtn.setPreferredSize(new Dimension(110, 34));
+        viewTicketBtn.addActionListener(e -> openTicketDetail(item.booking().bookingCode()));
+        right.add(viewTicketBtn);
+
+        if (item.booking().status() == BookingStatus.ACTIVE) {
+            JButton cancelBtn = BaseCinemaFrame.createCinemaButton("Batalkan / Refund", false);
+            cancelBtn.setBackground(new Color(60, 25, 25));
+            cancelBtn.setForeground(new Color(255, 140, 140));
+            cancelBtn.setPreferredSize(new Dimension(140, 34));
+            cancelBtn.addActionListener(e -> handleCancelBooking(item.booking().bookingCode()));
+            right.add(cancelBtn);
+        }
+
+        card.add(right, BorderLayout.EAST);
+        return card;
+    }
+
+    private void openTicketDetail(String bookingCode) {
+        try {
+            Optional<BookingReceipt> receiptOpt = bookingService.getBookingDetails(
+                    bookingCode, user.getId(), user.getRole());
+            if (receiptOpt.isPresent()) {
+                ETicketFrame ticketFrame = new ETicketFrame(receiptOpt.get());
+                ticketFrame.setVisible(true);
+            } else {
+                AlertUtil.showWarning(this, "Tidak Ditemukan", "Rincian tiket tidak ditemukan.");
+            }
+        } catch (Exception ex) {
+            AlertUtil.showError(this, "Kesalahan", "Gagal membuka tiket: " + ex.getMessage());
+        }
+    }
+
+    private void handleCancelBooking(String bookingCode) {
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin membatalkan booking " + bookingCode + "?\nDana tiket akan diproses refund 100%.",
+                "Konfirmasi Pembatalan Tiket",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                BookingCancellationResult result = bookingService.cancelOrRefundBooking(
+                        bookingCode, user.getId(), user.getRole(), BookingResolution.REFUND);
+
+                AlertUtil.showInformation(
+                        this,
+                        "Pembatalan Berhasil",
+                        "Booking " + result.bookingCode() + " berhasil dibatalkan.\nStatus: " + result.status()
+                        + "\nNominal Refund: " + String.format("Rp %,.2f", result.refundedAmount()));
+
+                loadHistoryData();
+            } catch (Exception ex) {
+                AlertUtil.showError(this, "Gagal Membatalkan", ex.getMessage());
+            }
+        }
+    }
+
+    private JLabel createStatusBadge(BookingStatus status) {
+        JLabel badge = new JLabel(" " + status.name() + " ");
+        badge.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+        badge.setOpaque(true);
+        if (status == BookingStatus.ACTIVE) {
+            badge.setBackground(new Color(40, 167, 69));
+            badge.setForeground(Color.WHITE);
+        } else if (status == BookingStatus.REFUNDED) {
+            badge.setBackground(new Color(214, 169, 75));
+            badge.setForeground(Color.BLACK);
+        } else {
+            badge.setBackground(new Color(100, 105, 115));
+            badge.setForeground(Color.WHITE);
+        }
+        return badge;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        headerPanel = new javax.swing.JPanel();
+        headerTitleLabel = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JButton();
+        mainContentPanel = new javax.swing.JPanel();
+        historyScrollPane = new javax.swing.JScrollPane();
+        historyListContainer = new javax.swing.JPanel();
+        bottomBarPanel = new javax.swing.JPanel();
+        closeButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Riwayat Booking Tiket - Bioskop Nusantara");
+        setBackground(new java.awt.Color(18, 19, 22));
+        setMinimumSize(new java.awt.Dimension(650, 480));
+        setPreferredSize(new java.awt.Dimension(820, 650));
+
+        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
+        headerPanel.setLayout(new java.awt.BorderLayout());
+
+        headerTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        headerTitleLabel.setText("🎟 RIWAYAT PEMESANAN TIKET");
+        headerPanel.add(headerTitleLabel, java.awt.BorderLayout.WEST);
+
+        refreshButton.setText("🔄 Refresh");
+        headerPanel.add(refreshButton, java.awt.BorderLayout.EAST);
+
+        getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
+
+        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setLayout(new java.awt.BorderLayout(0, 14));
+
+        historyScrollPane.setBorder(null);
+
+        historyListContainer.setBackground(new java.awt.Color(18, 19, 22));
+        historyListContainer.setLayout(new javax.swing.BoxLayout(historyListContainer, javax.swing.BoxLayout.Y_AXIS));
+        historyScrollPane.setViewportView(historyListContainer);
+
+        mainContentPanel.add(historyScrollPane, java.awt.BorderLayout.CENTER);
+
+        bottomBarPanel.setOpaque(false);
+        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 8));
+
+        closeButton.setText("Tutup");
+        bottomBarPanel.add(closeButton);
+
+        mainContentPanel.add(bottomBarPanel, java.awt.BorderLayout.SOUTH);
+
+        getContentPane().add(mainContentPanel, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton closeButton;
+    private javax.swing.JPanel bottomBarPanel;
+    private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel headerTitleLabel;
+    private javax.swing.JPanel historyListContainer;
+    private javax.swing.JScrollPane historyScrollPane;
+    private javax.swing.JPanel mainContentPanel;
+    private javax.swing.JButton refreshButton;
+    // End of variables declaration//GEN-END:variables
+}

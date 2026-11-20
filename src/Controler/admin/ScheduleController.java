@@ -127,8 +127,9 @@ public class ScheduleController {
         SwingWorker<Schedule, Void> worker = new SwingWorker<>() {
             @Override
             protected Schedule doInBackground() throws Exception {
-                if (scheduleDao.hasConflict(studioId, date, time, 0)) {
-                    throw new IllegalArgumentException("Konflik jadwal: Studio sudah memiliki penayangan pada tanggal dan jam tersebut.");
+                if (scheduleDao.hasConflict(filmId, studioId, date, time, 0)) {
+                    throw new IllegalArgumentException(
+                            "Konflik jadwal: Studio sudah memiliki penayangan yang bertabrakan pada rentang waktu penayangan film tersebut.");
                 }
                 return scheduleDao.insert(filmId, studioId, date, time, price, totalSeats);
             }
@@ -214,8 +215,9 @@ public class ScheduleController {
         SwingWorker<Boolean, Void> worker = new SwingWorker<>() {
             @Override
             protected Boolean doInBackground() throws Exception {
-                if (scheduleDao.hasConflict(studioId, date, time, id)) {
-                    throw new IllegalArgumentException("Konflik jadwal: Studio sudah memiliki penayangan pada tanggal dan jam tersebut.");
+                if (scheduleDao.hasConflict(filmId, studioId, date, time, id)) {
+                    throw new IllegalArgumentException(
+                            "Konflik jadwal: Studio sudah memiliki penayangan yang bertabrakan pada rentang waktu penayangan film tersebut.");
                 }
                 return scheduleDao.update(id, filmId, studioId, date, time, price, totalSeats);
             }
@@ -269,8 +271,8 @@ public class ScheduleController {
         SwingWorker<Boolean, Void> worker = new SwingWorker<>() {
             @Override
             protected Boolean doInBackground() throws Exception {
-                if (scheduleDao.hasActiveBookings(selectedId)) {
-                    throw new IllegalStateException("Jadwal ini memiliki booking aktif dan tidak boleh dihapus.");
+                if (scheduleDao.hasAnyBookings(selectedId)) {
+                    throw new IllegalStateException("Jadwal ini memiliki riwayat transaksi/booking dan tidak dapat dihapus.");
                 }
                 return scheduleDao.delete(selectedId);
             }

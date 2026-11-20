@@ -13,13 +13,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-public final class StartupPanel extends JPanel {
-    private final JLabel databaseStatus = new JLabel();
-    private final JTextArea databaseDetails = new JTextArea();
-    private final JButton connectionButton = new JButton("Periksa koneksi MySQL");
-    private final JButton dialogButton = new JButton("Uji dialog");
+public final class StartupPanel extends javax.swing.JPanel {
 
     public StartupPanel() {
+        initComponents();
+        postInit();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        databaseStatus = new JLabel();
+        databaseDetails = new JTextArea();
+        connectionButton = new JButton("Periksa koneksi MySQL");
+        dialogButton = new JButton("Uji dialog");
+
         setLayout(new BorderLayout(0, 24));
         setBackground(SwingTheme.BACKGROUND);
         setBorder(new EmptyBorder(28, 32, 28, 32));
@@ -69,6 +76,10 @@ public final class StartupPanel extends JPanel {
         footer.add(actions, BorderLayout.NORTH);
         footer.add(note, BorderLayout.CENTER);
         add(footer, BorderLayout.SOUTH);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void postInit() {
+        // Post-init logic (none needed currently)
     }
 
     public JLabel getDatabaseStatus() {
@@ -86,4 +97,11 @@ public final class StartupPanel extends JPanel {
     public JButton getDialogButton() {
         return dialogButton;
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JLabel databaseStatus;
+    private JTextArea databaseDetails;
+    private JButton connectionButton;
+    private JButton dialogButton;
+    // End of variables declaration//GEN-END:variables
 }

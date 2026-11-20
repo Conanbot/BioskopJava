@@ -26,35 +26,47 @@ import javax.swing.table.DefaultTableModel;
  * Panel CRUD Jadwal Tayang untuk Admin.
  * Menampilkan daftar jadwal dengan informasi film, studio, waktu, dan harga.
  */
-public final class ScheduleManagementPanel extends JPanel {
+public class ScheduleManagementPanel extends javax.swing.JPanel {
     private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm");
+
+
 
     private final String[] COLUMNS = {
             "ID", "Film", "Studio", "Tanggal", "Jam", "Harga (Rp)", "Total Kursi", "Tersedia"
     };
-    private final DefaultTableModel tableModel = new DefaultTableModel(COLUMNS, 0) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    private final JTable table = new JTable(tableModel);
-    private final JButton addButton = new JButton("Tambah");
-    private final JButton editButton = new JButton("Edit");
-    private final JButton deleteButton = new JButton("Hapus");
-    private final JButton refreshButton = new JButton("Refresh");
-    private final JLabel statusLabel = new JLabel(" ");
+    private DefaultTableModel tableModel;
 
     public ScheduleManagementPanel() {
+        initComponents();
+        postInit();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        tableModel = new DefaultTableModel(COLUMNS, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table = new JTable(tableModel);
+        addButton = new JButton("Tambah");
+        editButton = new JButton("Edit");
+        deleteButton = new JButton("Hapus");
+        refreshButton = new JButton("Refresh");
+        statusLabel = new JLabel(" ");
+
         setLayout(new BorderLayout(0, 16));
-        setBackground(SwingTheme.BACKGROUND);
-        setBorder(new EmptyBorder(24, 28, 24, 28));
 
         add(buildHeader(), BorderLayout.NORTH);
         add(buildTablePanel(), BorderLayout.CENTER);
         add(buildFooter(), BorderLayout.SOUTH);
+    }// </editor-fold>//GEN-END:initComponents
 
+    private void postInit() {
+        setBackground(SwingTheme.BACKGROUND);
+        setBorder(new EmptyBorder(24, 28, 24, 28));
         setupTable();
         updateButtonStates();
     }
@@ -199,4 +211,13 @@ public final class ScheduleManagementPanel extends JPanel {
     public JButton getEditButton() { return editButton; }
     public JButton getDeleteButton() { return deleteButton; }
     public JButton getRefreshButton() { return refreshButton; }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
+    private javax.swing.JButton refreshButton;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JTable table;
+    // End of variables declaration//GEN-END:variables
 }

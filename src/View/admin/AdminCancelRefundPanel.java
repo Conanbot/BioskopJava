@@ -27,21 +27,33 @@ import javax.swing.border.EmptyBorder;
  * Admin memasukkan kode booking, memilih tindakan CANCEL atau REFUND,
  * lalu menekan tombol untuk memproses melalui BookingService.cancelOrRefundBooking().
  */
-public final class AdminCancelRefundPanel extends JPanel {
-    private final JTextField bookingCodeField = new JTextField(20);
-    private final JComboBox<String> resolutionCombo = new JComboBox<>(new String[]{"CANCEL", "REFUND"});
-    private final JButton processButton = new JButton("Proses");
-    private final JButton clearButton = new JButton("Reset");
-    private final JTextArea resultArea = new JTextArea(8, 40);
-    private final JLabel statusLabel = new JLabel(" ");
+public class AdminCancelRefundPanel extends javax.swing.JPanel {
+
+
 
     public AdminCancelRefundPanel() {
+        initComponents();
+        postInit();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        bookingCodeField = new JTextField(20);
+        resolutionCombo = new JComboBox<>(new String[]{"CANCEL", "REFUND"});
+        processButton = new JButton("Proses");
+        clearButton = new JButton("Reset");
+        resultArea = new JTextArea(8, 40);
+        statusLabel = new JLabel(" ");
+
         setLayout(new BorderLayout(0, 20));
-        setBackground(SwingTheme.BACKGROUND);
-        setBorder(new EmptyBorder(28, 32, 28, 32));
 
         add(buildHeader(), BorderLayout.NORTH);
         add(buildFormAndResult(), BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void postInit() {
+        setBackground(SwingTheme.BACKGROUND);
+        setBorder(new EmptyBorder(28, 32, 28, 32));
     }
 
     private JPanel buildHeader() {
@@ -241,4 +253,13 @@ public final class AdminCancelRefundPanel extends JPanel {
 
     public JButton getProcessButton() { return processButton; }
     public JButton getClearButton() { return clearButton; }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField bookingCodeField;
+    private javax.swing.JButton clearButton;
+    private javax.swing.JButton processButton;
+    private javax.swing.JComboBox<String> resolutionCombo;
+    private javax.swing.JTextArea resultArea;
+    private javax.swing.JLabel statusLabel;
+    // End of variables declaration//GEN-END:variables
 }

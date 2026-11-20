@@ -25,22 +25,34 @@ import javax.swing.border.EmptyBorder;
  * 4. Total pendapatan
  * Data tidak pernah statis — selalu berasal dari database/service aktual.
  */
-public final class AdminDashboardPanel extends JPanel {
-    private final JLabel totalFilmsValue = new JLabel("—");
-    private final JLabel totalSchedulesTodayValue = new JLabel("—");
-    private final JLabel totalBookingsValue = new JLabel("—");
-    private final JLabel totalRevenueValue = new JLabel("—");
-    private final JLabel statusLabel = new JLabel(" ");
-    private final JButton refreshButton = new JButton("Refresh Data");
+public class AdminDashboardPanel extends javax.swing.JPanel {
+
+
 
     public AdminDashboardPanel() {
+        initComponents();
+        postInit();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        totalFilmsValue = new JLabel("—");
+        totalSchedulesTodayValue = new JLabel("—");
+        totalBookingsValue = new JLabel("—");
+        totalRevenueValue = new JLabel("—");
+        statusLabel = new JLabel(" ");
+        refreshButton = new JButton("Refresh Data");
+
         setLayout(new BorderLayout(0, 24));
-        setBackground(SwingTheme.BACKGROUND);
-        setBorder(new EmptyBorder(28, 32, 28, 32));
 
         add(buildHeader(), BorderLayout.NORTH);
         add(buildStatsPanel(), BorderLayout.CENTER);
         add(buildFooter(), BorderLayout.SOUTH);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void postInit() {
+        setBackground(SwingTheme.BACKGROUND);
+        setBorder(new EmptyBorder(28, 32, 28, 32));
     }
 
     private JPanel buildHeader() {
@@ -161,4 +173,13 @@ public final class AdminDashboardPanel extends JPanel {
     public JButton getRefreshButton() {
         return refreshButton;
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton refreshButton;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JLabel totalBookingsValue;
+    private javax.swing.JLabel totalFilmsValue;
+    private javax.swing.JLabel totalRevenueValue;
+    private javax.swing.JLabel totalSchedulesTodayValue;
+    // End of variables declaration//GEN-END:variables
 }

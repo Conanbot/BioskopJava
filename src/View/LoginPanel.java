@@ -23,14 +23,21 @@ import javax.swing.border.EmptyBorder;
  * Panel Login untuk autentikasi pengguna.
  * Komponen GUI dibuat secara programmatic (tanpa NetBeans GUI Builder).
  */
-public final class LoginPanel extends JPanel {
-    private final JTextField usernameField = new JTextField(20);
-    private final JPasswordField passwordField = new JPasswordField(20);
-    private final JButton loginButton = new JButton("Masuk");
-    private final JButton registerButton = new JButton("Daftar Akun Baru");
-    private final JLabel errorLabel = new JLabel(" ");
+public final class LoginPanel extends javax.swing.JPanel {
 
     public LoginPanel() {
+        initComponents();
+        postInit();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        usernameField = new JTextField(20);
+        passwordField = new JPasswordField(20);
+        loginButton = new JButton("Masuk");
+        registerButton = new JButton("Daftar Akun Baru");
+        errorLabel = new JLabel(" ");
+
         setLayout(new BorderLayout());
         setBackground(SwingTheme.BACKGROUND);
 
@@ -41,6 +48,10 @@ public final class LoginPanel extends JPanel {
         JPanel formCard = buildFormCard();
         centerWrapper.add(formCard);
         add(centerWrapper, BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void postInit() {
+        // Post-init logic (none needed currently)
     }
 
     private JPanel buildFormCard() {
@@ -184,4 +195,12 @@ public final class LoginPanel extends JPanel {
         loginButton.setEnabled(enabled);
         registerButton.setEnabled(enabled);
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JButton loginButton;
+    private JButton registerButton;
+    private JLabel errorLabel;
+    // End of variables declaration//GEN-END:variables
 }

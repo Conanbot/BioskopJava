@@ -32,6 +32,8 @@ import javax.swing.border.EmptyBorder;
 public class CustomerPanel extends javax.swing.JPanel {
 
     private final FilmDao filmDao = new FilmDao();
+    private Runnable onLogout;
+    private JLabel userGreetingLabel;
 
     public CustomerPanel() {
         initComponents();
@@ -93,9 +95,15 @@ public class CustomerPanel extends javax.swing.JPanel {
         subtitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         subtitle.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
+        userGreetingLabel = new JLabel("Status: Belum login");
+        userGreetingLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        userGreetingLabel.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+
         textPanel.add(title);
         textPanel.add(Box.createVerticalStrut(4));
         textPanel.add(subtitle);
+        textPanel.add(Box.createVerticalStrut(2));
+        textPanel.add(userGreetingLabel);
 
         headerCard.add(textPanel, BorderLayout.CENTER);
 
@@ -120,8 +128,18 @@ public class CustomerPanel extends javax.swing.JPanel {
             new BookingHistoryFrame(currentUser).setVisible(true);
         });
 
+        JButton logoutBtn = BaseCinemaFrame.createCinemaButton("🚪 Logout", false);
+        logoutBtn.addActionListener(e -> {
+            SessionManager.getInstance().clearSession();
+            updateGreeting();
+            if (onLogout != null) {
+                onLogout.run();
+            }
+        });
+
         actions.add(launchFrameBtn);
         actions.add(historyBtn);
+        actions.add(logoutBtn);
         headerCard.add(actions, BorderLayout.EAST);
 
         // Styling scroll pane dan filmsPreviewGrid
@@ -183,5 +201,19 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         card.add(bookBtn, BorderLayout.EAST);
         return card;
+    }
+
+    public void setOnLogout(Runnable onLogout) {
+        this.onLogout = onLogout;
+    }
+
+    public void updateGreeting() {
+        if (userGreetingLabel == null) return;
+        User user = SessionManager.getInstance().getCurrentUser();
+        if (user != null) {
+            userGreetingLabel.setText("👤 Login sebagai: " + user.getUsername() + " (" + user.getRole() + ")");
+        } else {
+            userGreetingLabel.setText("Status: Belum login");
+        }
     }
 }

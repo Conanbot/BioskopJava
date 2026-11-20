@@ -54,30 +54,12 @@ public final class MainFrameController {
         AccountsPanel accountsPanel = new AccountsPanel();
         AuthService authService = new AuthService(new UserDao());
 
-        new LoginController(authService, accountsPanel.getLoginPanel(), accountsPanel, user -> {
-            // Setelah login berhasil, arahkan sesuai role
-            if (user.getRole() == Role.ADMIN) {
-                navigationController.showPage(ADMIN);
-            } else {
-                navigationController.showPage(CUSTOMER);
-            }
-        });
-
-        new RegisterController(authService, accountsPanel.getRegisterPanel(), accountsPanel);
-
-        registerPage(
-                ACCOUNTS,
-                "Akun dan sesi",
-                accountsPanel,
-                view.getAccountsButton());
-
         // ── Dava: Modul Layanan Customer ──────────────────────────────────────────
         CustomerPanel customerPanel = new CustomerPanel();
-        registerPage(
-                CUSTOMER,
-                "Layanan Customer",
-                customerPanel,
-                view.getCustomerButton());
+        customerPanel.setOnLogout(() -> {
+            accountsPanel.showLogin();
+            navigationController.showPage(ACCOUNTS);
+        });
 
         // ── Jonathan: Modul Operasional Admin ─────────────────────────────────────
         AdminPanel adminPanel = new AdminPanel();
@@ -96,6 +78,32 @@ public final class MainFrameController {
                     navigationController.showPage(ACCOUNTS);
                 }
         );
+
+        new LoginController(authService, accountsPanel.getLoginPanel(), accountsPanel, user -> {
+            // Setelah login berhasil, arahkan sesuai role (Flowchart 1: Periksa Role Pengguna)
+            if (user.getRole() == Role.ADMIN) {
+                adminMainController.onAdminOpened();
+                navigationController.showPage(ADMIN);
+            } else {
+                customerPanel.updateGreeting();
+                customerPanel.loadFilmCards();
+                navigationController.showPage(CUSTOMER);
+            }
+        });
+
+        new RegisterController(authService, accountsPanel.getRegisterPanel(), accountsPanel);
+
+        registerPage(
+                ACCOUNTS,
+                "Akun dan sesi",
+                accountsPanel,
+                view.getAccountsButton());
+
+        registerPage(
+                CUSTOMER,
+                "Layanan Customer",
+                customerPanel,
+                view.getCustomerButton());
 
         // Saat tombol Admin di sidebar diklik, periksa akses role
         view.getAdminButton().addActionListener(e -> {
@@ -127,7 +135,12 @@ public final class MainFrameController {
                 new DatabaseHealthService(),
                 startupPanel.getDatabaseStatus(),
                 startupPanel.getDatabaseDetails(),
-                startupPanel.getConnectionButton());
+                startupPanel.getConnectionButton(),
+                () -> {
+                    // Sesuai Flowchart: Database siap -> Tampilkan Login / Register
+                    accountsPanel.showLogin();
+                    navigationController.showPage(ACCOUNTS);
+                });
         startupPanel.getDialogButton().addActionListener(event -> AlertUtil.showInformation(
                 view,
                 "Uji dialog",

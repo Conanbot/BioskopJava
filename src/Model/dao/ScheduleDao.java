@@ -371,6 +371,74 @@ public class ScheduleDao {
         return films;
     }
 
+    /**
+     * Mengambil seluruh jadwal mendatang untuk film tertentu.
+     */
+    public List<Schedule> findUpcomingByFilmId(long filmId) throws SQLException {
+        String sql = SELECT_FULL + " WHERE s.film_id = ? AND s.show_date >= CURRENT_DATE ORDER BY s.show_date, s.show_time";
+        List<Schedule> schedules = new ArrayList<>();
+        try (Connection conn = connectionProvider.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, filmId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    schedules.add(mapSchedule(rs));
+                }
+            }
+        }
+        return schedules;
+    }
+
+    /**
+     * Mengambil kumpulan kode kursi yang sudah terpesan (status ACTIVE) pada suatu jadwal.
+     */
+    public java.util.Set<String> findBookedSeats(long scheduleId) throws SQLException {
+        String sql = """
+                SELECT bs.seat_code
+                FROM booking_seats bs
+                JOIN bookings b ON b.id = bs.booking_id
+                WHERE bs.schedule_id = ? AND b.status = 'ACTIVE'
+                """;
+        java.util.Set<String> bookedSeats = new java.util.HashSet<>();
+        try (Connection conn = connectionProvider.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, scheduleId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    bookedSeats.add(rs.getString("seat_code"));
+                }
+            }
+        }
+        return bookedSeats;
+    }
+
+    /**
+     * Mengambil dimensi kursi studio (rows, cols, studio_name) untuk jadwal tertentu.
+     */
+    public Optional<StudioDimensions> findStudioDimensionsForSchedule(long scheduleId) throws SQLException {
+        String sql = """
+                SELECT st.seat_rows, st.seat_cols, st.name AS studio_name
+                FROM schedules s
+                JOIN studios st ON st.id = s.studio_id
+                WHERE s.id = ?
+                """;
+        try (Connection conn = connectionProvider.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, scheduleId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(new StudioDimensions(
+                            rs.getInt("seat_rows"),
+                            rs.getInt("seat_cols"),
+                            rs.getString("studio_name")));
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    public record StudioDimensions(int seatRows, int seatCols, String studioName) {}
+
     private Schedule mapSchedule(ResultSet rs) throws SQLException {
         return new Schedule(
                 rs.getLong("id"),

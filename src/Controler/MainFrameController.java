@@ -14,6 +14,7 @@ import View.PendingModulePanel;
 import View.StartupPanel;
 import View.MainFrame;
 import View.admin.AdminPanel;
+import View.customer.CustomerPanel;
 
 import java.awt.CardLayout;
 import java.util.List;
@@ -70,20 +71,12 @@ public final class MainFrameController {
                 accountsPanel,
                 view.getAccountsButton());
 
-        // ── Dava: Modul Layanan Customer (Dilarang diubah) ────────────────────────
+        // ── Dava: Modul Layanan Customer ──────────────────────────────────────────
+        CustomerPanel customerPanel = new CustomerPanel();
         registerPage(
                 CUSTOMER,
-                "Layanan customer",
-                new PendingModulePanel(
-                        "Layanan customer",
-                        "Dava",
-                        List.of(
-                                "Customer Home",
-                                "Film Detail",
-                                "Seat Selection dan SeatMapView",
-                                "Payment UI",
-                                "E-Ticket dan Booking History",
-                                "Animasi dan interaktivitas")),
+                "Layanan Customer",
+                customerPanel,
                 view.getCustomerButton());
 
         // ── Jonathan: Modul Operasional Admin ─────────────────────────────────────

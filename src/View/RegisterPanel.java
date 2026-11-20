@@ -16,12 +16,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 /**
  * Panel Register untuk pendaftaran akun Customer baru.
  * Registrasi publik hanya membuat akun CUSTOMER — tidak ada pilihan role Admin.
+ * Menggunakan JScrollPane dan ukuran dinamis agar tidak terpotong pada berbagai resolusi.
  */
 public final class RegisterPanel extends javax.swing.JPanel {
 
@@ -48,11 +50,18 @@ public final class RegisterPanel extends javax.swing.JPanel {
 
         JPanel formCard = buildFormCard();
         centerWrapper.add(formCard);
-        add(centerWrapper, BorderLayout.CENTER);
+
+        JScrollPane scrollPane = new JScrollPane(centerWrapper);
+        scrollPane.setBorder(null);
+        scrollPane.setBackground(SwingTheme.BACKGROUND);
+        scrollPane.getViewport().setBackground(SwingTheme.BACKGROUND);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        add(scrollPane, BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void postInit() {
-        // Post-init logic (none needed currently)
+        // Post-init logic
     }
 
     private JPanel buildFormCard() {
@@ -61,8 +70,9 @@ public final class RegisterPanel extends javax.swing.JPanel {
         card.setBackground(SwingTheme.SURFACE);
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)),
-                new EmptyBorder(36, 44, 36, 44)));
-        card.setPreferredSize(new Dimension(400, 460));
+                new EmptyBorder(30, 40, 30, 40)));
+        card.setPreferredSize(new Dimension(420, 500));
+        card.setMaximumSize(new Dimension(460, 520));
 
         JLabel title = new JLabel("Buat Akun Baru");
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
@@ -87,21 +97,21 @@ public final class RegisterPanel extends javax.swing.JPanel {
         SwingTheme.styleButton(registerButton, true);
         SwingTheme.styleButton(backToLoginButton, false);
         registerButton.setAlignmentX(CENTER_ALIGNMENT);
-        registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
         backToLoginButton.setAlignmentX(CENTER_ALIGNMENT);
-        backToLoginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        backToLoginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
 
         card.add(title);
-        card.add(Box.createVerticalStrut(6));
+        card.add(Box.createVerticalStrut(4));
         card.add(subtitle);
-        card.add(Box.createVerticalStrut(28));
+        card.add(Box.createVerticalStrut(20));
         card.add(fieldsPanel);
-        card.add(Box.createVerticalStrut(8));
+        card.add(Box.createVerticalStrut(6));
         card.add(errorLabel);
         card.add(successLabel);
-        card.add(Box.createVerticalStrut(14));
+        card.add(Box.createVerticalStrut(12));
         card.add(registerButton);
-        card.add(Box.createVerticalStrut(10));
+        card.add(Box.createVerticalStrut(8));
         card.add(backToLoginButton);
 
         return card;
@@ -120,7 +130,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
         fieldGbc.gridx = 0;
         fieldGbc.fill = GridBagConstraints.HORIZONTAL;
         fieldGbc.weightx = 1.0;
-        fieldGbc.insets = new Insets(0, 0, 14, 0);
+        fieldGbc.insets = new Insets(0, 0, 12, 0);
 
         styleField(usernameField);
         styleField(passwordField);
@@ -159,7 +169,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
         field.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)),
                 new EmptyBorder(8, 10, 8, 10)));
-        field.setPreferredSize(new Dimension(280, 42));
+        field.setPreferredSize(new Dimension(280, 40));
     }
 
     // ── Getters untuk Controller ──────────────────────────────────────────────

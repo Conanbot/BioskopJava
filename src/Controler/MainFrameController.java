@@ -24,14 +24,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public final class MainFrameController {
-    private static final String DIAGNOSTICS = "diagnostics";
-    private static final String ACCOUNTS = "accounts";
-    private static final String CUSTOMER = "customer";
-    private static final String ADMIN = "admin";
-    private static final String FILMS = "films";
+    public static final String DIAGNOSTICS = "diagnostics";
+    public static final String ACCOUNTS = "accounts";
+    public static final String CUSTOMER = "customer";
+    public static final String ADMIN = "admin";
+    public static final String FILMS = "films";
 
     private final MainFrame view;
     private final NavigationController navigationController;
+    private AdminMainController adminMainController;
 
     public MainFrameController(MainFrame view) {
         this.view = Objects.requireNonNull(view, "Tampilan utama wajib diisi.");
@@ -54,6 +55,26 @@ public final class MainFrameController {
         AccountsPanel accountsPanel = new AccountsPanel();
         AuthService authService = new AuthService(new UserDao());
 
+        new LoginController(authService, accountsPanel.getLoginPanel(), accountsPanel, user -> {
+            applyRoleNavigation(user.getRole());
+            if (user.getRole() == Role.ADMIN) {
+                if (adminMainController != null) {
+                    adminMainController.onAdminOpened();
+                }
+                navigationController.showPage(ADMIN);
+            } else {
+                navigationController.showPage(CUSTOMER);
+            }
+        });
+
+        new RegisterController(authService, accountsPanel.getRegisterPanel(), accountsPanel);
+
+        registerPage(
+                ACCOUNTS,
+                "Akun dan sesi",
+                accountsPanel,
+                view.getAccountsButton());
+
         // ── Dava: Modul Layanan Customer ──────────────────────────────────────────
         CustomerPanel customerPanel = new CustomerPanel();
         customerPanel.setOnLogout(() -> {
@@ -67,45 +88,21 @@ public final class MainFrameController {
         StudioDao studioDao = new StudioDao();
         ScheduleDao scheduleDao = new ScheduleDao();
 
-        AdminMainController adminMainController = new AdminMainController(
+        this.adminMainController = new AdminMainController(
                 adminPanel,
                 bookingService,
                 studioDao,
                 scheduleDao,
                 () -> {
-                    // Saat admin logout, kembali ke Login
+                    // Saat logout: bersihkan sesi, reset menu ke kondisi belum login, kembali ke Login
+                    SessionManager.getInstance().clearSession();
+                    applyRoleNavigation(null);
                     accountsPanel.showLogin();
                     navigationController.showPage(ACCOUNTS);
                 }
         );
 
-        new LoginController(authService, accountsPanel.getLoginPanel(), accountsPanel, user -> {
-            // Setelah login berhasil, arahkan sesuai role (Flowchart 1: Periksa Role Pengguna)
-            if (user.getRole() == Role.ADMIN) {
-                adminMainController.onAdminOpened();
-                navigationController.showPage(ADMIN);
-            } else {
-                customerPanel.updateGreeting();
-                customerPanel.loadFilmCards();
-                navigationController.showPage(CUSTOMER);
-            }
-        });
-
-        new RegisterController(authService, accountsPanel.getRegisterPanel(), accountsPanel);
-
-        registerPage(
-                ACCOUNTS,
-                "Akun dan sesi",
-                accountsPanel,
-                view.getAccountsButton());
-
-        registerPage(
-                CUSTOMER,
-                "Layanan Customer",
-                customerPanel,
-                view.getCustomerButton());
-
-        // Saat tombol Admin di sidebar diklik, periksa akses role
+        // Proteksi klik tombol Admin di sidebar: harus login role ADMIN
         view.getAdminButton().addActionListener(e -> {
             if (!SessionManager.getInstance().isAdmin()) {
                 AlertUtil.showWarning(view, "Akses Terbatas", "Halaman ini memerlukan login dengan Role ADMIN.");
@@ -113,6 +110,14 @@ public final class MainFrameController {
                 return;
             }
             adminMainController.onAdminOpened();
+        });
+
+        // Proteksi klik tombol Customer di sidebar: harus login role CUSTOMER
+        view.getCustomerButton().addActionListener(e -> {
+            if (!SessionManager.getInstance().isLoggedIn()) {
+                AlertUtil.showWarning(view, "Akses Terbatas", "Silakan login terlebih dahulu untuk mengakses layanan Customer.");
+                navigationController.showPage(ACCOUNTS);
+            }
         });
 
         registerPage(
@@ -146,7 +151,41 @@ public final class MainFrameController {
                 "Uji dialog",
                 "Dialog berhasil dibuka. Tombol OK atau Escape menutup dialog."));
 
-        navigationController.showPage(DIAGNOSTICS);
+        // Kondisi awal belum login: sesuaikan tombol navigasi
+        applyRoleNavigation(null);
+
+        navigationController.showPage(ACCOUNTS);
+    }
+
+    /**
+     * Mengatur visibilitas tombol navigasi di sidebar berdasarkan role pengguna:
+     * - Belum login: Tampilkan Diagnostik dan Login/Register; sembunyikan Customer dan Admin.
+     * - ADMIN: Tampilkan Diagnostik, Admin, Film; sembunyikan Customer.
+     * - CUSTOMER: Tampilkan Diagnostik, Customer, Film; sembunyikan Admin.
+     */
+    public void applyRoleNavigation(Role role) {
+        if (role == Role.ADMIN) {
+            view.getAccountsButton().setVisible(false);
+            view.getCustomerButton().setVisible(false);
+            view.getAdminButton().setVisible(true);
+            view.getFilmsButton().setVisible(true);
+            view.getDiagnosticsButton().setVisible(true);
+        } else if (role == Role.CUSTOMER) {
+            view.getAccountsButton().setVisible(false);
+            view.getCustomerButton().setVisible(true);
+            view.getAdminButton().setVisible(false);
+            view.getFilmsButton().setVisible(true);
+            view.getDiagnosticsButton().setVisible(true);
+        } else {
+            // Belum login
+            view.getAccountsButton().setVisible(true);
+            view.getCustomerButton().setVisible(false);
+            view.getAdminButton().setVisible(false);
+            view.getFilmsButton().setVisible(false);
+            view.getDiagnosticsButton().setVisible(true);
+        }
+        view.revalidate();
+        view.repaint();
     }
 
     private void registerPage(

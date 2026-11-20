@@ -16,12 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 /**
  * Panel Login untuk autentikasi pengguna.
- * Komponen GUI dibuat secara programmatic (tanpa NetBeans GUI Builder).
+ * Komponen GUI responsif dan ramah ukuran layar.
  */
 public final class LoginPanel extends javax.swing.JPanel {
 
@@ -41,17 +42,23 @@ public final class LoginPanel extends javax.swing.JPanel {
         setLayout(new BorderLayout());
         setBackground(SwingTheme.BACKGROUND);
 
-        // Wrapper untuk memusatkan form
         JPanel centerWrapper = new JPanel(new GridBagLayout());
         centerWrapper.setBackground(SwingTheme.BACKGROUND);
 
         JPanel formCard = buildFormCard();
         centerWrapper.add(formCard);
-        add(centerWrapper, BorderLayout.CENTER);
+
+        JScrollPane scrollPane = new JScrollPane(centerWrapper);
+        scrollPane.setBorder(null);
+        scrollPane.setBackground(SwingTheme.BACKGROUND);
+        scrollPane.getViewport().setBackground(SwingTheme.BACKGROUND);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        add(scrollPane, BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void postInit() {
-        // Post-init logic (none needed currently)
+        // Post-init logic
     }
 
     private JPanel buildFormCard() {
@@ -60,9 +67,9 @@ public final class LoginPanel extends javax.swing.JPanel {
         card.setBackground(SwingTheme.SURFACE);
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)),
-                new EmptyBorder(36, 44, 36, 44)));
-        card.setMaximumSize(new Dimension(400, Integer.MAX_VALUE));
-        card.setPreferredSize(new Dimension(380, 380));
+                new EmptyBorder(34, 40, 34, 40)));
+        card.setPreferredSize(new Dimension(400, 420));
+        card.setMaximumSize(new Dimension(440, 460));
 
         JLabel title = new JLabel("Masuk ke Akun");
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
@@ -86,20 +93,20 @@ public final class LoginPanel extends javax.swing.JPanel {
         SwingTheme.styleButton(loginButton, true);
         SwingTheme.styleButton(registerButton, false);
         loginButton.setAlignmentX(CENTER_ALIGNMENT);
-        loginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        loginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
         registerButton.setAlignmentX(CENTER_ALIGNMENT);
-        registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
 
         card.add(title);
-        card.add(Box.createVerticalStrut(6));
+        card.add(Box.createVerticalStrut(4));
         card.add(subtitle);
-        card.add(Box.createVerticalStrut(28));
+        card.add(Box.createVerticalStrut(24));
         card.add(fieldsPanel);
-        card.add(Box.createVerticalStrut(10));
+        card.add(Box.createVerticalStrut(6));
         card.add(errorLabel);
-        card.add(Box.createVerticalStrut(16));
+        card.add(Box.createVerticalStrut(14));
         card.add(loginButton);
-        card.add(Box.createVerticalStrut(10));
+        card.add(Box.createVerticalStrut(8));
         card.add(registerButton);
 
         return card;
@@ -152,7 +159,7 @@ public final class LoginPanel extends javax.swing.JPanel {
         field.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)),
                 new EmptyBorder(8, 10, 8, 10)));
-        field.setPreferredSize(new Dimension(280, 42));
+        field.setPreferredSize(new Dimension(280, 40));
     }
 
     // ── Getters untuk Controller ──────────────────────────────────────────────

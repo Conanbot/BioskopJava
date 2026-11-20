@@ -26,7 +26,7 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("Registrasi dengan data valid berhasil dan password ter-hash")
+    @DisplayName("Registrasi dengan data valid berhasil dan password tersimpan")
     void testRegisterValidSuccess() throws Exception {
         User user = authService.register("newuser", "password123", "password123");
 
@@ -34,8 +34,7 @@ class AuthServiceTest {
         assertEquals("newuser", user.getUsername());
         assertEquals(Role.CUSTOMER, user.getRole());
         assertNotNull(fakeUserDao.savedHash);
-        assertNotEquals("password123", fakeUserDao.savedHash);
-        assertTrue(org.mindrot.jbcrypt.BCrypt.checkpw("password123", fakeUserDao.savedHash));
+        assertEquals("password123", fakeUserDao.savedHash);
     }
 
     @Test

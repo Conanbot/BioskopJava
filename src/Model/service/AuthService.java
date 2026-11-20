@@ -5,24 +5,14 @@ import Model.entity.User;
 import Model.enums.Role;
 import Model.exception.ValidationException;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import java.sql.SQLException;
 import java.util.Optional;
 
 /**
  * Service untuk autentikasi pengguna: login dan registrasi.
- *
- * <p>Ketentuan keamanan:
- * <ul>
- *   <li>Password di-hash menggunakan BCrypt sebelum disimpan.</li>
- *   <li>Password asli tidak pernah disimpan atau dicatat di log.</li>
- *   <li>Registrasi publik hanya membuat akun CUSTOMER.</li>
- *   <li>Admin hanya dibuat melalui database/seed.sql.</li>
- * </ul>
+ * Sesuai materi dasar OOP & database (password disimpan langsung/tanpa enkripsi tambahan).
  */
 public class AuthService {
-    private static final int BCRYPT_LOG_ROUNDS = 12;
     private static final int MIN_PASSWORD_LENGTH = 6;
     private static final int MAX_USERNAME_LENGTH = 50;
 
@@ -67,13 +57,8 @@ public class AuthService {
         }
 
         UserDao.UserCredential cred = credential.get();
-        boolean passwordMatches;
-        try {
-            passwordMatches = BCrypt.checkpw(rawPassword, cred.passwordHash());
-        } catch (IllegalArgumentException e) {
-            // Hash tidak valid di database
-            throw new AuthenticationException("Username atau password salah.");
-        }
+        // Cek kecocokan password secara langsung (tanpa enkripsi)
+        boolean passwordMatches = rawPassword.equals(cred.passwordHash());
 
         if (!passwordMatches) {
             throw new AuthenticationException("Username atau password salah.");
@@ -101,18 +86,18 @@ public class AuthService {
             throw new ValidationException("Username '" + trimmedUsername + "' sudah digunakan. Pilih username lain.");
         }
 
-        String passwordHash = BCrypt.hashpw(rawPassword, BCrypt.gensalt(BCRYPT_LOG_ROUNDS));
+        String passwordHash = rawPassword;
         return userDao.insertCustomer(trimmedUsername, passwordHash);
     }
 
     /**
-     * Menghasilkan BCrypt hash dari password. Digunakan untuk seed admin.
+     * Menghasilkan hash atau menyimpan string password.
      */
     public static String hashPassword(String rawPassword) {
         if (rawPassword == null || rawPassword.isEmpty()) {
             throw new IllegalArgumentException("Password tidak boleh kosong.");
         }
-        return BCrypt.hashpw(rawPassword, BCrypt.gensalt(BCRYPT_LOG_ROUNDS));
+        return rawPassword;
     }
 
     private void validateRegistrationInput(String username, String rawPassword, String confirmPassword)

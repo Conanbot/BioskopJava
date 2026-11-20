@@ -30,9 +30,10 @@ public final class DBConnection {
 
     public Connection getConnection() throws SQLException {
         Properties properties = loadProperties();
-        String url = getSetting(properties, "db.url", "BIOSKOP_DB_URL", false);
-        String username = getSetting(properties, "db.username", "BIOSKOP_DB_USERNAME", false);
-        String password = getSetting(properties, "db.password", "BIOSKOP_DB_PASSWORD", true);
+        String url = getSetting(properties, "db.url", "BIOSKOP_DB_URL",
+                "jdbc:mysql://localhost:3306/bioskop_db?serverTimezone=Asia/Jakarta&useSSL=false&allowPublicKeyRetrieval=true", false);
+        String username = getSetting(properties, "db.username", "BIOSKOP_DB_USERNAME", "root", false);
+        String password = getSetting(properties, "db.password", "BIOSKOP_DB_PASSWORD", "", true);
 
         try {
             return DriverManager.getConnection(url, username, password);
@@ -103,16 +104,13 @@ public final class DBConnection {
         return properties;
     }
 
-    private String getSetting(Properties properties, String propertyName, String environmentName, boolean allowEmpty)
-            throws SQLException {
+    private String getSetting(Properties properties, String propertyName, String environmentName, String defaultValue, boolean allowEmpty) {
         String value = System.getenv(environmentName);
         if (value == null) {
             value = properties.getProperty(propertyName);
         }
         if (value == null || (!allowEmpty && value.isBlank())) {
-            throw new SQLException(
-                    "Konfigurasi " + propertyName + " belum diisi. Atur " + environmentName
-                            + " atau salin config.properties.example menjadi config.properties.");
+            return defaultValue;
         }
         return value.trim();
     }

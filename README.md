@@ -38,37 +38,16 @@ The Swing interface is built entirely in standard programmatic Java without depe
 
 `DBConnection` acts as a connection manager; each invocation of `getConnection()` opens a new `Connection` that should be closed by the caller using try-with-resources.
 
-## Admin Provisioning (BCrypt)
+## Admin Provisioning
 
-Akun Administrator dibuat secara aman menggunakan BCrypt hashing (tanpa plaintext password di repository atau SQL script). Mekanisme ini bersifat idempoten (dapat dijalankan berulang tanpa membuat akun duplikat).
+Akun Administrator dibuat secara langsung pada database (menggunakan username dan password teks biasa sesuai materi pembelajaran PBO). Mekanisme ini bersifat idempoten (dapat dijalankan berulang tanpa membuat akun duplikat).
 
-### Opsi 1: Melalui Maven / Java CLI (Disarankan)
+### Opsi 1: Melalui database/seed.sql (Paling Mudah)
 
-1. Atur password admin melalui environment variable atau file `config.properties`:
-   - Environment variable:
-     ```bash
-     export BIOSKOP_ADMIN_PASSWORD="AdminSecurePassword123"
-     ```
-   - Atau di `config.properties`:
-     ```properties
-     admin.username=admin
-     admin.password=AdminSecurePassword123
-     ```
-2. Jalankan provisioning service:
-   ```bash
-   mvn exec:java -Dexec.mainClass="Model.service.AdminProvisioningService"
-   ```
-   *Jika password tidak dikonfigurasi dan terminal interaktif terdeteksi, service akan meminta input password secara aman via console prompt.*
-
-### Opsi 2: Melalui MySQL CLI / Session Variable
-
-Jika menjalankan `database/seed.sql` secara manual di MySQL client, set hash BCrypt terlebih dahulu pada session:
-```sql
-USE bioskop_db;
-SET @admin_username = 'admin';
-SET @admin_password_hash = '$2a$12$...'; -- Hash BCrypt dari AuthService
-SOURCE database/seed.sql;
-```
+Cukup import file `database/seed.sql` melalui phpMyAdmin atau MySQL CLI. Akun default telah disediakan:
+- **Admin**: `admin` / `admin`
+- **Customer**: `user` / `user123`
+- **Customer**: `dava` / `dava123`
 
 ## Running the Application
 
@@ -110,9 +89,9 @@ Test suite mencakup pengujian unit dan validasi domain (44 test cases):
 1. **Model.ScheduleConflictValidationTest**: Validasi konflik jadwal berbasis interval waktu penayangan film (`existing_start < new_end AND existing_end > new_start`), jadwal berurutan tanpa konflik, jadwal studio berbeda, tanggal berbeda, update jadwal tanpa false conflict, serta variasi durasi film.
 2. **Model.StudioCapacityConsistencyTest**: Validasi pencegahan pengubahan dimensi studio yang sudah digunakan jadwal, izin pengubahan untuk studio belum digunakan, sinkronisasi `total_seats` dan `available_seats`, serta pencegahan penurunan kapasitas di bawah kursi yang telah dipesan.
 3. **Model.ScheduleDeletionValidationTest**: Validasi proteksi integritas FK; pemblokiran penghapusan jadwal yang memiliki riwayat booking dalam status apa pun (`ACTIVE`, `CANCELLED`, `REFUNDED`), dan keberhasilan penghapusan jadwal tanpa transaksi.
-4. **Model.AdminProvisioningTest**: Pembuatan akun admin dengan BCrypt hash, verifikasi password BCrypt, sifat idempoten provisioning berulang, dan validasi kredensial.
+4. **Model.AdminProvisioningTest**: Pembuatan akun admin, verifikasi password, sifat idempoten provisioning berulang, dan validasi kredensial.
 5. **Model.DashboardSummaryTest**: Validasi kelengkapan 4 metrik dashboard admin (Total Film, Total Jadwal Hari Ini, Total Booking, Total Pendapatan) dan validasi non-negatif.
-6. **Model.service.AuthServiceTest**: Validasi registrasi customer, enkripsi password, dan verifikasi login admin/customer.
+6. **Model.service.AuthServiceTest**: Validasi registrasi customer, penyimpanan password, dan verifikasi login admin/customer.
 7. **Controler.SessionManagerTest**: Manajemen sesi login/logout dan otorisasi role.
 8. **Model.entity.StudioScheduleModelTest**: Validasi domain entity Studio dan Schedule.
 9. **Model.integration.MySqlIntegrationTest**: Pengujian konektivitas live database MySQL (secara aman di-skip jika MySQL server lokal tidak aktif).

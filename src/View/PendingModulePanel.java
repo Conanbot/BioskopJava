@@ -13,7 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-public final class PendingModulePanel extends JPanel {
+public final class PendingModulePanel extends javax.swing.JPanel {
+
+    /**
+     * Default constructor for NetBeans GUI Builder Design tab.
+     */
+    public PendingModulePanel() {
+        this("Module", "Owner", List.of("Part"));
+    }
+
     public PendingModulePanel(String moduleTitle, String owner, List<String> pendingParts) {
         Objects.requireNonNull(moduleTitle, "Judul modul wajib diisi.");
         Objects.requireNonNull(owner, "Pemilik modul wajib diisi.");
@@ -22,43 +30,76 @@ public final class PendingModulePanel extends JPanel {
             throw new IllegalArgumentException("Informasi placeholder modul wajib lengkap.");
         }
 
+        this.moduleTitleText = moduleTitle;
+        this.ownerText = owner;
+        this.pendingPartsData = pendingParts;
+
+        initComponents();
+        postInit(moduleTitle, owner, pendingParts);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        headingPanel = new JPanel(new BorderLayout(0, 8));
+        titleLabel = new JLabel();
+        statusLabel = new JLabel();
+        detailsArea = new JTextArea();
+        noticeLabel = new JLabel();
+
         setLayout(new BorderLayout(0, 16));
         setBackground(SwingTheme.SURFACE);
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)),
                 new EmptyBorder(24, 26, 24, 26)));
 
-        JLabel title = new JLabel(moduleTitle);
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
-        title.setForeground(SwingTheme.TEXT);
-        JLabel status = new JLabel("Menunggu source dari " + owner);
-        status.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-        status.setForeground(SwingTheme.GOLD);
+        headingPanel.setOpaque(false);
+        headingPanel.add(titleLabel, BorderLayout.NORTH);
+        headingPanel.add(statusLabel, BorderLayout.CENTER);
+        add(headingPanel, BorderLayout.NORTH);
 
-        JTextArea details = new JTextArea(String.join("\n", pendingParts));
-        details.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
-        details.setForeground(SwingTheme.MUTED_TEXT);
-        details.setBackground(SwingTheme.SURFACE);
-        details.setLineWrap(true);
-        details.setWrapStyleWord(true);
-        details.setEditable(false);
-        details.setFocusable(false);
-        details.setRows(Math.max(4, pendingParts.size()));
+        detailsArea.setLineWrap(true);
+        detailsArea.setWrapStyleWord(true);
+        detailsArea.setEditable(false);
+        detailsArea.setFocusable(false);
+        add(detailsArea, BorderLayout.CENTER);
 
-        JLabel notice = new JLabel(
+        add(noticeLabel, BorderLayout.SOUTH);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void postInit(String moduleTitle, String owner, List<String> pendingParts) {
+        titleLabel.setText(moduleTitle);
+        titleLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+        titleLabel.setForeground(SwingTheme.TEXT);
+
+        statusLabel.setText("Menunggu source dari " + owner);
+        statusLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        statusLabel.setForeground(SwingTheme.GOLD);
+
+        detailsArea.setText(String.join("\n", pendingParts));
+        detailsArea.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        detailsArea.setForeground(SwingTheme.MUTED_TEXT);
+        detailsArea.setBackground(SwingTheme.SURFACE);
+        detailsArea.setRows(Math.max(4, pendingParts.size()));
+
+        noticeLabel.setText(
                 "<html>Belum ada implementasi yang dijalankan pada halaman ini. "
                 + "Fungsinya akan tersedia setelah source pemilik modul diintegrasikan.</html>");
-        notice.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
-        notice.setForeground(SwingTheme.MUTED_TEXT);
-
-        JPanel heading = new JPanel(new BorderLayout(0, 8));
-        heading.setOpaque(false);
-        heading.add(title, BorderLayout.NORTH);
-        heading.add(status, BorderLayout.CENTER);
-        add(heading, BorderLayout.NORTH);
-        add(details, BorderLayout.CENTER);
-        add(notice, BorderLayout.SOUTH);
+        noticeLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        noticeLabel.setForeground(SwingTheme.MUTED_TEXT);
 
         // TODO: Replace this placeholder with its owner's real Swing view and controller.
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JPanel headingPanel;
+    private JLabel titleLabel;
+    private JLabel statusLabel;
+    private JTextArea detailsArea;
+    private JLabel noticeLabel;
+    // End of variables declaration//GEN-END:variables
+
+    // ── Internal state (not GUI components) ──────────────────────────────────
+    private final String moduleTitleText;
+    private final String ownerText;
+    private final List<String> pendingPartsData;
 }

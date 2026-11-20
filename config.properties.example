@@ -1,19 +1,19 @@
 # Konfigurasi database untuk Sistem Booking Tiket Bioskop
 # Salin file ini menjadi config.properties dan isi nilainya.
-# File config.properties diabaikan oleh Git.
+# File config.properties diabaikan oleh Git (.gitignore).
 
 # URL koneksi MySQL (format: jdbc:mysql://host:port/nama_database)
 # Pastikan database bioskop_db sudah dibuat dari database/schema.sql
 db.url=jdbc:mysql://localhost:3306/bioskop_db?serverTimezone=Asia/Jakarta
 
-# Username MySQL (CATATAN: password tidak boleh kosong, buat user khusus jika pakai root tanpa password)
+# Username MySQL (default XAMPP/Laragon biasanya 'root')
 # Contoh buat user khusus via MySQL CLI:
 #   CREATE USER 'bioskop_app'@'localhost' IDENTIFIED BY 'PasswordAnda';
 #   GRANT ALL PRIVILEGES ON bioskop_db.* TO 'bioskop_app'@'localhost';
-db.username=bioskop_app
+db.username=root
 
-# Password MySQL (wajib diisi, tidak boleh kosong)
-db.password=PasswordAnda
+# Password MySQL (kosongkan jika menggunakan root tanpa password pada XAMPP/Laragon)
+db.password=
 
 # Kredensial Admin untuk initial provisioning (opsional, dibaca oleh AdminProvisioningService)
 # Jalankan: java -cp "target/classes;..." Model.service.AdminProvisioningService admin <password>

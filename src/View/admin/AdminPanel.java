@@ -20,31 +20,39 @@ import javax.swing.border.EmptyBorder;
  * Panel induk untuk modul Admin. Berisi navigasi samping dan CardLayout untuk sub-panel.
  * Sub-panel: Dashboard, Studio, Jadwal, Cancel/Refund Booking.
  */
-public final class AdminPanel extends JPanel {
+public class AdminPanel extends javax.swing.JPanel {
     public static final String CARD_DASHBOARD = "dashboard";
     public static final String CARD_STUDIO = "studio";
     public static final String CARD_SCHEDULE = "schedule";
     public static final String CARD_CANCEL_REFUND = "cancelrefund";
 
-    private final CardLayout innerCardLayout = new CardLayout();
-    private final JPanel innerCards = new JPanel(innerCardLayout);
-
-    private final AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
-    private final StudioManagementPanel studioPanel = new StudioManagementPanel();
-    private final ScheduleManagementPanel schedulePanel = new ScheduleManagementPanel();
-    private final AdminCancelRefundPanel cancelRefundPanel = new AdminCancelRefundPanel();
-
-    private final JButton dashboardButton = createNavBtn("Dashboard");
-    private final JButton studioButton = createNavBtn("Studio");
-    private final JButton scheduleButton = createNavBtn("Jadwal Tayang");
-    private final JButton cancelRefundButton = createNavBtn("Batalkan / Refund");
-    private final JButton logoutButton = createNavBtn("Logout");
-
-    private final JLabel usernameLabel = new JLabel();
+    private CardLayout innerCardLayout;
 
     public AdminPanel() {
+        initComponents();
+        postInit();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        innerCardLayout = new CardLayout();
+        innerCards = new JPanel(innerCardLayout);
+        sidebarPanel = new JPanel();
+
+        dashboardPanel = new AdminDashboardPanel();
+        studioPanel = new StudioManagementPanel();
+        schedulePanel = new ScheduleManagementPanel();
+        cancelRefundPanel = new AdminCancelRefundPanel();
+
+        dashboardButton = createNavBtn("Dashboard");
+        studioButton = createNavBtn("Studio");
+        scheduleButton = createNavBtn("Jadwal Tayang");
+        cancelRefundButton = createNavBtn("Batalkan / Refund");
+        logoutButton = createNavBtn("Logout");
+
+        usernameLabel = new JLabel();
+
         setLayout(new BorderLayout());
-        setBackground(SwingTheme.BACKGROUND);
 
         innerCards.setBackground(SwingTheme.BACKGROUND);
         innerCards.add(dashboardPanel, CARD_DASHBOARD);
@@ -54,7 +62,10 @@ public final class AdminPanel extends JPanel {
 
         add(buildSidebar(), BorderLayout.WEST);
         add(innerCards, BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
 
+    private void postInit() {
+        setBackground(SwingTheme.BACKGROUND);
         showDashboard();
     }
 
@@ -78,11 +89,6 @@ public final class AdminPanel extends JPanel {
         menuLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 11));
         menuLabel.setForeground(SwingTheme.MUTED_TEXT);
         menuLabel.setAlignmentX(LEFT_ALIGNMENT);
-
-        addSidebarBtn(sidebar, dashboardButton);
-        addSidebarBtn(sidebar, studioButton);
-        addSidebarBtn(sidebar, scheduleButton);
-        addSidebarBtn(sidebar, cancelRefundButton);
 
         sidebar.add(adminTitle);
         sidebar.add(Box.createVerticalStrut(2));
@@ -181,4 +187,19 @@ public final class AdminPanel extends JPanel {
     public JButton getLogoutButton() {
         return logoutButton;
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelRefundButton;
+    private javax.swing.JButton dashboardButton;
+    private AdminDashboardPanel dashboardPanel;
+    private javax.swing.JPanel innerCards;
+    private javax.swing.JButton logoutButton;
+    private AdminCancelRefundPanel cancelRefundPanel;
+    private ScheduleManagementPanel schedulePanel;
+    private javax.swing.JButton scheduleButton;
+    private javax.swing.JPanel sidebarPanel;
+    private StudioManagementPanel studioPanel;
+    private javax.swing.JButton studioButton;
+    private javax.swing.JLabel usernameLabel;
+    // End of variables declaration//GEN-END:variables
 }

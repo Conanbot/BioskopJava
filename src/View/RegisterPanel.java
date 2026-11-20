@@ -23,16 +23,23 @@ import javax.swing.border.EmptyBorder;
  * Panel Register untuk pendaftaran akun Customer baru.
  * Registrasi publik hanya membuat akun CUSTOMER — tidak ada pilihan role Admin.
  */
-public final class RegisterPanel extends JPanel {
-    private final JTextField usernameField = new JTextField(20);
-    private final JPasswordField passwordField = new JPasswordField(20);
-    private final JPasswordField confirmPasswordField = new JPasswordField(20);
-    private final JButton registerButton = new JButton("Daftar");
-    private final JButton backToLoginButton = new JButton("Kembali ke Login");
-    private final JLabel errorLabel = new JLabel(" ");
-    private final JLabel successLabel = new JLabel(" ");
+public final class RegisterPanel extends javax.swing.JPanel {
 
     public RegisterPanel() {
+        initComponents();
+        postInit();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        usernameField = new JTextField(20);
+        passwordField = new JPasswordField(20);
+        confirmPasswordField = new JPasswordField(20);
+        registerButton = new JButton("Daftar");
+        backToLoginButton = new JButton("Kembali ke Login");
+        errorLabel = new JLabel(" ");
+        successLabel = new JLabel(" ");
+
         setLayout(new BorderLayout());
         setBackground(SwingTheme.BACKGROUND);
 
@@ -42,6 +49,10 @@ public final class RegisterPanel extends JPanel {
         JPanel formCard = buildFormCard();
         centerWrapper.add(formCard);
         add(centerWrapper, BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void postInit() {
+        // Post-init logic (none needed currently)
     }
 
     private JPanel buildFormCard() {
@@ -208,4 +219,14 @@ public final class RegisterPanel extends JPanel {
         passwordField.setEnabled(enabled);
         confirmPasswordField.setEnabled(enabled);
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JPasswordField confirmPasswordField;
+    private JButton registerButton;
+    private JButton backToLoginButton;
+    private JLabel errorLabel;
+    private JLabel successLabel;
+    // End of variables declaration//GEN-END:variables
 }

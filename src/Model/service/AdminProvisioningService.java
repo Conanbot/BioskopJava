@@ -15,7 +15,7 @@ import java.util.Properties;
  * Service untuk provisioning akun Admin secara aman.
  * <p>
  * Menjamin:
- * 1. Password disimpan ke database.
+ * 1. Password di-hash menggunakan BCrypt sebelum disimpan ke database.
  * 2. Tidak ada plaintext password yang tertanam di source code atau SQL seed.
  * 3. Proses bersifat idempoten (dapat dijalankan berulang tanpa duplikasi akun).
  * 4. Mendukung konfigurasi via environment variable, config.properties, atau CLI.
@@ -40,7 +40,7 @@ public class AdminProvisioningService {
     }
 
     /**
-     * Membuat akun Admin baru jika belum ada.
+     * Membuat akun Admin baru dengan password ter-hash BCrypt jika belum ada.
      *
      * @param username username admin (minimal 1 karakter, maksimal 50)
      * @param rawPassword password mentah admin (minimal 6 karakter)
@@ -156,7 +156,7 @@ public class AdminProvisioningService {
             }
 
             switch (status) {
-                case SUCCESS -> System.out.println("Akun Admin berhasil dibuat.");
+                case SUCCESS -> System.out.println("Akun Admin berhasil dibuat dengan BCrypt hash.");
                 case ALREADY_EXISTS -> System.out.println("Akun Admin sudah ada di database. Tidak ada perubahan dilakukan.");
                 case SKIPPED_NO_CONFIG -> System.out.println("Provisioning dilewati: konfigurasi password tidak ditemukan.");
             }

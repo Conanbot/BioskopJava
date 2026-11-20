@@ -91,7 +91,7 @@ public class AuthService {
     }
 
     /**
-     * Menghasilkan hash atau menyimpan string password.
+     * Menghasilkan atau mengembalikan string password.
      */
     public static String hashPassword(String rawPassword) {
         if (rawPassword == null || rawPassword.isEmpty()) {

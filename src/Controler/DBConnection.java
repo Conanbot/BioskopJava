@@ -42,7 +42,7 @@ public final class DBConnection {
             String sqlState = ex.getSQLState();
             if (errorCode == 1045 || "28000".equals(sqlState)) {
                 throw new SQLException("Autentikasi MySQL gagal untuk user '" + username
-                        + "'. Periksa username dan password pada config.properties.", ex);
+                        + "'. Periksa username dan password pada database MySQL Anda.", ex);
             } else if (errorCode == 1049 || "42000".equals(sqlState)) {
                 throw new SQLException("Database pada URL belum dibuat. Jalankan database/schema.sql pada MySQL.", ex);
             } else if ("08S01".equals(sqlState) || "08001".equals(sqlState)

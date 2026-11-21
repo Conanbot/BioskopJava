@@ -1,9 +1,10 @@
-package Model.service;
+package Model;
 
 import Model.dao.UserDao;
 import Model.entity.User;
 import Model.enums.Role;
 import Model.exception.ValidationException;
+import Model.service.AuthService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

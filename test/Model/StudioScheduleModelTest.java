@@ -1,5 +1,7 @@
-package Model.entity;
+package Model;
 
+import Model.entity.Schedule;
+import Model.entity.Studio;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

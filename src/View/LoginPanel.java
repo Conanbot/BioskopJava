@@ -167,6 +167,7 @@ public final class LoginPanel extends javax.swing.JPanel {
     private void postInit() {
         scrollPane.getViewport().setBackground(SwingTheme.BACKGROUND);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        fieldsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 175));
 
         SwingTheme.styleButton(loginButton, true);
         SwingTheme.styleButton(registerButton, false);

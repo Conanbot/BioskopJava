@@ -12,6 +12,7 @@ import View.AccountsPanel;
 import View.MainFrame;
 import View.admin.AdminPanel;
 import View.customer.CustomerPanel;
+import View.theme.SwingTheme;
 
 import java.awt.CardLayout;
 import java.sql.SQLException;
@@ -94,6 +95,9 @@ public final class MainFrameController {
         );
 
         registerPage(ADMIN, adminPanel);
+
+        // Terapkan font Inter statis (Regular/Bold/Italic) ke seluruh komponen tampilan
+        SwingTheme.applyInterFont(view);
 
         // Cek koneksi database di background dan tampilkan hasilnya di terminal
         checkDatabaseConnectionInTerminal(new DatabaseHealthService());

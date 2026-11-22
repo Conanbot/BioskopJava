@@ -202,6 +202,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
     private void postInit() {
         scrollPane.getViewport().setBackground(SwingTheme.BACKGROUND);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        fieldsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
 
         SwingTheme.styleButton(registerButton, true);
         SwingTheme.styleButton(backToLoginButton, false);

@@ -51,8 +51,8 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistem Booking Bioskop");
         setBackground(new java.awt.Color(23, 25, 27));
-        setMinimumSize(new java.awt.Dimension(760, 500));
-        setPreferredSize(new java.awt.Dimension(900, 560));
+        setMinimumSize(new java.awt.Dimension(860, 560));
+        setPreferredSize(new java.awt.Dimension(1040, 660));
 
         workspacePanel.setBackground(new java.awt.Color(23, 25, 27));
         workspacePanel.setLayout(new java.awt.BorderLayout());

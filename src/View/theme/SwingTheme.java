@@ -1,17 +1,24 @@
 package View.theme;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
@@ -19,7 +26,16 @@ import javax.swing.border.Border;
 import javax.swing.plaf.FontUIResource;
 
 public final class SwingTheme {
-    public static final String FONT_FAMILY = "Inter";
+    private static final String[] BUNDLED_INTER_FONTS = {
+            "/resources/fonts/Inter_18pt-Regular.ttf",
+            "/resources/fonts/Inter_18pt-Bold.ttf",
+            "/resources/fonts/Inter_18pt-Italic.ttf",
+            "/resources/fonts/Inter_18pt-BoldItalic.ttf"
+    };
+
+    private static volatile String activeFontFamily = "Inter";
+    private static volatile boolean fontsLoaded = false;
+
     public static final Color BACKGROUND = ColorPalette.BACKGROUND;
     public static final Color SURFACE = ColorPalette.SURFACE;
     public static final Color TEXT = ColorPalette.TEXT;
@@ -32,7 +48,8 @@ public final class SwingTheme {
     }
 
     public static void install() {
-        installGlobalFont(FONT_FAMILY);
+        loadBundledFonts();
+        installGlobalFont(activeFontFamily);
         UIManager.put("OptionPane.background", SURFACE);
         UIManager.put("OptionPane.messageForeground", TEXT);
         UIManager.put("Panel.background", SURFACE);
@@ -41,8 +58,66 @@ public final class SwingTheme {
         UIManager.put("Button.focus", FOCUS);
         UIManager.put("Button.disabledText", TEXT);
         UIManager.put("Label.foreground", TEXT);
-        UIManager.put("OptionPane.buttonFont", new Font(FONT_FAMILY, Font.BOLD, 14));
-        UIManager.put("OptionPane.messageFont", new Font(FONT_FAMILY, Font.PLAIN, 14));
+        UIManager.put("OptionPane.buttonFont", font(Font.BOLD, 14));
+        UIManager.put("OptionPane.messageFont", font(Font.PLAIN, 14));
+    }
+
+    public static String getFontFamily() {
+        loadBundledFonts();
+        return activeFontFamily;
+    }
+
+    public static Font font(int style, int size) {
+        return new Font(getFontFamily(), style, size);
+    }
+
+    public static void applyInterFont(Component root) {
+        if (root == null) {
+            return;
+        }
+        String family = getFontFamily();
+        Font current = root.getFont();
+        if (current != null) {
+            root.setFont(new Font(family, current.getStyle(), current.getSize()));
+        }
+        if (root instanceof JTable table && table.getTableHeader() != null) {
+            Font headerFont = table.getTableHeader().getFont();
+            if (headerFont != null) {
+                table.getTableHeader().setFont(
+                        new Font(family, headerFont.getStyle(), headerFont.getSize()));
+            }
+        }
+        if (root instanceof Container container) {
+            for (Component child : container.getComponents()) {
+                applyInterFont(child);
+            }
+        }
+    }
+
+    private static synchronized void loadBundledFonts() {
+        if (fontsLoaded) {
+            return;
+        }
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String registeredFamily = null;
+        for (String resourcePath : BUNDLED_INTER_FONTS) {
+            try (InputStream stream = SwingTheme.class.getResourceAsStream(resourcePath)) {
+                if (stream == null) {
+                    continue;
+                }
+                Font loaded = Font.createFont(Font.TRUETYPE_FONT, stream);
+                ge.registerFont(loaded);
+                if (registeredFamily == null) {
+                    registeredFamily = loaded.getFamily();
+                }
+            } catch (FontFormatException | IOException ignored) {
+                // Fallback to system font if bundled resource cannot be loaded
+            }
+        }
+        if (registeredFamily != null && !registeredFamily.isBlank()) {
+            activeFontFamily = registeredFamily;
+        }
+        fontsLoaded = true;
     }
 
     private static void installGlobalFont(String fontFamily) {
@@ -72,7 +147,7 @@ public final class SwingTheme {
                         BorderFactory.createLineBorder(primary ? BACKGROUND : FOCUS),
                         BorderFactory.createEmptyBorder(7, 14, 7, 14)));
 
-        button.setFont(new Font(FONT_FAMILY, Font.BOLD, 14));
+        button.setFont(font(Font.BOLD, 14));
         button.setForeground(foreground);
         button.setBackground(background);
         button.setOpaque(true);
@@ -81,8 +156,8 @@ public final class SwingTheme {
         button.setFocusPainted(false);
         button.setBorder(normalBorder);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.setMinimumSize(new Dimension(120, 44));
-        button.setPreferredSize(new Dimension(210, 46));
+        button.setMinimumSize(new Dimension(100, 40));
+        button.setPreferredSize(new Dimension(160, 42));
         button.addPropertyChangeListener("enabled", event -> {
             button.setBackground(button.isEnabled() ? background : ColorPalette.DISABLED);
             button.setForeground(button.isEnabled() ? foreground : TEXT);
@@ -133,15 +208,15 @@ public final class SwingTheme {
     }
 
     public static void styleNavigationButton(JButton button) {
-        button.setFont(new Font(FONT_FAMILY, Font.BOLD, 14));
+        button.setFont(font(Font.BOLD, 14));
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setOpaque(true);
         button.setContentAreaFilled(true);
         button.setBorderPainted(true);
         button.setFocusPainted(false);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.setMinimumSize(new Dimension(180, 44));
-        button.setPreferredSize(new Dimension(190, 46));
+        button.setMinimumSize(new Dimension(160, 42));
+        button.setPreferredSize(new Dimension(170, 42));
         button.setBorder(navigationBorder(false));
         setNavigationActive(button, false);
         button.addPropertyChangeListener("enabled", event -> {

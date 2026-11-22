@@ -8,32 +8,24 @@ import Model.entity.User;
 import View.theme.SwingTheme;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 
 /**
  * Panel Layanan Customer yang terintegrasi di dalam MainFrame.
- * Menggantikan placeholder "Menunggu source dari Dava".
  * Menyediakan integrasi langsung ke JFrame Portal Customer.
  */
 public class CustomerPanel extends javax.swing.JPanel {
 
     private final FilmDao filmDao = new FilmDao();
     private Runnable onLogout;
-    private JLabel userGreetingLabel;
 
     public CustomerPanel() {
         initComponents();
@@ -50,86 +42,108 @@ public class CustomerPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         headerCard = new javax.swing.JPanel();
+        textPanel = new javax.swing.JPanel();
+        titleLabel = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 4), new java.awt.Dimension(0, 4), new java.awt.Dimension(0, 4));
+        subtitleLabel = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 2), new java.awt.Dimension(0, 2), new java.awt.Dimension(0, 2));
+        userGreetingLabel = new javax.swing.JLabel();
+        actionsPanel = new javax.swing.JPanel();
+        launchFrameButton = new javax.swing.JButton();
+        historyButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
         filmsScrollPane = new javax.swing.JScrollPane();
         filmsPreviewGrid = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(18, 19, 22));
-        setLayout(new java.awt.BorderLayout());
+        setPreferredSize(new java.awt.Dimension(860, 540));
+        setLayout(new java.awt.BorderLayout(0, 16));
 
-        headerCard.setOpaque(false);
-        headerCard.setPreferredSize(new java.awt.Dimension(0, 80));
+        headerCard.setBackground(new java.awt.Color(28, 30, 35));
+        headerCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(45, 50, 58)), javax.swing.BorderFactory.createEmptyBorder(14, 16, 14, 16)));
+        headerCard.setPreferredSize(new java.awt.Dimension(0, 96));
         headerCard.setLayout(new java.awt.BorderLayout());
+
+        textPanel.setOpaque(false);
+        textPanel.setLayout(new javax.swing.BoxLayout(textPanel, javax.swing.BoxLayout.Y_AXIS));
+
+        titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(229, 179, 58));
+        titleLabel.setText("Layanan Customer - Bioskop Nusantara");
+        textPanel.add(titleLabel);
+        textPanel.add(filler1);
+
+        subtitleLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        subtitleLabel.setForeground(new java.awt.Color(149, 157, 165));
+        subtitleLabel.setText("Modul Lengkap: Customer Home • Film Detail • Seat Map • Payment • E-Ticket • Riwayat");
+        textPanel.add(subtitleLabel);
+        textPanel.add(filler2);
+
+        userGreetingLabel.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        userGreetingLabel.setForeground(new java.awt.Color(229, 179, 58));
+        userGreetingLabel.setText("Status: Belum login");
+        textPanel.add(userGreetingLabel);
+
+        headerCard.add(textPanel, java.awt.BorderLayout.CENTER);
+
+        actionsPanel.setOpaque(false);
+        actionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 6));
+
+        launchFrameButton.setBackground(new java.awt.Color(229, 179, 58));
+        launchFrameButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        launchFrameButton.setForeground(new java.awt.Color(18, 19, 22));
+        launchFrameButton.setText("Buka Portal Customer");
+        launchFrameButton.setPreferredSize(new java.awt.Dimension(200, 42));
+        actionsPanel.add(launchFrameButton);
+
+        historyButton.setBackground(new java.awt.Color(35, 38, 41));
+        historyButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        historyButton.setForeground(new java.awt.Color(245, 241, 232));
+        historyButton.setText("Riwayat Tiket");
+        actionsPanel.add(historyButton);
+
+        logoutButton.setBackground(new java.awt.Color(35, 38, 41));
+        logoutButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        logoutButton.setForeground(new java.awt.Color(245, 241, 232));
+        logoutButton.setText("Logout");
+        actionsPanel.add(logoutButton);
+
+        headerCard.add(actionsPanel, java.awt.BorderLayout.EAST);
+
         add(headerCard, java.awt.BorderLayout.NORTH);
 
-        filmsPreviewGrid.setOpaque(false);
+        filmsScrollPane.setBorder(null);
+
+        filmsPreviewGrid.setBackground(new java.awt.Color(18, 19, 22));
         filmsPreviewGrid.setLayout(new java.awt.GridLayout(0, 2, 14, 14));
         filmsScrollPane.setViewportView(filmsPreviewGrid);
 
         add(filmsScrollPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel filmsPreviewGrid;
-    private javax.swing.JScrollPane filmsScrollPane;
-    private javax.swing.JPanel headerCard;
-    // End of variables declaration//GEN-END:variables
-
     private void postInit() {
-        // Styling headerCard dengan tema bioskop
-        headerCard.setBackground(BaseCinemaFrame.CINEMA_CARD);
-        headerCard.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(45, 50, 58), 1),
-                new EmptyBorder(14, 16, 14, 16)
-        ));
-        headerCard.setOpaque(true);
+        SwingTheme.styleButton(launchFrameButton, true);
+        launchFrameButton.setPreferredSize(new Dimension(195, 40));
+        SwingTheme.styleButton(historyButton, false);
+        historyButton.setPreferredSize(new Dimension(135, 40));
+        SwingTheme.styleButton(logoutButton, false);
+        logoutButton.setPreferredSize(new Dimension(95, 40));
 
-        JPanel textPanel = new JPanel();
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-        textPanel.setOpaque(false);
-
-        JLabel title = new JLabel("Layanan Customer - Bioskop Nusantara");
-        title.setFont(new Font("Inter", Font.BOLD, 18));
-        title.setForeground(BaseCinemaFrame.CINEMA_GOLD);
-
-        JLabel subtitle = new JLabel("Modul Lengkap: Customer Home • Film Detail • Seat Map • Payment • E-Ticket • Riwayat");
-        subtitle.setFont(new Font("Inter", Font.PLAIN, 12));
-        subtitle.setForeground(BaseCinemaFrame.CINEMA_MUTED);
-
-        userGreetingLabel = new JLabel("Status: Belum login");
-        userGreetingLabel.setFont(new Font("Inter", Font.BOLD, 12));
-        userGreetingLabel.setForeground(BaseCinemaFrame.CINEMA_GOLD);
-
-        textPanel.add(title);
-        textPanel.add(Box.createVerticalStrut(4));
-        textPanel.add(subtitle);
-        textPanel.add(Box.createVerticalStrut(2));
-        textPanel.add(userGreetingLabel);
-
-        headerCard.add(textPanel, BorderLayout.CENTER);
-
-        // Tombol Buka JFrame Penuh & Riwayat Tiket
-        JPanel actions = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 6));
-        actions.setOpaque(false);
-
-        JButton launchFrameBtn = BaseCinemaFrame.createCinemaButton("Buka Portal Customer", true);
-        launchFrameBtn.setPreferredSize(new Dimension(270, 42));
-        launchFrameBtn.addActionListener(e -> {
+        launchFrameButton.addActionListener(e -> {
             CustomerHomeFrame homeFrame = new CustomerHomeFrame();
             homeFrame.setVisible(true);
         });
 
-        JButton historyBtn = BaseCinemaFrame.createCinemaButton("Riwayat Tiket", false);
-        historyBtn.addActionListener(e -> {
+        historyButton.addActionListener(e -> {
             User currentUser = SessionManager.getInstance().getCurrentUser();
             if (currentUser == null) {
-                AlertUtil.showWarning(this, "Login Diperlukan", "Silakan login di tab Login/Register untuk melihat riwayat tiket Anda.");
+                AlertUtil.showWarning(this, "Login Diperlukan", "Silakan login terlebih dahulu untuk melihat riwayat tiket Anda.");
                 return;
             }
             new BookingHistoryFrame(currentUser).setVisible(true);
         });
 
-        JButton logoutBtn = BaseCinemaFrame.createCinemaButton("🚪 Logout", false);
-        logoutBtn.addActionListener(e -> {
+        logoutButton.addActionListener(e -> {
             SessionManager.getInstance().clearSession();
             updateGreeting();
             if (onLogout != null) {
@@ -137,17 +151,7 @@ public class CustomerPanel extends javax.swing.JPanel {
             }
         });
 
-        actions.add(launchFrameBtn);
-        actions.add(historyBtn);
-        actions.add(logoutBtn);
-        headerCard.add(actions, BorderLayout.EAST);
-
-        // Styling scroll pane dan filmsPreviewGrid
-        filmsScrollPane.setBorder(null);
         filmsScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_BG);
-        filmsPreviewGrid.setBackground(BaseCinemaFrame.CINEMA_BG);
-
-        // Load data film cards
         loadFilmCards();
     }
 
@@ -180,11 +184,11 @@ public class CustomerPanel extends javax.swing.JPanel {
         left.setOpaque(false);
 
         JLabel title = new JLabel(film.getTitle());
-        title.setFont(new Font("Inter", Font.BOLD, 14));
+        title.setFont(SwingTheme.font(Font.BOLD, 14));
         title.setForeground(BaseCinemaFrame.CINEMA_GOLD);
 
         JLabel info = new JLabel("🎭 " + film.getGenre() + " • ⏱ " + film.getDurationMinutes() + " mnt • 🔞 " + film.getAgeRating());
-        info.setFont(new Font("Inter", Font.PLAIN, 12));
+        info.setFont(SwingTheme.font(Font.PLAIN, 12));
         info.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         left.add(title);
@@ -216,4 +220,20 @@ public class CustomerPanel extends javax.swing.JPanel {
             userGreetingLabel.setText("Status: Belum login");
         }
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel actionsPanel;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.JPanel filmsPreviewGrid;
+    private javax.swing.JScrollPane filmsScrollPane;
+    private javax.swing.JPanel headerCard;
+    private javax.swing.JButton historyButton;
+    private javax.swing.JButton launchFrameButton;
+    private javax.swing.JButton logoutButton;
+    private javax.swing.JLabel subtitleLabel;
+    private javax.swing.JPanel textPanel;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel userGreetingLabel;
+    // End of variables declaration//GEN-END:variables
 }

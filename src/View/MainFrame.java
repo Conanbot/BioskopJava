@@ -4,13 +4,6 @@
  */
 package View;
 
-import View.theme.SwingTheme;
-
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -36,13 +29,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void postInitStyles() {
-        SwingTheme.styleNavigationButton(diagnosticsButton);
-        SwingTheme.styleNavigationButton(accountsButton);
-        SwingTheme.styleNavigationButton(customerButton);
-        SwingTheme.styleNavigationButton(adminButton);
-        SwingTheme.styleNavigationButton(filmsButton);
-
-        sidebarPanel.setBorder(new EmptyBorder(26, 18, 24, 18));
         workspacePanel.setBorder(new EmptyBorder(30, 34, 30, 34));
         setLocationRelativeTo(null);
     }
@@ -55,26 +41,6 @@ public class MainFrame extends javax.swing.JFrame {
         return pageTitle;
     }
 
-    public JButton getDiagnosticsButton() {
-        return diagnosticsButton;
-    }
-
-    public JButton getAccountsButton() {
-        return accountsButton;
-    }
-
-    public JButton getCustomerButton() {
-        return customerButton;
-    }
-
-    public JButton getAdminButton() {
-        return adminButton;
-    }
-
-    public JButton getFilmsButton() {
-        return filmsButton;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,21 +50,6 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sidebarPanel = new javax.swing.JPanel();
-        brandLabel = new javax.swing.JLabel();
-        subtitleLabel = new javax.swing.JLabel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 34), new java.awt.Dimension(0, 34), new java.awt.Dimension(0, 34));
-        menuTitleLabel = new javax.swing.JLabel();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 12), new java.awt.Dimension(0, 12), new java.awt.Dimension(0, 12));
-        diagnosticsButton = new javax.swing.JButton();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8));
-        accountsButton = new javax.swing.JButton();
-        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8));
-        customerButton = new javax.swing.JButton();
-        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8));
-        adminButton = new javax.swing.JButton();
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8));
-        filmsButton = new javax.swing.JButton();
         workspacePanel = new javax.swing.JPanel();
         pageTitle = new javax.swing.JLabel();
         cardsPanel = new javax.swing.JPanel();
@@ -109,59 +60,12 @@ public class MainFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(760, 500));
         setPreferredSize(new java.awt.Dimension(900, 560));
 
-        sidebarPanel.setBackground(new java.awt.Color(35, 38, 41));
-        sidebarPanel.setPreferredSize(new java.awt.Dimension(230, 0));
-        sidebarPanel.setLayout(new javax.swing.BoxLayout(sidebarPanel, javax.swing.BoxLayout.Y_AXIS));
-
-        brandLabel.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
-        brandLabel.setForeground(new java.awt.Color(245, 241, 232));
-        brandLabel.setText("Sistem Booking");
-        sidebarPanel.add(brandLabel);
-
-        subtitleLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        subtitleLabel.setForeground(new java.awt.Color(214, 169, 75));
-        subtitleLabel.setText("Bioskop");
-        sidebarPanel.add(subtitleLabel);
-        sidebarPanel.add(filler1);
-
-        menuTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        menuTitleLabel.setForeground(new java.awt.Color(208, 203, 192));
-        menuTitleLabel.setText("MENU");
-        sidebarPanel.add(menuTitleLabel);
-        sidebarPanel.add(filler2);
-
-        diagnosticsButton.setText("Diagnostik");
-        diagnosticsButton.setMaximumSize(new java.awt.Dimension(2147483647, 46));
-        sidebarPanel.add(diagnosticsButton);
-        sidebarPanel.add(filler3);
-
-        accountsButton.setText("Login / Register");
-        accountsButton.setMaximumSize(new java.awt.Dimension(2147483647, 46));
-        sidebarPanel.add(accountsButton);
-        sidebarPanel.add(filler4);
-
-        customerButton.setText("Customer");
-        customerButton.setMaximumSize(new java.awt.Dimension(2147483647, 46));
-        sidebarPanel.add(customerButton);
-        sidebarPanel.add(filler5);
-
-        adminButton.setText("Admin");
-        adminButton.setMaximumSize(new java.awt.Dimension(2147483647, 46));
-        sidebarPanel.add(adminButton);
-        sidebarPanel.add(filler6);
-
-        filmsButton.setText("Film");
-        filmsButton.setMaximumSize(new java.awt.Dimension(2147483647, 46));
-        sidebarPanel.add(filmsButton);
-
-        getContentPane().add(sidebarPanel, java.awt.BorderLayout.WEST);
-
         workspacePanel.setBackground(new java.awt.Color(23, 25, 27));
-        workspacePanel.setLayout(new java.awt.BorderLayout(0, 22));
+        workspacePanel.setLayout(new java.awt.BorderLayout());
 
         pageTitle.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         pageTitle.setForeground(new java.awt.Color(245, 241, 232));
-        pageTitle.setText("Pemeriksaan sistem");
+        pageTitle.setText("Akun dan sesi");
         workspacePanel.add(pageTitle, java.awt.BorderLayout.NORTH);
 
         cardsPanel.setBackground(new java.awt.Color(23, 25, 27));
@@ -171,26 +75,12 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(workspacePanel, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton accountsButton;
-    private javax.swing.JButton adminButton;
-    private javax.swing.JLabel brandLabel;
     private javax.swing.JPanel cardsPanel;
-    private javax.swing.JButton customerButton;
-    private javax.swing.JButton diagnosticsButton;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
-    private javax.swing.Box.Filler filler4;
-    private javax.swing.Box.Filler filler5;
-    private javax.swing.Box.Filler filler6;
-    private javax.swing.JButton filmsButton;
-    private javax.swing.JLabel menuTitleLabel;
     private javax.swing.JLabel pageTitle;
-    private javax.swing.JPanel sidebarPanel;
-    private javax.swing.JLabel subtitleLabel;
     private javax.swing.JPanel workspacePanel;
     // End of variables declaration//GEN-END:variables
 }

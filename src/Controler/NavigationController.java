@@ -1,13 +1,10 @@
 package Controler;
 
-import View.theme.SwingTheme;
-
 import java.awt.CardLayout;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -27,20 +24,18 @@ public final class NavigationController {
         }
     }
 
-    public void registerPage(String id, String title, JPanel view, JButton navigationButton) {
+    public void registerPage(String id, String title, JPanel view) {
         requireEventDispatchThread();
         if (id == null || id.isBlank() || title == null || title.isBlank()) {
             throw new IllegalArgumentException("ID dan judul halaman wajib diisi.");
         }
         Objects.requireNonNull(view, "Tampilan halaman wajib diisi.");
-        Objects.requireNonNull(navigationButton, "Tombol navigasi wajib diisi.");
         if (routes.containsKey(id)) {
             throw new IllegalStateException("ID halaman sudah terdaftar: " + id);
         }
 
-        routes.put(id, new Route(title, navigationButton));
+        routes.put(id, new Route(title));
         cardPanel.add(view, id);
-        navigationButton.addActionListener(event -> showPage(id));
     }
 
     public void showPage(String id) {
@@ -52,10 +47,6 @@ public final class NavigationController {
 
         cardLayout.show(cardPanel, id);
         pageTitle.setText(route.title());
-        routes.forEach((routeId, registeredRoute) ->
-                SwingTheme.setNavigationActive(
-                        registeredRoute.navigationButton(),
-                        routeId.equals(id)));
     }
 
     private static void requireEventDispatchThread() {
@@ -64,6 +55,6 @@ public final class NavigationController {
         }
     }
 
-    private record Route(String title, JButton navigationButton) {
+    private record Route(String title) {
     }
 }

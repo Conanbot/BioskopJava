@@ -75,11 +75,11 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         titlePanel.setOpaque(false);
 
         JLabel title = new JLabel("Kelola Studio");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
+        title.setFont(new Font("Inter", Font.BOLD, 22));
         title.setForeground(SwingTheme.TEXT);
 
         JLabel subtitle = new JLabel("Tambah, edit, atau hapus data studio.");
-        subtitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        subtitle.setFont(new Font("Inter", Font.PLAIN, 13));
         subtitle.setForeground(SwingTheme.MUTED_TEXT);
 
         titlePanel.add(title);
@@ -124,7 +124,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         buttonRow.add(editButton);
         buttonRow.add(deleteButton);
 
-        statusLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        statusLabel.setFont(new Font("Inter", Font.PLAIN, 13));
         statusLabel.setForeground(SwingTheme.MUTED_TEXT);
 
         footer.add(buttonRow);
@@ -137,10 +137,10 @@ public class StudioManagementPanel extends javax.swing.JPanel {
     private void setupTable() {
         table.setBackground(SwingTheme.SURFACE);
         table.setForeground(SwingTheme.TEXT);
-        table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        table.setFont(new Font("Inter", Font.PLAIN, 13));
         table.getTableHeader().setBackground(SwingTheme.SURFACE);
         table.getTableHeader().setForeground(SwingTheme.MUTED_TEXT);
-        table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        table.getTableHeader().setFont(new Font("Inter", Font.BOLD, 12));
         table.setSelectionBackground(new java.awt.Color(214, 169, 75, 60));
         table.setSelectionForeground(SwingTheme.TEXT);
         table.setGridColor(new java.awt.Color(60, 56, 50));

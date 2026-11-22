@@ -120,7 +120,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         codeRow.setOpaque(false);
 
         JLabel codeLbl = new JLabel(item.booking().bookingCode());
-        codeLbl.setFont(new Font(Font.MONOSPACED, Font.BOLD, 15));
+        codeLbl.setFont(new Font("Inter", Font.BOLD, 15));
         codeLbl.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
         JLabel statusBadge = createStatusBadge(item.booking().status());
@@ -131,11 +131,11 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
                 ? item.showDateTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy - HH:mm"))
                 : "-";
         JLabel detailLbl = new JLabel("🎬 " + item.filmTitle() + " | Studio: " + item.studioName() + " | " + dateStr);
-        detailLbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        detailLbl.setFont(new Font("Inter", Font.PLAIN, 12));
         detailLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         JLabel priceLbl = new JLabel(item.booking().ticketCount() + " Tiket | Total: " + String.format("Rp %,.2f", item.totalPrice()));
-        priceLbl.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        priceLbl.setFont(new Font("Inter", Font.BOLD, 12));
         priceLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
 
         left.add(codeRow);
@@ -210,7 +210,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
     private JLabel createStatusBadge(BookingStatus status) {
         JLabel badge = new JLabel(" " + status.name() + " ");
-        badge.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+        badge.setFont(new Font("Inter", Font.BOLD, 10));
         badge.setOpaque(true);
         if (status == BookingStatus.ACTIVE) {
             badge.setBackground(new Color(40, 167, 69));
@@ -253,7 +253,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
         headerPanel.setLayout(new java.awt.BorderLayout());
 
-        headerTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
         headerTitleLabel.setText("🎟 RIWAYAT PEMESANAN TIKET");
         headerPanel.add(headerTitleLabel, java.awt.BorderLayout.WEST);

@@ -68,7 +68,7 @@
             <Component class="javax.swing.JLabel" name="logoIcon">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="24" style="0"/>
+                  <Font name="Inter" size="24" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x1f3ac;"/>
               </Properties>
@@ -76,7 +76,7 @@
             <Component class="javax.swing.JLabel" name="brandTitle">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="18" style="1"/>
+                  <Font name="Inter" size="18" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="4b" green="a9" red="d6" type="rgb"/>
@@ -87,7 +87,7 @@
             <Component class="javax.swing.JLabel" name="brandSubtitle">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="13" style="0"/>
+                  <Font name="Inter" size="13" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ac" green="a5" red="a0" type="rgb"/>
@@ -116,7 +116,7 @@
             <Component class="javax.swing.JButton" name="historyButton">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="13" style="1"/>
+                  <Font name="Inter" size="13" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x1f39f; Riwayat Booking"/>
               </Properties>
@@ -163,7 +163,7 @@
             <Component class="javax.swing.JLabel" name="promoTag">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="11" style="1"/>
+                  <Font name="Inter" size="11" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="4b" green="a9" red="d6" type="rgb"/>
@@ -174,7 +174,7 @@
             <Component class="javax.swing.JLabel" name="promoTitle">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="17" style="1"/>
+                  <Font name="Inter" size="17" style="1"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="e8" green="f1" red="f5" type="rgb"/>
@@ -185,7 +185,7 @@
             <Component class="javax.swing.JLabel" name="promoDesc">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="12" style="0"/>
+                  <Font name="Inter" size="12" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ac" green="a5" red="a0" type="rgb"/>
@@ -334,7 +334,7 @@
             <Component class="javax.swing.JLabel" name="resultCountLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="12" style="0"/>
+                  <Font name="Inter" size="12" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ac" green="a5" red="a0" type="rgb"/>

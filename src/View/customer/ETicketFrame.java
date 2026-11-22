@@ -62,7 +62,7 @@ public class ETicketFrame extends javax.swing.JFrame {
 
         exportButton.setBackground(BaseCinemaFrame.CINEMA_GOLD);
         exportButton.setForeground(BaseCinemaFrame.CINEMA_BG);
-        exportButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        exportButton.setFont(new Font("Inter", Font.BOLD, 13));
         exportButton.addActionListener(e -> {
             try {
                 File file = exportService.exportToFile(receipt, null);
@@ -77,7 +77,7 @@ public class ETicketFrame extends javax.swing.JFrame {
 
         closeButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
         closeButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
-        closeButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        closeButton.setFont(new Font("Inter", Font.BOLD, 13));
         closeButton.addActionListener(e -> dispose());
     }
 
@@ -90,12 +90,12 @@ public class ETicketFrame extends javax.swing.JFrame {
         }
 
         JLabel headerCinema = new JLabel("🎬 BIOSKOP NUSANTARA");
-        headerCinema.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+        headerCinema.setFont(new Font("Inter", Font.BOLD, 18));
         headerCinema.setForeground(BaseCinemaFrame.CINEMA_GOLD);
         headerCinema.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel subHeader = new JLabel("OFFICIAL CINEMA PASS / E-TICKET");
-        subHeader.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        subHeader.setFont(new Font("Inter", Font.PLAIN, 12));
         subHeader.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         subHeader.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -107,11 +107,11 @@ public class ETicketFrame extends javax.swing.JFrame {
         JPanel codeRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         codeRow.setOpaque(false);
         JLabel codeLabel = new JLabel("KODE: " + receipt.booking().bookingCode());
-        codeLabel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+        codeLabel.setFont(new Font("Inter", Font.BOLD, 20));
         codeLabel.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
         JLabel statusBadge = new JLabel(" " + receipt.booking().status().name() + " ");
-        statusBadge.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        statusBadge.setFont(new Font("Inter", Font.BOLD, 12));
         statusBadge.setOpaque(true);
         statusBadge.setBackground(new Color(40, 167, 69));
         statusBadge.setForeground(Color.WHITE);
@@ -152,13 +152,13 @@ public class ETicketFrame extends javax.swing.JFrame {
         ticketContainerPanel.add(Box.createVerticalStrut(18));
 
         JLabel barcodeVisual = new JLabel("||||| ||| ||||||| ||| |||| |||||||| ||||||", SwingConstants.CENTER);
-        barcodeVisual.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
+        barcodeVisual.setFont(new Font("Inter", Font.BOLD, 22));
         barcodeVisual.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         barcodeVisual.setAlignmentX(CENTER_ALIGNMENT);
         ticketContainerPanel.add(barcodeVisual);
 
         JLabel barcodeCode = new JLabel(receipt.booking().bookingCode(), SwingConstants.CENTER);
-        barcodeCode.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        barcodeCode.setFont(new Font("Inter", Font.PLAIN, 12));
         barcodeCode.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         barcodeCode.setAlignmentX(CENTER_ALIGNMENT);
         ticketContainerPanel.add(barcodeCode);
@@ -170,11 +170,11 @@ public class ETicketFrame extends javax.swing.JFrame {
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 26));
 
         JLabel lbl = new JLabel(label);
-        lbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        lbl.setFont(new Font("Inter", Font.PLAIN, 13));
         lbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         JLabel val = new JLabel(value);
-        val.setFont(new Font(Font.SANS_SERIF, highlight ? Font.BOLD : Font.PLAIN, 14));
+        val.setFont(new Font("Inter", highlight ? Font.BOLD : Font.PLAIN, 14));
         val.setForeground(highlight ? BaseCinemaFrame.CINEMA_GOLD : BaseCinemaFrame.CINEMA_TEXT);
 
         row.add(lbl, BorderLayout.WEST);
@@ -230,7 +230,7 @@ public class ETicketFrame extends javax.swing.JFrame {
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
         headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
 
-        headerTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
         headerTitleLabel.setText("🎟 E-TICKET RESMI BIOSKOP");
         headerPanel.add(headerTitleLabel);

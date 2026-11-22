@@ -4,7 +4,6 @@
  */
 package View;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
@@ -29,16 +28,12 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void postInitStyles() {
-        workspacePanel.setBorder(new EmptyBorder(30, 34, 30, 34));
+        workspacePanel.setBorder(new EmptyBorder(24, 30, 24, 30));
         setLocationRelativeTo(null);
     }
 
     public JPanel getCardsPanel() {
         return cardsPanel;
-    }
-
-    public JLabel getPageTitle() {
-        return pageTitle;
     }
 
     /**
@@ -51,7 +46,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         workspacePanel = new javax.swing.JPanel();
-        pageTitle = new javax.swing.JLabel();
         cardsPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,11 +57,6 @@ public class MainFrame extends javax.swing.JFrame {
         workspacePanel.setBackground(new java.awt.Color(23, 25, 27));
         workspacePanel.setLayout(new java.awt.BorderLayout());
 
-        pageTitle.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        pageTitle.setForeground(new java.awt.Color(245, 241, 232));
-        pageTitle.setText("Akun dan sesi");
-        workspacePanel.add(pageTitle, java.awt.BorderLayout.NORTH);
-
         cardsPanel.setBackground(new java.awt.Color(23, 25, 27));
         cardsPanel.setLayout(new java.awt.CardLayout());
         workspacePanel.add(cardsPanel, java.awt.BorderLayout.CENTER);
@@ -75,12 +64,10 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(workspacePanel, java.awt.BorderLayout.CENTER);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardsPanel;
-    private javax.swing.JLabel pageTitle;
     private javax.swing.JPanel workspacePanel;
     // End of variables declaration//GEN-END:variables
 }

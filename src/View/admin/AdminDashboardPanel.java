@@ -61,11 +61,11 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         header.setOpaque(false);
 
         JLabel title = new JLabel("Dashboard Admin");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+        title.setFont(new Font("Inter", Font.BOLD, 24));
         title.setForeground(SwingTheme.TEXT);
 
         JLabel subtitle = new JLabel("Ringkasan operasional dan data transaksi sistem booking bioskop.");
-        subtitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        subtitle.setFont(new Font("Inter", Font.PLAIN, 13));
         subtitle.setForeground(SwingTheme.MUTED_TEXT);
 
         header.add(title);
@@ -96,10 +96,10 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         card.setPreferredSize(new Dimension(220, 110));
 
         JLabel cardLabel = new JLabel(label);
-        cardLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        cardLabel.setFont(new Font("Inter", Font.BOLD, 13));
         cardLabel.setForeground(SwingTheme.MUTED_TEXT);
 
-        valueLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 28));
+        valueLabel.setFont(new Font("Inter", Font.BOLD, 28));
         valueLabel.setForeground(SwingTheme.GOLD);
 
         card.add(cardLabel);
@@ -118,7 +118,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         refreshButton.setAlignmentX(LEFT_ALIGNMENT);
         refreshButton.setMaximumSize(new Dimension(180, 44));
 
-        statusLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        statusLabel.setFont(new Font("Inter", Font.PLAIN, 13));
         statusLabel.setForeground(SwingTheme.MUTED_TEXT);
         statusLabel.setAlignmentX(LEFT_ALIGNMENT);
 

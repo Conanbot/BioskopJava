@@ -88,15 +88,15 @@ public class CustomerPanel extends javax.swing.JPanel {
         textPanel.setOpaque(false);
 
         JLabel title = new JLabel("Layanan Customer - Bioskop Nusantara");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+        title.setFont(new Font("Inter", Font.BOLD, 18));
         title.setForeground(BaseCinemaFrame.CINEMA_GOLD);
 
         JLabel subtitle = new JLabel("Modul Lengkap: Customer Home • Film Detail • Seat Map • Payment • E-Ticket • Riwayat");
-        subtitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        subtitle.setFont(new Font("Inter", Font.PLAIN, 12));
         subtitle.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         userGreetingLabel = new JLabel("Status: Belum login");
-        userGreetingLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        userGreetingLabel.setFont(new Font("Inter", Font.BOLD, 12));
         userGreetingLabel.setForeground(BaseCinemaFrame.CINEMA_GOLD);
 
         textPanel.add(title);
@@ -180,11 +180,11 @@ public class CustomerPanel extends javax.swing.JPanel {
         left.setOpaque(false);
 
         JLabel title = new JLabel(film.getTitle());
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        title.setFont(new Font("Inter", Font.BOLD, 14));
         title.setForeground(BaseCinemaFrame.CINEMA_GOLD);
 
         JLabel info = new JLabel("🎭 " + film.getGenre() + " • ⏱ " + film.getDurationMinutes() + " mnt • 🔞 " + film.getAgeRating());
-        info.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        info.setFont(new Font("Inter", Font.PLAIN, 12));
         info.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         left.add(title);

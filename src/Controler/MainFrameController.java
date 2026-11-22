@@ -38,8 +38,7 @@ public final class MainFrameController {
         }
         this.navigationController = new NavigationController(
                 cardLayout,
-                view.getCardsPanel(),
-                view.getPageTitle());
+                view.getCardsPanel());
     }
 
     public void initialize() {
@@ -57,7 +56,7 @@ public final class MainFrameController {
             navigationController.showPage(ACCOUNTS);
         });
 
-        registerPage(CUSTOMER, "Layanan Customer", customerPanel);
+        registerPage(CUSTOMER, customerPanel);
 
         new LoginController(authService, accountsPanel.getLoginPanel(), accountsPanel, user -> {
             if (user.getRole() == Role.ADMIN) {
@@ -74,7 +73,7 @@ public final class MainFrameController {
 
         new RegisterController(authService, accountsPanel.getRegisterPanel(), accountsPanel);
 
-        registerPage(ACCOUNTS, "Akun dan sesi", accountsPanel);
+        registerPage(ACCOUNTS, accountsPanel);
 
         // ── Jonathan: Modul Operasional Admin ─────────────────────────────────────
         AdminPanel adminPanel = new AdminPanel();
@@ -94,7 +93,7 @@ public final class MainFrameController {
                 }
         );
 
-        registerPage(ADMIN, "Operasional admin", adminPanel);
+        registerPage(ADMIN, adminPanel);
 
         // Cek koneksi database di background dan tampilkan hasilnya di terminal
         checkDatabaseConnectionInTerminal(new DatabaseHealthService());
@@ -129,8 +128,8 @@ public final class MainFrameController {
         checkTask.execute();
     }
 
-    private void registerPage(String id, String title, JPanel panel) {
-        navigationController.registerPage(id, title, panel);
+    private void registerPage(String id, JPanel panel) {
+        navigationController.registerPage(id, panel);
     }
 
     private static void requireEventDispatchThread() {

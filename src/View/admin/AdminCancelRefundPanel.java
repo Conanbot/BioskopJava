@@ -62,11 +62,11 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         header.setOpaque(false);
 
         JLabel title = new JLabel("Batalkan / Refund Booking");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
+        title.setFont(new Font("Inter", Font.BOLD, 22));
         title.setForeground(SwingTheme.TEXT);
 
         JLabel subtitle = new JLabel("Proses pembatalan atau refund booking atas nama Admin.");
-        subtitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        subtitle.setFont(new Font("Inter", Font.PLAIN, 13));
         subtitle.setForeground(SwingTheme.MUTED_TEXT);
 
         header.add(title);
@@ -105,7 +105,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         styleField(bookingCodeField);
         bookingCodeField.setToolTipText("Contoh: BKG-20261119-AB12");
 
-        resolutionCombo.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        resolutionCombo.setFont(new Font("Inter", Font.PLAIN, 14));
         resolutionCombo.setBackground(SwingTheme.BACKGROUND);
         resolutionCombo.setForeground(SwingTheme.TEXT);
         resolutionCombo.setPreferredSize(new Dimension(180, 42));
@@ -116,7 +116,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         JLabel warningLabel = new JLabel(
                 "<html><small>Tindakan ini tidak dapat dibatalkan setelah diproses.</small></html>");
         warningLabel.setForeground(new java.awt.Color(220, 160, 60));
-        warningLabel.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 12));
+        warningLabel.setFont(new Font("Inter", Font.ITALIC, 12));
 
         // Row 0 - Booking Code
         lblGbc.gridx = 0; lblGbc.gridy = 0;
@@ -153,7 +153,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         statusGbc.gridx = 1; statusGbc.gridy = 4;
         statusGbc.anchor = GridBagConstraints.WEST;
         statusGbc.insets = new Insets(8, 0, 0, 0);
-        statusLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        statusLabel.setFont(new Font("Inter", Font.PLAIN, 13));
         statusLabel.setForeground(SwingTheme.MUTED_TEXT);
         card.add(statusLabel, statusGbc);
 
@@ -168,7 +168,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
                 new EmptyBorder(16, 20, 16, 20)));
 
         JLabel resultTitle = new JLabel("Hasil Proses");
-        resultTitle.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        resultTitle.setFont(new Font("Inter", Font.BOLD, 14));
         resultTitle.setForeground(SwingTheme.MUTED_TEXT);
 
         resultArea.setEditable(false);
@@ -177,7 +177,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         resultArea.setWrapStyleWord(true);
         resultArea.setBackground(SwingTheme.BACKGROUND);
         resultArea.setForeground(SwingTheme.TEXT);
-        resultArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 13));
+        resultArea.setFont(new Font("Inter", Font.PLAIN, 13));
         resultArea.setBorder(new EmptyBorder(8, 8, 8, 8));
         resultArea.setText("Belum ada proses dijalankan.");
 
@@ -192,13 +192,13 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
 
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        label.setFont(new Font("Inter", Font.BOLD, 13));
         label.setForeground(SwingTheme.TEXT);
         return label;
     }
 
     private void styleField(JTextField field) {
-        field.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        field.setFont(new Font("Inter", Font.PLAIN, 14));
         field.setBackground(SwingTheme.BACKGROUND);
         field.setForeground(SwingTheme.TEXT);
         field.setCaretColor(SwingTheme.TEXT);

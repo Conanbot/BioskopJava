@@ -136,7 +136,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
     }
 
     private void styleTabButton(JButton btn, boolean active) {
-        btn.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        btn.setFont(new Font("Inter", Font.BOLD, 12));
         btn.setBackground(active ? BaseCinemaFrame.CINEMA_GOLD : BaseCinemaFrame.CINEMA_CARD);
         btn.setForeground(active ? BaseCinemaFrame.CINEMA_BG : BaseCinemaFrame.CINEMA_TEXT);
         btn.setFocusPainted(false);
@@ -199,7 +199,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
             JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             emptyPanel.setOpaque(false);
             JLabel noData = new JLabel("Tidak ada film yang cocok dengan kriteria pencarian.");
-            noData.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+            noData.setFont(new Font("Inter", Font.PLAIN, 14));
             noData.setForeground(BaseCinemaFrame.CINEMA_MUTED);
             emptyPanel.add(noData);
             moviesGridPanel.add(emptyPanel);
@@ -224,13 +224,13 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         posterArea.setBorder(BorderFactory.createLineBorder(new Color(50, 56, 66), 1));
 
         JLabel icon = new JLabel("🎬", SwingConstants.CENTER);
-        icon.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
+        icon.setFont(new Font("Inter", Font.PLAIN, 40));
         posterArea.add(icon, BorderLayout.CENTER);
 
         JPanel badgePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 4, 4));
         badgePanel.setOpaque(false);
         JLabel ageBadge = new JLabel(" " + film.getAgeRating() + " ");
-        ageBadge.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+        ageBadge.setFont(new Font("Inter", Font.BOLD, 10));
         ageBadge.setOpaque(true);
         ageBadge.setBackground(BaseCinemaFrame.CINEMA_RED);
         ageBadge.setForeground(Color.WHITE);
@@ -244,17 +244,17 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         info.setOpaque(false);
 
         JLabel titleLbl = new JLabel(film.getTitle());
-        titleLbl.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        titleLbl.setFont(new Font("Inter", Font.BOLD, 15));
         titleLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
         titleLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel genreLbl = new JLabel("🎭 " + film.getGenre());
-        genreLbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        genreLbl.setFont(new Font("Inter", Font.PLAIN, 12));
         genreLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         genreLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel durLbl = new JLabel("⏱ " + film.getDurationMinutes() + " Menit");
-        durLbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        durLbl.setFont(new Font("Inter", Font.PLAIN, 12));
         durLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         durLbl.setAlignmentX(LEFT_ALIGNMENT);
 
@@ -266,7 +266,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         card.add(info, BorderLayout.CENTER);
 
         JButton detailBtn = BaseCinemaFrame.createCinemaButton("Lihat Jadwal & Pesan ➔", true);
-        detailBtn.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        detailBtn.setFont(new Font("Inter", Font.BOLD, 12));
         detailBtn.setPreferredSize(new Dimension(0, 36));
         detailBtn.addActionListener(e -> {
             FilmDetailFrame detailFrame = new FilmDetailFrame(film);
@@ -325,16 +325,16 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         brandPanel.setOpaque(false);
         brandPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 14));
 
-        logoIcon.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        logoIcon.setFont(new java.awt.Font("Inter", 0, 24)); // NOI18N
         logoIcon.setText("🎬");
         brandPanel.add(logoIcon);
 
-        brandTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        brandTitle.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         brandTitle.setForeground(new java.awt.Color(214, 169, 75));
         brandTitle.setText("BIOSKOP NUSANTARA");
         brandPanel.add(brandTitle);
 
-        brandSubtitle.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        brandSubtitle.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
         brandSubtitle.setForeground(new java.awt.Color(160, 165, 172));
         brandSubtitle.setText("| Layanan Pemesanan Tiket Customer");
         brandPanel.add(brandSubtitle);
@@ -344,7 +344,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         headerRightPanel.setOpaque(false);
         headerRightPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 12));
 
-        historyButton.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        historyButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         historyButton.setText("🎟 Riwayat Booking");
         headerRightPanel.add(historyButton);
 
@@ -359,17 +359,17 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         heroBannerPanel.setPreferredSize(new java.awt.Dimension(0, 90));
         heroBannerPanel.setLayout(new javax.swing.BoxLayout(heroBannerPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        promoTag.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        promoTag.setFont(new java.awt.Font("Inter", 1, 11)); // NOI18N
         promoTag.setForeground(new java.awt.Color(214, 169, 75));
         promoTag.setText("⭐ PREMIERE ENTERTAINMENT");
         heroBannerPanel.add(promoTag);
 
-        promoTitle.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
+        promoTitle.setFont(new java.awt.Font("Inter", 1, 17)); // NOI18N
         promoTitle.setForeground(new java.awt.Color(245, 241, 232));
         promoTitle.setText("Nikmati Film Pilihan Terbaik dengan Kualitas Studio Premium");
         heroBannerPanel.add(promoTitle);
 
-        promoDesc.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        promoDesc.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         promoDesc.setForeground(new java.awt.Color(160, 165, 172));
         promoDesc.setText("Pilih kursi favorit Anda sekarang secara langsung & bayar mudah via QRIS / Tunai.");
         heroBannerPanel.add(promoDesc);
@@ -420,7 +420,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
 
         centerContainer.add(moviesScrollPane, java.awt.BorderLayout.CENTER);
 
-        resultCountLabel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        resultCountLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         resultCountLabel.setForeground(new java.awt.Color(160, 165, 172));
         resultCountLabel.setText("Menampilkan film...");
         centerContainer.add(resultCountLabel, java.awt.BorderLayout.SOUTH);

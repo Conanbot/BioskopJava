@@ -65,7 +65,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         posterPanel.setBorder(BorderFactory.createLineBorder(BaseCinemaFrame.CINEMA_GOLD, 1));
         synopsisArea.setOpaque(false);
         synopsisArea.setForeground(BaseCinemaFrame.CINEMA_TEXT);
-        synopsisArea.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        synopsisArea.setFont(new Font("Inter", Font.PLAIN, 13));
 
         styleBadge(durationBadge, new Color(45, 52, 60), BaseCinemaFrame.CINEMA_TEXT);
         styleBadge(genreBadge, new Color(45, 52, 60), BaseCinemaFrame.CINEMA_TEXT);
@@ -82,7 +82,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
     }
 
     private void styleBadge(JLabel badge, Color bg, Color fg) {
-        badge.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 11));
+        badge.setFont(new Font("Inter", Font.BOLD, 11));
         badge.setOpaque(true);
         badge.setBackground(bg);
         badge.setForeground(fg);
@@ -136,11 +136,11 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         String timeStr = s.getShowTime().format(DateTimeFormatter.ofPattern("HH:mm"));
 
         JLabel dateLbl = new JLabel(dateStr + " • Jam " + timeStr);
-        dateLbl.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        dateLbl.setFont(new Font("Inter", Font.BOLD, 14));
         dateLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
 
         JLabel subLbl = new JLabel("Studio: " + s.getStudioName() + " | Sisa Kursi: " + s.getAvailableSeats() + " / " + s.getTotalSeats());
-        subLbl.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        subLbl.setFont(new Font("Inter", Font.PLAIN, 12));
         subLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         left.add(dateLbl);
@@ -152,7 +152,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         right.setOpaque(false);
 
         JLabel priceLbl = new JLabel(String.format("Rp %,.2f", s.getTicketPrice()));
-        priceLbl.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        priceLbl.setFont(new Font("Inter", Font.BOLD, 15));
         priceLbl.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
         JButton pickSeatBtn = BaseCinemaFrame.createCinemaButton("Pilih Kursi ➔", true);
@@ -209,7 +209,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
         headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
 
-        headerTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        headerTitle.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitle.setForeground(new java.awt.Color(214, 169, 75));
         headerTitle.setText("🎬 INFORMASI DETAIL FILM");
         headerPanel.add(headerTitle);
@@ -226,7 +226,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         posterPanel.setPreferredSize(new java.awt.Dimension(130, 160));
         posterPanel.setLayout(new java.awt.BorderLayout());
 
-        posterIcon.setFont(new java.awt.Font("SansSerif", 0, 44)); // NOI18N
+        posterIcon.setFont(new java.awt.Font("Inter", 0, 44)); // NOI18N
         posterIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         posterIcon.setText("🎬");
         posterPanel.add(posterIcon, java.awt.BorderLayout.CENTER);
@@ -236,7 +236,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         descPanel.setOpaque(false);
         descPanel.setLayout(new javax.swing.BoxLayout(descPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        filmTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
+        filmTitleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
         filmTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
         filmTitleLabel.setText("Judul Film");
         descPanel.add(filmTitleLabel);
@@ -268,7 +268,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         schedulesSectionPanel.setOpaque(false);
         schedulesSectionPanel.setLayout(new java.awt.BorderLayout(0, 8));
 
-        sectionTitleLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        sectionTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
         sectionTitleLabel.setForeground(new java.awt.Color(245, 241, 232));
         sectionTitleLabel.setText("Pilih Jadwal Penayangan:");
         schedulesSectionPanel.add(sectionTitleLabel, java.awt.BorderLayout.NORTH);

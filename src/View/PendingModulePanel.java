@@ -68,15 +68,15 @@ public final class PendingModulePanel extends javax.swing.JPanel {
 
     private void postInit(String moduleTitle, String owner, List<String> pendingParts) {
         titleLabel.setText(moduleTitle);
-        titleLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+        titleLabel.setFont(new Font("Inter", Font.BOLD, 24));
         titleLabel.setForeground(SwingTheme.TEXT);
 
         statusLabel.setText("Menunggu source dari " + owner);
-        statusLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        statusLabel.setFont(new Font("Inter", Font.BOLD, 15));
         statusLabel.setForeground(SwingTheme.GOLD);
 
         detailsArea.setText(String.join("\n", pendingParts));
-        detailsArea.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        detailsArea.setFont(new Font("Inter", Font.PLAIN, 14));
         detailsArea.setForeground(SwingTheme.MUTED_TEXT);
         detailsArea.setBackground(SwingTheme.SURFACE);
         detailsArea.setRows(Math.max(4, pendingParts.size()));
@@ -84,7 +84,7 @@ public final class PendingModulePanel extends javax.swing.JPanel {
         noticeLabel.setText(
                 "<html>Belum ada implementasi yang dijalankan pada halaman ini. "
                 + "Fungsinya akan tersedia setelah source pemilik modul diintegrasikan.</html>");
-        noticeLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        noticeLabel.setFont(new Font("Inter", Font.PLAIN, 13));
         noticeLabel.setForeground(SwingTheme.MUTED_TEXT);
 
         // TODO: Replace this placeholder with its owner's real Swing view and controller.

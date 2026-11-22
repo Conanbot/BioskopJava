@@ -8,14 +8,18 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.plaf.FontUIResource;
 
 public final class SwingTheme {
+    public static final String FONT_FAMILY = "Inter";
     public static final Color BACKGROUND = ColorPalette.BACKGROUND;
     public static final Color SURFACE = ColorPalette.SURFACE;
     public static final Color TEXT = ColorPalette.TEXT;
@@ -28,6 +32,7 @@ public final class SwingTheme {
     }
 
     public static void install() {
+        installGlobalFont(FONT_FAMILY);
         UIManager.put("OptionPane.background", SURFACE);
         UIManager.put("OptionPane.messageForeground", TEXT);
         UIManager.put("Panel.background", SURFACE);
@@ -36,8 +41,23 @@ public final class SwingTheme {
         UIManager.put("Button.focus", FOCUS);
         UIManager.put("Button.disabledText", TEXT);
         UIManager.put("Label.foreground", TEXT);
-        UIManager.put("OptionPane.buttonFont", new Font(Font.SANS_SERIF, Font.BOLD, 14));
-        UIManager.put("OptionPane.messageFont", new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        UIManager.put("OptionPane.buttonFont", new Font(FONT_FAMILY, Font.BOLD, 14));
+        UIManager.put("OptionPane.messageFont", new Font(FONT_FAMILY, Font.PLAIN, 14));
+    }
+
+    private static void installGlobalFont(String fontFamily) {
+        UIDefaults defaults = UIManager.getDefaults();
+        Enumeration<Object> keys = defaults.keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = defaults.get(key);
+            if (value instanceof FontUIResource existingFont) {
+                defaults.put(key, new FontUIResource(
+                        fontFamily,
+                        existingFont.getStyle(),
+                        existingFont.getSize()));
+            }
+        }
     }
 
     public static void styleButton(JButton button, boolean primary) {
@@ -52,7 +72,7 @@ public final class SwingTheme {
                         BorderFactory.createLineBorder(primary ? BACKGROUND : FOCUS),
                         BorderFactory.createEmptyBorder(7, 14, 7, 14)));
 
-        button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        button.setFont(new Font(FONT_FAMILY, Font.BOLD, 14));
         button.setForeground(foreground);
         button.setBackground(background);
         button.setOpaque(true);
@@ -113,7 +133,7 @@ public final class SwingTheme {
     }
 
     public static void styleNavigationButton(JButton button) {
-        button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        button.setFont(new Font(FONT_FAMILY, Font.BOLD, 14));
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setOpaque(true);
         button.setContentAreaFilled(true);

@@ -105,7 +105,7 @@ public final class ScheduleFormDialog extends JDialog {
         panel.setOpaque(false);
 
         JLabel title = new JLabel(editSchedule == null ? "Tambah Jadwal Tayang" : "Edit Jadwal Tayang");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+        title.setFont(new Font("Inter", Font.BOLD, 18));
         title.setForeground(SwingTheme.TEXT);
 
         panel.add(title);
@@ -132,15 +132,15 @@ public final class ScheduleFormDialog extends JDialog {
         styleField(showTimeField);
         styleField(ticketPriceField);
 
-        filmCombo.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        filmCombo.setFont(new Font("Inter", Font.PLAIN, 13));
         filmCombo.setBackground(SwingTheme.BACKGROUND);
         filmCombo.setForeground(SwingTheme.TEXT);
 
-        studioCombo.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        studioCombo.setFont(new Font("Inter", Font.PLAIN, 13));
         studioCombo.setBackground(SwingTheme.BACKGROUND);
         studioCombo.setForeground(SwingTheme.TEXT);
 
-        totalSeatsLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+        totalSeatsLabel.setFont(new Font("Inter", Font.BOLD, 14));
         totalSeatsLabel.setForeground(SwingTheme.GOLD);
 
         int row = 0;
@@ -162,7 +162,7 @@ public final class ScheduleFormDialog extends JDialog {
         errGbc.gridwidth = 2;
         errGbc.anchor = GridBagConstraints.WEST;
         errGbc.insets = new Insets(4, 0, 0, 0);
-        errorLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        errorLabel.setFont(new Font("Inter", Font.PLAIN, 13));
         errorLabel.setForeground(new java.awt.Color(220, 80, 80));
         panel.add(errorLabel, errGbc);
 
@@ -265,13 +265,13 @@ public final class ScheduleFormDialog extends JDialog {
 
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        label.setFont(new Font("Inter", Font.BOLD, 13));
         label.setForeground(SwingTheme.TEXT);
         return label;
     }
 
     private void styleField(JTextField field) {
-        field.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        field.setFont(new Font("Inter", Font.PLAIN, 14));
         field.setBackground(SwingTheme.BACKGROUND);
         field.setForeground(SwingTheme.TEXT);
         field.setCaretColor(SwingTheme.TEXT);

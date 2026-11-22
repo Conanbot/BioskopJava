@@ -77,16 +77,16 @@ public class AdminPanel extends javax.swing.JPanel {
         sidebar.setPreferredSize(new Dimension(190, 0));
 
         JLabel adminTitle = new JLabel("Admin");
-        adminTitle.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+        adminTitle.setFont(new Font("Inter", Font.BOLD, 18));
         adminTitle.setForeground(SwingTheme.GOLD);
         adminTitle.setAlignmentX(LEFT_ALIGNMENT);
 
-        usernameLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        usernameLabel.setFont(new Font("Inter", Font.PLAIN, 12));
         usernameLabel.setForeground(SwingTheme.MUTED_TEXT);
         usernameLabel.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel menuLabel = new JLabel("MENU");
-        menuLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 11));
+        menuLabel.setFont(new Font("Inter", Font.BOLD, 11));
         menuLabel.setForeground(SwingTheme.MUTED_TEXT);
         menuLabel.setAlignmentX(LEFT_ALIGNMENT);
 

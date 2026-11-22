@@ -75,7 +75,7 @@ public final class StudioFormDialog extends JDialog {
         panel.setOpaque(false);
 
         JLabel title = new JLabel(editStudio == null ? "Tambah Studio Baru" : "Edit Data Studio");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+        title.setFont(new Font("Inter", Font.BOLD, 18));
         title.setForeground(SwingTheme.TEXT);
 
         panel.add(title);
@@ -101,8 +101,8 @@ public final class StudioFormDialog extends JDialog {
 
         styleField(nameField);
 
-        rowsSpinner.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
-        colsSpinner.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        rowsSpinner.setFont(new Font("Inter", Font.PLAIN, 14));
+        colsSpinner.setFont(new Font("Inter", Font.PLAIN, 14));
         rowsSpinner.setPreferredSize(new Dimension(100, 38));
         colsSpinner.setPreferredSize(new Dimension(100, 38));
 
@@ -125,7 +125,7 @@ public final class StudioFormDialog extends JDialog {
         errGbc.gridwidth = 2;
         errGbc.anchor = GridBagConstraints.WEST;
         errGbc.insets = new Insets(4, 0, 0, 0);
-        errorLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        errorLabel.setFont(new Font("Inter", Font.PLAIN, 13));
         errorLabel.setForeground(new java.awt.Color(220, 80, 80));
         panel.add(errorLabel, errGbc);
 
@@ -174,13 +174,13 @@ public final class StudioFormDialog extends JDialog {
 
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        label.setFont(new Font("Inter", Font.BOLD, 13));
         label.setForeground(SwingTheme.TEXT);
         return label;
     }
 
     private void styleField(JTextField field) {
-        field.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        field.setFont(new Font("Inter", Font.PLAIN, 14));
         field.setBackground(SwingTheme.BACKGROUND);
         field.setForeground(SwingTheme.TEXT);
         field.setCaretColor(SwingTheme.TEXT);

@@ -72,12 +72,12 @@ public final class LoginPanel extends javax.swing.JPanel {
         card.setMaximumSize(new Dimension(440, 460));
 
         JLabel title = new JLabel("Masuk ke Akun");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
+        title.setFont(new Font("Inter", Font.BOLD, 22));
         title.setForeground(SwingTheme.TEXT);
         title.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel subtitle = new JLabel("Sistem Booking Tiket Bioskop");
-        subtitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        subtitle.setFont(new Font("Inter", Font.PLAIN, 13));
         subtitle.setForeground(SwingTheme.MUTED_TEXT);
         subtitle.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -85,7 +85,7 @@ public final class LoginPanel extends javax.swing.JPanel {
         JPanel fieldsPanel = buildFieldsPanel();
 
         // Error label
-        errorLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        errorLabel.setFont(new Font("Inter", Font.PLAIN, 13));
         errorLabel.setForeground(new java.awt.Color(220, 80, 80));
         errorLabel.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -146,13 +146,13 @@ public final class LoginPanel extends javax.swing.JPanel {
 
     private JLabel createFieldLabel(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        label.setFont(new Font("Inter", Font.BOLD, 13));
         label.setForeground(SwingTheme.TEXT);
         return label;
     }
 
     private void styleField(JTextField field) {
-        field.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        field.setFont(new Font("Inter", Font.PLAIN, 14));
         field.setBackground(SwingTheme.BACKGROUND);
         field.setForeground(SwingTheme.TEXT);
         field.setCaretColor(SwingTheme.TEXT);

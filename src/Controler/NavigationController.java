@@ -1,60 +1,51 @@
 package Controler;
 
 import java.awt.CardLayout;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public final class NavigationController {
     private final CardLayout cardLayout;
     private final JPanel cardPanel;
-    private final JLabel pageTitle;
-    private final Map<String, Route> routes = new LinkedHashMap<>();
+    private final Set<String> registeredPages = new HashSet<>();
 
-    public NavigationController(CardLayout cardLayout, JPanel cardPanel, JLabel pageTitle) {
+    public NavigationController(CardLayout cardLayout, JPanel cardPanel) {
         this.cardLayout = Objects.requireNonNull(cardLayout);
         this.cardPanel = Objects.requireNonNull(cardPanel);
-        this.pageTitle = Objects.requireNonNull(pageTitle);
         if (cardPanel.getLayout() != cardLayout) {
             throw new IllegalArgumentException("CardLayout harus dipasang pada panel navigasi.");
         }
     }
 
-    public void registerPage(String id, String title, JPanel view) {
+    public void registerPage(String id, JPanel view) {
         requireEventDispatchThread();
-        if (id == null || id.isBlank() || title == null || title.isBlank()) {
-            throw new IllegalArgumentException("ID dan judul halaman wajib diisi.");
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("ID halaman wajib diisi.");
         }
         Objects.requireNonNull(view, "Tampilan halaman wajib diisi.");
-        if (routes.containsKey(id)) {
+        if (!registeredPages.add(id)) {
             throw new IllegalStateException("ID halaman sudah terdaftar: " + id);
         }
 
-        routes.put(id, new Route(title));
         cardPanel.add(view, id);
     }
 
     public void showPage(String id) {
         requireEventDispatchThread();
-        Route route = routes.get(id);
-        if (route == null) {
+        if (!registeredPages.contains(id)) {
             throw new IllegalArgumentException("Halaman tidak terdaftar: " + id);
         }
 
         cardLayout.show(cardPanel, id);
-        pageTitle.setText(route.title());
     }
 
     private static void requireEventDispatchThread() {
         if (!SwingUtilities.isEventDispatchThread()) {
             throw new IllegalStateException("Navigasi Swing harus dijalankan pada Event Dispatch Thread.");
         }
-    }
-
-    private record Route(String title) {
     }
 }

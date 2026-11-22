@@ -94,14 +94,14 @@ public abstract class BaseCinemaFrame extends JFrame {
         brandPanel.setOpaque(false);
 
         JLabel logoIcon = new JLabel("🎬");
-        logoIcon.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 24));
+        logoIcon.setFont(new Font("Inter", Font.PLAIN, 24));
 
         JLabel brandTitle = new JLabel("BIOSKOP NUSANTARA");
-        brandTitle.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
+        brandTitle.setFont(new Font("Inter", Font.BOLD, 18));
         brandTitle.setForeground(CINEMA_GOLD);
 
         JLabel brandSubtitle = new JLabel("| Layanan Pemesanan Tiket");
-        brandSubtitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
+        brandSubtitle.setFont(new Font("Inter", Font.PLAIN, 13));
         brandSubtitle.setForeground(CINEMA_MUTED);
 
         brandPanel.add(logoIcon);
@@ -135,7 +135,7 @@ public abstract class BaseCinemaFrame extends JFrame {
         Color fg = primary ? CINEMA_BG : CINEMA_TEXT;
         Color hoverBg = primary ? CINEMA_GOLD_HOVER : new Color(48, 54, 62);
 
-        button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        button.setFont(new Font("Inter", Font.BOLD, 13));
         button.setBackground(bg);
         button.setForeground(fg);
         button.setFocusPainted(false);

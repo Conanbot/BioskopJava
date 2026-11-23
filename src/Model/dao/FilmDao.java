@@ -174,11 +174,16 @@ public class FilmDao {
     public void ensureDemoDataAvailable() {
         try (Connection conn = connectionProvider.getConnection()) {
             // Cek apakah tabel films kosong
+            boolean hasFilms = false;
             try (Statement checkStmt = conn.createStatement();
                  ResultSet rs = checkStmt.executeQuery("SELECT COUNT(*) FROM films")) {
                 if (rs.next() && rs.getInt(1) > 0) {
-                    return; // Sudah ada data
+                    hasFilms = true;
                 }
+            }
+            if (hasFilms) {
+                ensureUpcomingSchedulesAvailable(conn);
+                return;
             }
 
             conn.setAutoCommit(false);
@@ -307,6 +312,96 @@ public class FilmDao {
                 conn.rollback();
             }
         } catch (SQLException ignored) {
+        }
+    }
+
+    /**
+     * Memastikan selalu ada jadwal tayang mendatang (hari ini & besok) untuk film NOW_SHOWING
+     * apabila seluruh jadwal lama sudah lewat tanggalnya.
+     */
+    private void ensureUpcomingSchedulesAvailable(Connection conn) throws SQLException {
+        String countUpcomingSql = """
+                SELECT COUNT(*)
+                FROM schedules
+                WHERE show_date > CURDATE()
+                   OR (show_date = CURDATE() AND show_time >= CURTIME())
+                """;
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(countUpcomingSql)) {
+            if (rs.next() && rs.getInt(1) > 0) {
+                return; // Masih ada jadwal aktif mendatang
+            }
+        }
+
+        List<Long> activeFilmIds = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(
+                "SELECT id FROM films WHERE status = 'NOW_SHOWING' ORDER BY id");
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                activeFilmIds.add(rs.getLong("id"));
+            }
+        }
+        if (activeFilmIds.isEmpty()) {
+            return;
+        }
+
+        List<long[]> studios = new ArrayList<>(); // [id, totalSeats]
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT id, (seat_rows * seat_cols) AS cap FROM studios ORDER BY id")) {
+            while (rs.next()) {
+                studios.add(new long[]{rs.getLong("id"), rs.getInt("cap")});
+            }
+        }
+        if (studios.isEmpty()) {
+            return;
+        }
+
+        LocalDate today = LocalDate.now();
+        LocalDate tomorrow = today.plusDays(1);
+        LocalTime[] todayTimes = {LocalTime.of(16, 0), LocalTime.of(19, 30), LocalTime.of(21, 15)};
+        LocalTime[] tomorrowTimes = {LocalTime.of(13, 30), LocalTime.of(17, 0), LocalTime.of(20, 0)};
+        java.math.BigDecimal[] prices = {
+                new java.math.BigDecimal("50000.00"),
+                new java.math.BigDecimal("55000.00"),
+                new java.math.BigDecimal("45000.00"),
+                new java.math.BigDecimal("50000.00")
+        };
+
+        String insertSql = """
+                INSERT IGNORE INTO schedules
+                    (film_id, studio_id, show_date, show_time, ticket_price, total_seats, available_seats)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """;
+        try (PreparedStatement ins = conn.prepareStatement(insertSql)) {
+            for (int i = 0; i < activeFilmIds.size(); i++) {
+                long filmId = activeFilmIds.get(i);
+                long[] studio = studios.get(i % studios.size());
+                long studioId = studio[0];
+                int cap = (int) studio[1];
+                java.math.BigDecimal price = prices[i % prices.length];
+
+                // Slot hari ini (sore/malam agar selalu aktif)
+                LocalTime t1 = todayTimes[i % todayTimes.length].plusMinutes((i / todayTimes.length) * 30L);
+                ins.setLong(1, filmId);
+                ins.setLong(2, studioId);
+                ins.setDate(3, java.sql.Date.valueOf(today));
+                ins.setTime(4, java.sql.Time.valueOf(t1));
+                ins.setBigDecimal(5, price);
+                ins.setInt(6, cap);
+                ins.setInt(7, cap);
+                ins.executeUpdate();
+
+                // Slot besok (siang & malam)
+                LocalTime t2 = tomorrowTimes[i % tomorrowTimes.length].plusMinutes((i / tomorrowTimes.length) * 30L);
+                ins.setLong(1, filmId);
+                ins.setLong(2, studioId);
+                ins.setDate(3, java.sql.Date.valueOf(tomorrow));
+                ins.setTime(4, java.sql.Time.valueOf(t2));
+                ins.setBigDecimal(5, price);
+                ins.setInt(6, cap);
+                ins.setInt(7, cap);
+                ins.executeUpdate();
+            }
         }
     }
 

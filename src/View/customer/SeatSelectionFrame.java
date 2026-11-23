@@ -359,8 +359,9 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(950, 720));
 
         headerPanel.setBackground(new java.awt.Color(0, 26, 58));
-        headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
-        headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
+        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 22, 0, 22)));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 58));
+        headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 16));
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
@@ -370,13 +371,14 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
         mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
-        mainContentPanel.setLayout(new java.awt.BorderLayout(20, 0));
+        mainContentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(16, 20, 16, 20));
+        mainContentPanel.setLayout(new java.awt.BorderLayout());
 
         seatMapContainer.setOpaque(false);
-        seatMapContainer.setLayout(new java.awt.BorderLayout(0, 14));
+        seatMapContainer.setLayout(new java.awt.BorderLayout());
 
         infoBarPanel.setBackground(new java.awt.Color(0, 26, 58));
-        infoBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 14, 8));
+        infoBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 14, 10));
 
         infoFilmTitleLabel.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
         infoFilmTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
@@ -384,7 +386,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         infoBarPanel.add(infoFilmTitleLabel);
 
         infoScheduleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        infoScheduleLabel.setForeground(new java.awt.Color(15, 23, 42));
+        infoScheduleLabel.setForeground(new java.awt.Color(203, 213, 225));
         infoScheduleLabel.setText("Studio & Jadwal");
         infoBarPanel.add(infoScheduleLabel);
 
@@ -401,11 +403,12 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         mainContentPanel.add(seatMapContainer, java.awt.BorderLayout.CENTER);
 
         summaryCardPanel.setBackground(new java.awt.Color(255, 255, 255));
+        summaryCardPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(16, 18, 16, 18)));
         summaryCardPanel.setPreferredSize(new java.awt.Dimension(280, 0));
         summaryCardPanel.setLayout(new javax.swing.BoxLayout(summaryCardPanel, javax.swing.BoxLayout.Y_AXIS));
 
         summaryTitleLabel.setFont(new java.awt.Font("Inter", 1, 17)); // NOI18N
-        summaryTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
+        summaryTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         summaryTitleLabel.setText("Ringkasan Pesanan");
         summaryCardPanel.add(summaryTitleLabel);
         summaryCardPanel.add(filler1);
@@ -416,16 +419,22 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         summaryCardPanel.add(totalHeaderLabel);
 
         totalPriceLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
-        totalPriceLabel.setForeground(new java.awt.Color(245, 166, 35));
+        totalPriceLabel.setForeground(new java.awt.Color(0, 26, 58));
         totalPriceLabel.setText("Rp 0,00");
         summaryCardPanel.add(totalPriceLabel);
         summaryCardPanel.add(filler2);
 
+        proceedPaymentButton.setBackground(new java.awt.Color(0, 26, 58));
+        proceedPaymentButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        proceedPaymentButton.setForeground(new java.awt.Color(255, 255, 255));
         proceedPaymentButton.setText("Lanjut ke Pembayaran");
-        proceedPaymentButton.setMaximumSize(new java.awt.Dimension(2147483647, 46));
+        proceedPaymentButton.setMaximumSize(new java.awt.Dimension(2147483647, 44));
         summaryCardPanel.add(proceedPaymentButton);
         summaryCardPanel.add(filler3);
 
+        backButton.setBackground(new java.awt.Color(255, 255, 255));
+        backButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        backButton.setForeground(new java.awt.Color(0, 26, 58));
         backButton.setText("Kembali");
         backButton.setMaximumSize(new java.awt.Dimension(2147483647, 40));
         summaryCardPanel.add(backButton);
@@ -435,6 +444,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         getContentPane().add(mainContentPanel, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

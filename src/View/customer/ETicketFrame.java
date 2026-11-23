@@ -232,8 +232,9 @@ public class ETicketFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(580, 720));
 
         headerPanel.setBackground(new java.awt.Color(0, 26, 58));
-        headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
-        headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
+        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 22, 0, 22)));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 58));
+        headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 16));
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
@@ -246,8 +247,10 @@ public class ETicketFrame extends javax.swing.JFrame {
         mainContentPanel.setLayout(new java.awt.BorderLayout());
 
         ticketScrollPane.setBorder(null);
+        ticketScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         ticketContainerPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ticketContainerPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 28, 24, 28));
         ticketContainerPanel.setLayout(new javax.swing.BoxLayout(ticketContainerPanel, javax.swing.BoxLayout.Y_AXIS));
         ticketScrollPane.setViewportView(ticketContainerPanel);
 
@@ -256,9 +259,15 @@ public class ETicketFrame extends javax.swing.JFrame {
         bottomBarPanel.setBackground(new java.awt.Color(245, 247, 250));
         bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 14, 12));
 
+        exportButton.setBackground(new java.awt.Color(0, 26, 58));
+        exportButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        exportButton.setForeground(new java.awt.Color(255, 255, 255));
         exportButton.setText("Simpan / Cetak Tiket (.txt)");
         bottomBarPanel.add(exportButton);
 
+        closeButton.setBackground(new java.awt.Color(255, 255, 255));
+        closeButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        closeButton.setForeground(new java.awt.Color(0, 26, 58));
         closeButton.setText("Tutup");
         bottomBarPanel.add(closeButton);
 
@@ -267,12 +276,17 @@ public class ETicketFrame extends javax.swing.JFrame {
         getContentPane().add(mainContentPanel, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bottomBarPanel;
     private javax.swing.JButton closeButton;
     private javax.swing.JButton exportButton;
-    private javax.swing.JPanel bottomBarPanel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel headerTitleLabel;
     private javax.swing.JPanel mainContentPanel;

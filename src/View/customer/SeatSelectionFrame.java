@@ -80,9 +80,9 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
                 new EmptyBorder(0, 16, 0, 16)
         ));
 
-        infoBarPanel.setBorder(BorderFactory.createLineBorder(new Color(45, 50, 58), 1));
+        infoBarPanel.setBorder(BorderFactory.createLineBorder(new Color(226, 232, 240), 1));
         summaryCardPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(45, 50, 58), 1),
+                BorderFactory.createLineBorder(new Color(226, 232, 240), 1),
                 new EmptyBorder(16, 18, 16, 18)
         ));
 
@@ -196,7 +196,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
     private void styleAvailableSeat(JButton btn) {
         btn.setBackground(BaseCinemaFrame.CINEMA_CARD);
         btn.setForeground(BaseCinemaFrame.CINEMA_TEXT);
-        btn.setBorder(BorderFactory.createLineBorder(new Color(60, 68, 78), 1));
+        btn.setBorder(BorderFactory.createLineBorder(new Color(203, 213, 225), 1));
     }
 
     private void styleSelectedSeat(JButton btn) {
@@ -266,7 +266,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         JPanel legend = new JPanel(new FlowLayout(FlowLayout.CENTER, 24, 0));
         legend.setOpaque(false);
 
-        legend.add(createLegendItem(BaseCinemaFrame.CINEMA_CARD, new Color(60, 68, 78), "Tersedia"));
+        legend.add(createLegendItem(BaseCinemaFrame.CINEMA_CARD, new Color(203, 213, 225), "Tersedia"));
         legend.add(createLegendItem(BaseCinemaFrame.CINEMA_GOLD, Color.WHITE, "Pilihan Anda"));
         legend.add(createLegendItem(BaseCinemaFrame.CINEMA_RED, new Color(100, 20, 22), "Sudah Dipesan"));
 
@@ -354,37 +354,37 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pilih Kursi - Bioskop Nusantara");
-        setBackground(new java.awt.Color(18, 19, 22));
+        setBackground(new java.awt.Color(245, 247, 250));
         setMinimumSize(new java.awt.Dimension(700, 520));
         setPreferredSize(new java.awt.Dimension(950, 720));
 
-        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setBackground(new java.awt.Color(0, 26, 58));
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
         headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("DENAH & PEMILIHAN KURSI STUDIO");
         headerPanel.add(headerTitleLabel);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
-        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
         mainContentPanel.setLayout(new java.awt.BorderLayout(20, 0));
 
         seatMapContainer.setOpaque(false);
         seatMapContainer.setLayout(new java.awt.BorderLayout(0, 14));
 
-        infoBarPanel.setBackground(new java.awt.Color(27, 30, 35));
+        infoBarPanel.setBackground(new java.awt.Color(0, 26, 58));
         infoBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 14, 8));
 
         infoFilmTitleLabel.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
-        infoFilmTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        infoFilmTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         infoFilmTitleLabel.setText("Judul Film");
         infoBarPanel.add(infoFilmTitleLabel);
 
         infoScheduleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        infoScheduleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        infoScheduleLabel.setForeground(new java.awt.Color(15, 23, 42));
         infoScheduleLabel.setText("Studio & Jadwal");
         infoBarPanel.add(infoScheduleLabel);
 
@@ -392,7 +392,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
 
         seatsScrollPane.setBorder(null);
 
-        seatsContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        seatsContentPanel.setBackground(new java.awt.Color(245, 247, 250));
         seatsContentPanel.setLayout(new javax.swing.BoxLayout(seatsContentPanel, javax.swing.BoxLayout.Y_AXIS));
         seatsScrollPane.setViewportView(seatsContentPanel);
 
@@ -400,23 +400,23 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
 
         mainContentPanel.add(seatMapContainer, java.awt.BorderLayout.CENTER);
 
-        summaryCardPanel.setBackground(new java.awt.Color(34, 38, 44));
+        summaryCardPanel.setBackground(new java.awt.Color(255, 255, 255));
         summaryCardPanel.setPreferredSize(new java.awt.Dimension(280, 0));
         summaryCardPanel.setLayout(new javax.swing.BoxLayout(summaryCardPanel, javax.swing.BoxLayout.Y_AXIS));
 
         summaryTitleLabel.setFont(new java.awt.Font("Inter", 1, 17)); // NOI18N
-        summaryTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        summaryTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         summaryTitleLabel.setText("Ringkasan Pesanan");
         summaryCardPanel.add(summaryTitleLabel);
         summaryCardPanel.add(filler1);
 
         totalHeaderLabel.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
-        totalHeaderLabel.setForeground(new java.awt.Color(160, 165, 172));
+        totalHeaderLabel.setForeground(new java.awt.Color(100, 116, 139));
         totalHeaderLabel.setText("TOTAL HARGA");
         summaryCardPanel.add(totalHeaderLabel);
 
         totalPriceLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
-        totalPriceLabel.setForeground(new java.awt.Color(214, 169, 75));
+        totalPriceLabel.setForeground(new java.awt.Color(245, 166, 35));
         totalPriceLabel.setText("Rp 0,00");
         summaryCardPanel.add(totalPriceLabel);
         summaryCardPanel.add(filler2);

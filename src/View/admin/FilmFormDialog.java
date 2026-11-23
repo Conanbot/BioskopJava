@@ -62,7 +62,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         setMinimumSize(new java.awt.Dimension(520, 480));
         setResizable(false);
 
-        contentPanel.setBackground(new java.awt.Color(35, 38, 41));
+        contentPanel.setBackground(new java.awt.Color(255, 255, 255));
         contentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(28, 32, 24, 32));
         contentPanel.setLayout(new java.awt.BorderLayout(0, 16));
 
@@ -70,7 +70,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
         titleLabel.setText("Tambah Film Baru");
         headerPanel.add(titleLabel);
 
@@ -80,7 +80,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.setLayout(new java.awt.GridBagLayout());
 
         filmTitleLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        filmTitleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        filmTitleLabel.setForeground(new java.awt.Color(15, 23, 42));
         filmTitleLabel.setText("Judul Film");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -89,12 +89,12 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(filmTitleLabel, gridBagConstraints);
 
-        filmTitleField.setBackground(new java.awt.Color(23, 25, 27));
+        filmTitleField.setBackground(new java.awt.Color(245, 247, 250));
         filmTitleField.setColumns(24);
         filmTitleField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        filmTitleField.setForeground(new java.awt.Color(245, 241, 232));
-        filmTitleField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
-        filmTitleField.setCaretColor(new java.awt.Color(245, 241, 232));
+        filmTitleField.setForeground(new java.awt.Color(15, 23, 42));
+        filmTitleField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        filmTitleField.setCaretColor(new java.awt.Color(15, 23, 42));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -104,7 +104,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(filmTitleField, gridBagConstraints);
 
         genreLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        genreLabel.setForeground(new java.awt.Color(245, 241, 232));
+        genreLabel.setForeground(new java.awt.Color(15, 23, 42));
         genreLabel.setText("Genre");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -113,12 +113,12 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(genreLabel, gridBagConstraints);
 
-        genreField.setBackground(new java.awt.Color(23, 25, 27));
+        genreField.setBackground(new java.awt.Color(245, 247, 250));
         genreField.setColumns(24);
         genreField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        genreField.setForeground(new java.awt.Color(245, 241, 232));
-        genreField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
-        genreField.setCaretColor(new java.awt.Color(245, 241, 232));
+        genreField.setForeground(new java.awt.Color(15, 23, 42));
+        genreField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        genreField.setCaretColor(new java.awt.Color(15, 23, 42));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -128,7 +128,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(genreField, gridBagConstraints);
 
         durationLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        durationLabel.setForeground(new java.awt.Color(245, 241, 232));
+        durationLabel.setForeground(new java.awt.Color(15, 23, 42));
         durationLabel.setText("Durasi (menit)");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -149,7 +149,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(durationSpinner, gridBagConstraints);
 
         ageRatingLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        ageRatingLabel.setForeground(new java.awt.Color(245, 241, 232));
+        ageRatingLabel.setForeground(new java.awt.Color(15, 23, 42));
         ageRatingLabel.setText("Rating Usia");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -158,9 +158,9 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(ageRatingLabel, gridBagConstraints);
 
-        ageRatingCombo.setBackground(new java.awt.Color(23, 25, 27));
+        ageRatingCombo.setBackground(new java.awt.Color(245, 247, 250));
         ageRatingCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        ageRatingCombo.setForeground(new java.awt.Color(245, 241, 232));
+        ageRatingCombo.setForeground(new java.awt.Color(15, 23, 42));
         ageRatingCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SU", "13+", "17+", "21+" }));
         ageRatingCombo.setPreferredSize(new java.awt.Dimension(140, 38));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -172,7 +172,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(ageRatingCombo, gridBagConstraints);
 
         statusLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        statusLabel.setForeground(new java.awt.Color(245, 241, 232));
+        statusLabel.setForeground(new java.awt.Color(15, 23, 42));
         statusLabel.setText("Status");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -181,9 +181,9 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(statusLabel, gridBagConstraints);
 
-        statusCombo.setBackground(new java.awt.Color(23, 25, 27));
+        statusCombo.setBackground(new java.awt.Color(245, 247, 250));
         statusCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        statusCombo.setForeground(new java.awt.Color(245, 241, 232));
+        statusCombo.setForeground(new java.awt.Color(15, 23, 42));
         statusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOW_SHOWING", "COMING_SOON", "ARCHIVED" }));
         statusCombo.setPreferredSize(new java.awt.Dimension(180, 38));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -195,7 +195,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(statusCombo, gridBagConstraints);
 
         synopsisLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        synopsisLabel.setForeground(new java.awt.Color(245, 241, 232));
+        synopsisLabel.setForeground(new java.awt.Color(15, 23, 42));
         synopsisLabel.setText("Sinopsis");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -204,18 +204,18 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 12);
         fieldsPanel.add(synopsisLabel, gridBagConstraints);
 
-        synopsisScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)));
+        synopsisScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)));
         synopsisScrollPane.setPreferredSize(new java.awt.Dimension(280, 96));
 
-        synopsisArea.setBackground(new java.awt.Color(23, 25, 27));
+        synopsisArea.setBackground(new java.awt.Color(245, 247, 250));
         synopsisArea.setColumns(24);
         synopsisArea.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        synopsisArea.setForeground(new java.awt.Color(245, 241, 232));
+        synopsisArea.setForeground(new java.awt.Color(15, 23, 42));
         synopsisArea.setLineWrap(true);
         synopsisArea.setRows(4);
         synopsisArea.setWrapStyleWord(true);
         synopsisArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10));
-        synopsisArea.setCaretColor(new java.awt.Color(245, 241, 232));
+        synopsisArea.setCaretColor(new java.awt.Color(15, 23, 42));
         synopsisScrollPane.setViewportView(synopsisArea);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -243,15 +243,15 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         footerPanel.setOpaque(false);
         footerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 0));
 
-        cancelButton.setBackground(new java.awt.Color(35, 38, 41));
+        cancelButton.setBackground(new java.awt.Color(255, 255, 255));
         cancelButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        cancelButton.setForeground(new java.awt.Color(245, 241, 232));
+        cancelButton.setForeground(new java.awt.Color(15, 23, 42));
         cancelButton.setText("Batal");
         footerPanel.add(cancelButton);
 
-        saveButton.setBackground(new java.awt.Color(214, 169, 75));
+        saveButton.setBackground(new java.awt.Color(0, 26, 58));
         saveButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        saveButton.setForeground(new java.awt.Color(23, 25, 27));
+        saveButton.setForeground(new java.awt.Color(245, 247, 250));
         saveButton.setText("Simpan");
         footerPanel.add(saveButton);
 

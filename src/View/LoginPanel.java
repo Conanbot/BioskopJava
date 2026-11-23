@@ -45,31 +45,31 @@ public final class LoginPanel extends javax.swing.JPanel {
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8));
         registerButton = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(23, 25, 27));
+        setBackground(new java.awt.Color(245, 247, 250));
         setPreferredSize(new java.awt.Dimension(840, 520));
         setLayout(new java.awt.BorderLayout());
 
-        scrollPane.setBackground(new java.awt.Color(23, 25, 27));
+        scrollPane.setBackground(new java.awt.Color(245, 247, 250));
         scrollPane.setBorder(null);
 
-        centerWrapper.setBackground(new java.awt.Color(23, 25, 27));
+        centerWrapper.setBackground(new java.awt.Color(245, 247, 250));
         centerWrapper.setLayout(new java.awt.GridBagLayout());
 
-        formCard.setBackground(new java.awt.Color(35, 38, 41));
-        formCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)), javax.swing.BorderFactory.createEmptyBorder(34, 40, 34, 40)));
+        formCard.setBackground(new java.awt.Color(255, 255, 255));
+        formCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(34, 40, 34, 40)));
         formCard.setMaximumSize(new java.awt.Dimension(440, 460));
         formCard.setPreferredSize(new java.awt.Dimension(400, 420));
         formCard.setLayout(new javax.swing.BoxLayout(formCard, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
         titleLabel.setText("Masuk ke Akun");
         titleLabel.setAlignmentX(0.5F);
         formCard.add(titleLabel);
         formCard.add(filler1);
 
         subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        subtitleLabel.setForeground(new java.awt.Color(208, 203, 192));
+        subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         subtitleLabel.setText("Sistem Booking Tiket Bioskop");
         subtitleLabel.setAlignmentX(0.5F);
         formCard.add(subtitleLabel);
@@ -79,7 +79,7 @@ public final class LoginPanel extends javax.swing.JPanel {
         fieldsPanel.setLayout(new java.awt.GridBagLayout());
 
         usernameLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        usernameLabel.setForeground(new java.awt.Color(245, 241, 232));
+        usernameLabel.setForeground(new java.awt.Color(15, 23, 42));
         usernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -88,12 +88,12 @@ public final class LoginPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         fieldsPanel.add(usernameLabel, gridBagConstraints);
 
-        usernameField.setBackground(new java.awt.Color(23, 25, 27));
+        usernameField.setBackground(new java.awt.Color(245, 247, 250));
         usernameField.setColumns(20);
         usernameField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        usernameField.setForeground(new java.awt.Color(245, 241, 232));
-        usernameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
-        usernameField.setCaretColor(new java.awt.Color(245, 241, 232));
+        usernameField.setForeground(new java.awt.Color(15, 23, 42));
+        usernameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        usernameField.setCaretColor(new java.awt.Color(15, 23, 42));
         usernameField.setPreferredSize(new java.awt.Dimension(280, 40));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -104,7 +104,7 @@ public final class LoginPanel extends javax.swing.JPanel {
         fieldsPanel.add(usernameField, gridBagConstraints);
 
         passwordLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        passwordLabel.setForeground(new java.awt.Color(245, 241, 232));
+        passwordLabel.setForeground(new java.awt.Color(15, 23, 42));
         passwordLabel.setText("Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -113,12 +113,12 @@ public final class LoginPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 0);
         fieldsPanel.add(passwordLabel, gridBagConstraints);
 
-        passwordField.setBackground(new java.awt.Color(23, 25, 27));
+        passwordField.setBackground(new java.awt.Color(245, 247, 250));
         passwordField.setColumns(20);
         passwordField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        passwordField.setForeground(new java.awt.Color(245, 241, 232));
-        passwordField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
-        passwordField.setCaretColor(new java.awt.Color(245, 241, 232));
+        passwordField.setForeground(new java.awt.Color(15, 23, 42));
+        passwordField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        passwordField.setCaretColor(new java.awt.Color(15, 23, 42));
         passwordField.setPreferredSize(new java.awt.Dimension(280, 40));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -138,9 +138,9 @@ public final class LoginPanel extends javax.swing.JPanel {
         formCard.add(errorLabel);
         formCard.add(filler4);
 
-        loginButton.setBackground(new java.awt.Color(214, 169, 75));
+        loginButton.setBackground(new java.awt.Color(0, 26, 58));
         loginButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        loginButton.setForeground(new java.awt.Color(23, 25, 27));
+        loginButton.setForeground(new java.awt.Color(245, 247, 250));
         loginButton.setText("Masuk");
         loginButton.setAlignmentX(0.5F);
         loginButton.setMaximumSize(new java.awt.Dimension(2147483647, 44));
@@ -148,9 +148,9 @@ public final class LoginPanel extends javax.swing.JPanel {
         formCard.add(loginButton);
         formCard.add(filler5);
 
-        registerButton.setBackground(new java.awt.Color(35, 38, 41));
+        registerButton.setBackground(new java.awt.Color(255, 255, 255));
         registerButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        registerButton.setForeground(new java.awt.Color(245, 241, 232));
+        registerButton.setForeground(new java.awt.Color(15, 23, 42));
         registerButton.setText("Daftar Akun Baru");
         registerButton.setAlignmentX(0.5F);
         registerButton.setMaximumSize(new java.awt.Dimension(2147483647, 44));

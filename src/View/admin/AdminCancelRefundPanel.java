@@ -46,7 +46,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         resultScrollPane = new javax.swing.JScrollPane();
         resultArea = new javax.swing.JTextArea();
 
-        setBackground(new java.awt.Color(23, 25, 27));
+        setBackground(new java.awt.Color(245, 247, 250));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(28, 32, 28, 32));
         setPreferredSize(new java.awt.Dimension(770, 560));
         setLayout(new java.awt.BorderLayout(0, 20));
@@ -55,13 +55,13 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
         titleLabel.setText("Batalkan / Refund Booking");
         headerPanel.add(titleLabel);
         headerPanel.add(filler1);
 
         subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        subtitleLabel.setForeground(new java.awt.Color(208, 203, 192));
+        subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         subtitleLabel.setText("Proses pembatalan atau refund booking atas nama Admin.");
         headerPanel.add(subtitleLabel);
 
@@ -70,12 +70,12 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         contentPanel.setOpaque(false);
         contentPanel.setLayout(new java.awt.BorderLayout(0, 18));
 
-        formCard.setBackground(new java.awt.Color(35, 38, 41));
-        formCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
+        formCard.setBackground(new java.awt.Color(255, 255, 255));
+        formCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
         formCard.setLayout(new java.awt.GridBagLayout());
 
         bookingCodeLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        bookingCodeLabel.setForeground(new java.awt.Color(245, 241, 232));
+        bookingCodeLabel.setForeground(new java.awt.Color(15, 23, 42));
         bookingCodeLabel.setText("Kode Booking");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -84,13 +84,13 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         formCard.add(bookingCodeLabel, gridBagConstraints);
 
-        bookingCodeField.setBackground(new java.awt.Color(23, 25, 27));
+        bookingCodeField.setBackground(new java.awt.Color(245, 247, 250));
         bookingCodeField.setColumns(20);
         bookingCodeField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        bookingCodeField.setForeground(new java.awt.Color(245, 241, 232));
+        bookingCodeField.setForeground(new java.awt.Color(15, 23, 42));
         bookingCodeField.setToolTipText("Contoh: BKG-20261119-AB12");
-        bookingCodeField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
-        bookingCodeField.setCaretColor(new java.awt.Color(245, 241, 232));
+        bookingCodeField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        bookingCodeField.setCaretColor(new java.awt.Color(15, 23, 42));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -100,7 +100,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         formCard.add(bookingCodeField, gridBagConstraints);
 
         resolutionLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        resolutionLabel.setForeground(new java.awt.Color(245, 241, 232));
+        resolutionLabel.setForeground(new java.awt.Color(15, 23, 42));
         resolutionLabel.setText("Tindakan");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -109,9 +109,9 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         formCard.add(resolutionLabel, gridBagConstraints);
 
-        resolutionCombo.setBackground(new java.awt.Color(23, 25, 27));
+        resolutionCombo.setBackground(new java.awt.Color(245, 247, 250));
         resolutionCombo.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        resolutionCombo.setForeground(new java.awt.Color(245, 241, 232));
+        resolutionCombo.setForeground(new java.awt.Color(15, 23, 42));
         resolutionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CANCEL", "REFUND" }));
         resolutionCombo.setPreferredSize(new java.awt.Dimension(180, 42));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -135,15 +135,15 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
 
-        processButton.setBackground(new java.awt.Color(214, 169, 75));
+        processButton.setBackground(new java.awt.Color(0, 26, 58));
         processButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        processButton.setForeground(new java.awt.Color(23, 25, 27));
+        processButton.setForeground(new java.awt.Color(245, 247, 250));
         processButton.setText("Proses");
         buttonPanel.add(processButton);
 
-        clearButton.setBackground(new java.awt.Color(35, 38, 41));
+        clearButton.setBackground(new java.awt.Color(255, 255, 255));
         clearButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        clearButton.setForeground(new java.awt.Color(245, 241, 232));
+        clearButton.setForeground(new java.awt.Color(15, 23, 42));
         clearButton.setText("Reset");
         buttonPanel.add(clearButton);
 
@@ -154,7 +154,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         formCard.add(buttonPanel, gridBagConstraints);
 
         statusLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        statusLabel.setForeground(new java.awt.Color(208, 203, 192));
+        statusLabel.setForeground(new java.awt.Color(100, 116, 139));
         statusLabel.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -165,22 +165,22 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
 
         contentPanel.add(formCard, java.awt.BorderLayout.NORTH);
 
-        resultCard.setBackground(new java.awt.Color(35, 38, 41));
-        resultCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)), javax.swing.BorderFactory.createEmptyBorder(16, 20, 16, 20)));
+        resultCard.setBackground(new java.awt.Color(255, 255, 255));
+        resultCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(16, 20, 16, 20)));
         resultCard.setLayout(new java.awt.BorderLayout(0, 10));
 
         resultTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        resultTitleLabel.setForeground(new java.awt.Color(208, 203, 192));
+        resultTitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         resultTitleLabel.setText("Hasil Proses");
         resultCard.add(resultTitleLabel, java.awt.BorderLayout.NORTH);
 
-        resultScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(60, 56, 50)));
+        resultScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
         resultArea.setEditable(false);
-        resultArea.setBackground(new java.awt.Color(23, 25, 27));
+        resultArea.setBackground(new java.awt.Color(245, 247, 250));
         resultArea.setColumns(40);
         resultArea.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        resultArea.setForeground(new java.awt.Color(245, 241, 232));
+        resultArea.setForeground(new java.awt.Color(15, 23, 42));
         resultArea.setLineWrap(true);
         resultArea.setRows(8);
         resultArea.setText("Belum ada proses dijalankan.");

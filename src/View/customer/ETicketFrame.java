@@ -61,7 +61,7 @@ public class ETicketFrame extends javax.swing.JFrame {
 
         ticketContainerPanel.setBorder(new EmptyBorder(24, 28, 24, 28));
         ticketScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        ticketScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_SURFACE);
+        ticketScrollPane.getViewport().setBackground(Color.WHITE);
 
         SwingTheme.styleButton(exportButton, true);
         exportButton.setPreferredSize(new Dimension(220, 40));
@@ -92,9 +92,9 @@ public class ETicketFrame extends javax.swing.JFrame {
             return;
         }
 
-        JLabel headerCinema = new JLabel("BIOSKOP NUSANTARA");
-        headerCinema.setFont(new Font("Inter", Font.BOLD, 18));
-        headerCinema.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+        JLabel headerCinema = new JLabel("TIX ID  •  BIOSKOP NUSANTARA");
+        headerCinema.setFont(SwingTheme.font(Font.BOLD, 18));
+        headerCinema.setForeground(SwingTheme.NAVY);
         headerCinema.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel subHeader = new JLabel("OFFICIAL CINEMA PASS / E-TICKET");
@@ -227,33 +227,33 @@ public class ETicketFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("E-Ticket Bioskop Nusantara");
-        setBackground(new java.awt.Color(18, 19, 22));
+        setBackground(new java.awt.Color(245, 247, 250));
         setMinimumSize(new java.awt.Dimension(500, 550));
         setPreferredSize(new java.awt.Dimension(580, 720));
 
-        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setBackground(new java.awt.Color(0, 26, 58));
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
         headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("E-TICKET RESMI BIOSKOP");
         headerPanel.add(headerTitleLabel);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
-        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
         mainContentPanel.setLayout(new java.awt.BorderLayout());
 
         ticketScrollPane.setBorder(null);
 
-        ticketContainerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        ticketContainerPanel.setBackground(new java.awt.Color(255, 255, 255));
         ticketContainerPanel.setLayout(new javax.swing.BoxLayout(ticketContainerPanel, javax.swing.BoxLayout.Y_AXIS));
         ticketScrollPane.setViewportView(ticketContainerPanel);
 
         mainContentPanel.add(ticketScrollPane, java.awt.BorderLayout.CENTER);
 
-        bottomBarPanel.setBackground(new java.awt.Color(18, 19, 22));
+        bottomBarPanel.setBackground(new java.awt.Color(245, 247, 250));
         bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 14, 12));
 
         exportButton.setText("Simpan / Cetak Tiket (.txt)");

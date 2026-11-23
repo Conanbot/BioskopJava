@@ -36,8 +36,10 @@ public final class SwingTheme {
     private static volatile String activeFontFamily = "Inter";
     private static volatile boolean fontsLoaded = false;
 
+    public static final Color NAVY = ColorPalette.NAVY;
     public static final Color BACKGROUND = ColorPalette.BACKGROUND;
     public static final Color SURFACE = ColorPalette.SURFACE;
+    public static final Color BORDER = ColorPalette.BORDER;
     public static final Color TEXT = ColorPalette.TEXT;
     public static final Color MUTED_TEXT = ColorPalette.MUTED_TEXT;
     public static final Color GOLD = ColorPalette.GOLD;
@@ -53,10 +55,10 @@ public final class SwingTheme {
         UIManager.put("OptionPane.background", SURFACE);
         UIManager.put("OptionPane.messageForeground", TEXT);
         UIManager.put("Panel.background", SURFACE);
-        UIManager.put("Button.background", GOLD);
-        UIManager.put("Button.foreground", BACKGROUND);
+        UIManager.put("Button.background", NAVY);
+        UIManager.put("Button.foreground", Color.WHITE);
         UIManager.put("Button.focus", FOCUS);
-        UIManager.put("Button.disabledText", TEXT);
+        UIManager.put("Button.disabledText", MUTED_TEXT);
         UIManager.put("Label.foreground", TEXT);
         UIManager.put("OptionPane.buttonFont", font(Font.BOLD, 14));
         UIManager.put("OptionPane.messageFont", font(Font.PLAIN, 14));
@@ -135,17 +137,24 @@ public final class SwingTheme {
         }
     }
 
+    /**
+     * Styling tombol bergaya TIX ID:
+     * - primary = true : Royal Navy (#001A3A) dengan teks putih tegas
+     * - primary = false: Putih bersih (#FFFFFF) dengan border halus dan teks navy
+     */
     public static void styleButton(JButton button, boolean primary) {
-        Color background = primary ? GOLD : SURFACE;
-        Color foreground = primary ? BACKGROUND : TEXT;
+        Color background = primary ? NAVY : SURFACE;
+        Color foreground = primary ? Color.WHITE : NAVY;
+        Color hoverBg = primary ? ColorPalette.NAVY_HOVER : ColorPalette.SURFACE_HOVER;
+        Color pressedBg = primary ? ColorPalette.NAVY_PRESSED : ColorPalette.BORDER;
+        Color borderColor = primary ? NAVY : new Color(203, 213, 225);
+
         Border normalBorder = BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(GOLD),
+                BorderFactory.createLineBorder(borderColor, 1),
                 BorderFactory.createEmptyBorder(9, 16, 9, 16));
         Border focusBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(FOCUS, 2),
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(primary ? BACKGROUND : FOCUS),
-                        BorderFactory.createEmptyBorder(7, 14, 7, 14)));
+                BorderFactory.createEmptyBorder(8, 15, 8, 15));
 
         button.setFont(font(Font.BOLD, 14));
         button.setForeground(foreground);
@@ -160,7 +169,7 @@ public final class SwingTheme {
         button.setPreferredSize(new Dimension(160, 42));
         button.addPropertyChangeListener("enabled", event -> {
             button.setBackground(button.isEnabled() ? background : ColorPalette.DISABLED);
-            button.setForeground(button.isEnabled() ? foreground : TEXT);
+            button.setForeground(button.isEnabled() ? foreground : MUTED_TEXT);
             button.setCursor(Cursor.getPredefinedCursor(
                     button.isEnabled() ? Cursor.HAND_CURSOR : Cursor.DEFAULT_CURSOR));
         });
@@ -180,33 +189,36 @@ public final class SwingTheme {
             @Override
             public void mouseEntered(MouseEvent event) {
                 if (button.isEnabled()) {
-                    button.setBackground(primary ? GOLD_HOVER : ColorPalette.SURFACE_HOVER);
+                    button.setBackground(hoverBg);
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent event) {
-                button.setBackground(button.isEnabled() ? background : new Color(85, 81, 74));
+                button.setBackground(button.isEnabled() ? background : ColorPalette.DISABLED);
             }
 
             @Override
             public void mousePressed(MouseEvent event) {
                 if (button.isEnabled()) {
-                    button.setBackground(primary ? ColorPalette.GOLD_PRESSED : BACKGROUND);
+                    button.setBackground(pressedBg);
                 }
             }
 
             @Override
             public void mouseReleased(MouseEvent event) {
                 if (button.isEnabled()) {
-                    button.setBackground(button.contains(event.getPoint())
-                            ? (primary ? GOLD_HOVER : ColorPalette.SURFACE_HOVER)
-                            : background);
+                    button.setBackground(button.contains(event.getPoint()) ? hoverBg : background);
                 }
             }
         });
     }
 
+    /**
+     * Styling tombol navigasi pada sidebar Royal Navy (AdminPanel):
+     * - active = true : TIX ID Gold (#F5A623) dengan teks Royal Navy
+     * - active = false: Royal Navy (#001A3A) dengan teks putih lembut
+     */
     public static void styleNavigationButton(JButton button) {
         button.setFont(font(Font.BOLD, 14));
         button.setHorizontalAlignment(SwingConstants.LEFT);
@@ -223,8 +235,8 @@ public final class SwingTheme {
             button.setCursor(Cursor.getPredefinedCursor(
                     button.isEnabled() ? Cursor.HAND_CURSOR : Cursor.DEFAULT_CURSOR));
             if (!button.isEnabled()) {
-                button.setBackground(ColorPalette.DISABLED);
-                button.setForeground(TEXT);
+                button.setBackground(ColorPalette.NAVY_PRESSED);
+                button.setForeground(MUTED_TEXT);
             } else {
                 setNavigationActive(
                         button,
@@ -248,7 +260,7 @@ public final class SwingTheme {
             public void mouseEntered(MouseEvent event) {
                 if (button.isEnabled()) {
                     button.setBackground(Boolean.TRUE.equals(button.getClientProperty("navigationActive"))
-                            ? GOLD_HOVER : ColorPalette.SURFACE_HOVER);
+                            ? GOLD_HOVER : ColorPalette.NAVY_HOVER);
                 }
             }
 
@@ -264,7 +276,7 @@ public final class SwingTheme {
             @Override
             public void mousePressed(MouseEvent event) {
                 if (button.isEnabled()) {
-                    button.setBackground(BACKGROUND);
+                    button.setBackground(ColorPalette.NAVY_PRESSED);
                 }
             }
 
@@ -272,9 +284,10 @@ public final class SwingTheme {
             public void mouseReleased(MouseEvent event) {
                 if (button.isEnabled()) {
                     button.setBackground(button.contains(event.getPoint())
-                            ? GOLD_HOVER
+                            ? (Boolean.TRUE.equals(button.getClientProperty("navigationActive"))
+                                    ? GOLD_HOVER : ColorPalette.NAVY_HOVER)
                             : (Boolean.TRUE.equals(button.getClientProperty("navigationActive"))
-                                    ? GOLD : SURFACE));
+                                    ? GOLD : NAVY));
                 }
             }
         });
@@ -282,22 +295,20 @@ public final class SwingTheme {
 
     public static void setNavigationActive(JButton button, boolean active) {
         button.putClientProperty("navigationActive", active);
-        button.setBackground(active ? GOLD : SURFACE);
-        button.setForeground(active ? BACKGROUND : TEXT);
+        button.setBackground(active ? GOLD : NAVY);
+        button.setForeground(active ? NAVY : new Color(226, 232, 240));
         button.setBorder(navigationBorder(active));
     }
 
     private static Border navigationBorder(boolean active) {
         return BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(active ? GOLD : SURFACE),
+                BorderFactory.createLineBorder(active ? GOLD : NAVY),
                 BorderFactory.createEmptyBorder(9, 12, 9, 12));
     }
 
     private static Border navigationFocusBorder() {
         return BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(FOCUS, 2),
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(BACKGROUND),
-                        BorderFactory.createEmptyBorder(7, 10, 7, 10)));
+                BorderFactory.createLineBorder(GOLD, 2),
+                BorderFactory.createEmptyBorder(8, 11, 8, 11));
     }
 }

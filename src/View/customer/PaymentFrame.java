@@ -87,7 +87,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         mainContentPanel.setBorder(new EmptyBorder(18, 22, 16, 22));
 
         summaryCardPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(45, 50, 58), 1),
+                BorderFactory.createLineBorder(new Color(226, 232, 240), 1),
                 new EmptyBorder(16, 18, 16, 18)
         ));
 
@@ -170,7 +170,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         panel.add(cashInfo);
         panel.add(Box.createVerticalStrut(12));
 
-        cashInputField.setBackground(new Color(20, 22, 26));
+        cashInputField.setBackground(new Color(241, 245, 249));
         cashInputField.setForeground(BaseCinemaFrame.CINEMA_TEXT);
         cashInputField.setCaretColor(BaseCinemaFrame.CINEMA_GOLD);
         cashInputField.setFont(new Font("Inter", Font.BOLD, 16));
@@ -395,34 +395,34 @@ public class PaymentFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pembayaran Tiket Bioskop");
-        setBackground(new java.awt.Color(18, 19, 22));
+        setBackground(new java.awt.Color(245, 247, 250));
         setMinimumSize(new java.awt.Dimension(580, 520));
         setPreferredSize(new java.awt.Dimension(680, 680));
 
-        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setBackground(new java.awt.Color(0, 26, 58));
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
         headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("KASIR & PEMBAYARAN TIKET");
         headerPanel.add(headerTitleLabel);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
-        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
         mainContentPanel.setLayout(new java.awt.BorderLayout(0, 16));
 
-        summaryCardPanel.setBackground(new java.awt.Color(34, 38, 44));
+        summaryCardPanel.setBackground(new java.awt.Color(255, 255, 255));
         summaryCardPanel.setLayout(new javax.swing.BoxLayout(summaryCardPanel, javax.swing.BoxLayout.Y_AXIS));
 
         summaryTitleLabel.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
-        summaryTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        summaryTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         summaryTitleLabel.setText("Rincian Transaksi");
         summaryCardPanel.add(summaryTitleLabel);
 
         totalPayLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        totalPayLabel.setForeground(new java.awt.Color(214, 169, 75));
+        totalPayLabel.setForeground(new java.awt.Color(245, 166, 35));
         totalPayLabel.setText("TOTAL BAYAR: Rp 0,00");
         summaryCardPanel.add(totalPayLabel);
 
@@ -432,7 +432,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         methodSectionPanel.setLayout(new javax.swing.BoxLayout(methodSectionPanel, javax.swing.BoxLayout.Y_AXIS));
 
         methodTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        methodTitleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        methodTitleLabel.setForeground(new java.awt.Color(15, 23, 42));
         methodTitleLabel.setText("Pilih Metode Pembayaran:");
         methodSectionPanel.add(methodTitleLabel);
 

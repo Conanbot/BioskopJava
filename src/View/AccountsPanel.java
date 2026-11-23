@@ -26,7 +26,7 @@ public final class AccountsPanel extends javax.swing.JPanel {
         loginPanel = new View.LoginPanel();
         registerPanel = new View.RegisterPanel();
 
-        setBackground(new java.awt.Color(23, 25, 27));
+        setBackground(new java.awt.Color(245, 247, 250));
         setPreferredSize(new java.awt.Dimension(840, 520));
         setLayout(new java.awt.CardLayout());
         add(loginPanel, "login");

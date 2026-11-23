@@ -54,7 +54,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         setMinimumSize(new java.awt.Dimension(380, 280));
         setResizable(false);
 
-        contentPanel.setBackground(new java.awt.Color(35, 38, 41));
+        contentPanel.setBackground(new java.awt.Color(255, 255, 255));
         contentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(28, 32, 24, 32));
         contentPanel.setLayout(new java.awt.BorderLayout(0, 16));
 
@@ -62,7 +62,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
         titleLabel.setText("Tambah Studio Baru");
         headerPanel.add(titleLabel);
 
@@ -72,7 +72,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         fieldsPanel.setLayout(new java.awt.GridBagLayout());
 
         nameLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        nameLabel.setForeground(new java.awt.Color(245, 241, 232));
+        nameLabel.setForeground(new java.awt.Color(15, 23, 42));
         nameLabel.setText("Nama Studio");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -81,12 +81,12 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(nameLabel, gridBagConstraints);
 
-        nameField.setBackground(new java.awt.Color(23, 25, 27));
+        nameField.setBackground(new java.awt.Color(245, 247, 250));
         nameField.setColumns(24);
         nameField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
-        nameField.setForeground(new java.awt.Color(245, 241, 232));
-        nameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 95, 85)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
-        nameField.setCaretColor(new java.awt.Color(245, 241, 232));
+        nameField.setForeground(new java.awt.Color(15, 23, 42));
+        nameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        nameField.setCaretColor(new java.awt.Color(15, 23, 42));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -96,7 +96,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(nameField, gridBagConstraints);
 
         rowsLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        rowsLabel.setForeground(new java.awt.Color(245, 241, 232));
+        rowsLabel.setForeground(new java.awt.Color(15, 23, 42));
         rowsLabel.setText("Jumlah Baris Kursi");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -117,7 +117,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(rowsSpinner, gridBagConstraints);
 
         colsLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        colsLabel.setForeground(new java.awt.Color(245, 241, 232));
+        colsLabel.setForeground(new java.awt.Color(15, 23, 42));
         colsLabel.setText("Jumlah Kolom Kursi");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -153,15 +153,15 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         footerPanel.setOpaque(false);
         footerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 0));
 
-        cancelButton.setBackground(new java.awt.Color(35, 38, 41));
+        cancelButton.setBackground(new java.awt.Color(255, 255, 255));
         cancelButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        cancelButton.setForeground(new java.awt.Color(245, 241, 232));
+        cancelButton.setForeground(new java.awt.Color(15, 23, 42));
         cancelButton.setText("Batal");
         footerPanel.add(cancelButton);
 
-        saveButton.setBackground(new java.awt.Color(214, 169, 75));
+        saveButton.setBackground(new java.awt.Color(0, 26, 58));
         saveButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        saveButton.setForeground(new java.awt.Color(23, 25, 27));
+        saveButton.setForeground(new java.awt.Color(245, 247, 250));
         saveButton.setText("Simpan");
         footerPanel.add(saveButton);
 

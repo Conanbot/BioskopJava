@@ -55,11 +55,11 @@ public class CustomerPanel extends javax.swing.JPanel {
         filmsScrollPane = new javax.swing.JScrollPane();
         filmsPreviewGrid = new javax.swing.JPanel();
 
-        setBackground(new java.awt.Color(18, 19, 22));
+        setBackground(new java.awt.Color(245, 247, 250));
         setPreferredSize(new java.awt.Dimension(860, 540));
         setLayout(new java.awt.BorderLayout(0, 16));
 
-        headerCard.setBackground(new java.awt.Color(28, 30, 35));
+        headerCard.setBackground(new java.awt.Color(0, 26, 58));
         headerCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(45, 50, 58)), javax.swing.BorderFactory.createEmptyBorder(14, 16, 14, 16)));
         headerCard.setPreferredSize(new java.awt.Dimension(0, 96));
         headerCard.setLayout(new java.awt.BorderLayout());
@@ -68,19 +68,19 @@ public class CustomerPanel extends javax.swing.JPanel {
         textPanel.setLayout(new javax.swing.BoxLayout(textPanel, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(229, 179, 58));
+        titleLabel.setForeground(new java.awt.Color(245, 166, 35));
         titleLabel.setText("Layanan Customer - Bioskop Nusantara");
         textPanel.add(titleLabel);
         textPanel.add(filler1);
 
         subtitleLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        subtitleLabel.setForeground(new java.awt.Color(149, 157, 165));
+        subtitleLabel.setForeground(new java.awt.Color(203, 213, 225));
         subtitleLabel.setText("Modul Lengkap: Customer Home • Film Detail • Seat Map • Payment • E-Ticket • Riwayat");
         textPanel.add(subtitleLabel);
         textPanel.add(filler2);
 
         userGreetingLabel.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
-        userGreetingLabel.setForeground(new java.awt.Color(229, 179, 58));
+        userGreetingLabel.setForeground(new java.awt.Color(245, 166, 35));
         userGreetingLabel.setText("Status: Belum login");
         textPanel.add(userGreetingLabel);
 
@@ -89,22 +89,22 @@ public class CustomerPanel extends javax.swing.JPanel {
         actionsPanel.setOpaque(false);
         actionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 6));
 
-        launchFrameButton.setBackground(new java.awt.Color(229, 179, 58));
+        launchFrameButton.setBackground(new java.awt.Color(245, 166, 35));
         launchFrameButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        launchFrameButton.setForeground(new java.awt.Color(18, 19, 22));
+        launchFrameButton.setForeground(new java.awt.Color(245, 247, 250));
         launchFrameButton.setText("Buka Portal Customer");
         launchFrameButton.setPreferredSize(new java.awt.Dimension(200, 42));
         actionsPanel.add(launchFrameButton);
 
         historyButton.setBackground(new java.awt.Color(35, 38, 41));
         historyButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        historyButton.setForeground(new java.awt.Color(245, 241, 232));
+        historyButton.setForeground(new java.awt.Color(15, 23, 42));
         historyButton.setText("Riwayat Tiket");
         actionsPanel.add(historyButton);
 
         logoutButton.setBackground(new java.awt.Color(35, 38, 41));
         logoutButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        logoutButton.setForeground(new java.awt.Color(245, 241, 232));
+        logoutButton.setForeground(new java.awt.Color(15, 23, 42));
         logoutButton.setText("Logout");
         actionsPanel.add(logoutButton);
 
@@ -114,7 +114,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         filmsScrollPane.setBorder(null);
 
-        filmsPreviewGrid.setBackground(new java.awt.Color(18, 19, 22));
+        filmsPreviewGrid.setBackground(new java.awt.Color(245, 247, 250));
         filmsPreviewGrid.setLayout(new java.awt.GridLayout(0, 2, 14, 14));
         filmsScrollPane.setViewportView(filmsPreviewGrid);
 
@@ -185,7 +185,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         JLabel title = new JLabel(film.getTitle());
         title.setFont(SwingTheme.font(Font.BOLD, 14));
-        title.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+        title.setForeground(SwingTheme.NAVY);
 
         JLabel info = new JLabel(film.getGenre() + " • " + film.getDurationMinutes() + " mnt • " + film.getAgeRating());
         info.setFont(SwingTheme.font(Font.PLAIN, 12));

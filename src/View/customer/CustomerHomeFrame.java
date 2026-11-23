@@ -81,7 +81,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
 
         // Hero banner style
         heroBannerPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(50, 55, 65), 1),
+                BorderFactory.createLineBorder(new Color(0, 26, 58), 1),
                 new EmptyBorder(16, 20, 16, 20)
         ));
 
@@ -107,11 +107,11 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         });
 
         // Search field styling
-        searchField.setBackground(new Color(28, 31, 37));
+        searchField.setBackground(new Color(255, 255, 255));
         searchField.setForeground(BaseCinemaFrame.CINEMA_TEXT);
         searchField.setCaretColor(BaseCinemaFrame.CINEMA_GOLD);
         searchField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(60, 68, 78), 1),
+                BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
                 new EmptyBorder(6, 10, 6, 10)
         ));
         searchField.addKeyListener(new KeyAdapter() {
@@ -122,7 +122,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         });
 
         // Genre filter combo styling
-        genreFilterCombo.setBackground(new Color(28, 31, 37));
+        genreFilterCombo.setBackground(new Color(255, 255, 255));
         genreFilterCombo.setForeground(BaseCinemaFrame.CINEMA_TEXT);
         genreFilterCombo.addActionListener(e -> filterAndDisplayFilms());
 
@@ -218,8 +218,8 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
 
         JPanel posterArea = new JPanel(new BorderLayout());
         posterArea.setPreferredSize(new Dimension(0, 140));
-        posterArea.setBackground(new Color(20, 22, 26));
-        posterArea.setBorder(BorderFactory.createLineBorder(new Color(50, 56, 66), 1));
+        posterArea.setBackground(new Color(241, 245, 249));
+        posterArea.setBorder(BorderFactory.createLineBorder(new Color(226, 232, 240), 1));
 
         JLabel icon = new JLabel("POSTER", SwingConstants.CENTER);
         icon.setFont(SwingTheme.font(Font.BOLD, 13));
@@ -244,7 +244,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
 
         JLabel titleLbl = new JLabel(film.getTitle());
         titleLbl.setFont(SwingTheme.font(Font.BOLD, 15));
-        titleLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+        titleLbl.setForeground(SwingTheme.NAVY);
         titleLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel genreLbl = new JLabel("Genre: " + film.getGenre());
@@ -313,11 +313,11 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Portal Pemesanan Tiket Bioskop - Customer Home");
-        setBackground(new java.awt.Color(18, 19, 22));
+        setBackground(new java.awt.Color(245, 247, 250));
         setMinimumSize(new java.awt.Dimension(750, 550));
         setPreferredSize(new java.awt.Dimension(1000, 750));
 
-        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setBackground(new java.awt.Color(0, 26, 58));
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 60));
         headerPanel.setLayout(new java.awt.BorderLayout());
 
@@ -329,12 +329,12 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         brandPanel.add(logoIcon);
 
         brandTitle.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        brandTitle.setForeground(new java.awt.Color(214, 169, 75));
+        brandTitle.setForeground(new java.awt.Color(245, 166, 35));
         brandTitle.setText("BIOSKOP NUSANTARA");
         brandPanel.add(brandTitle);
 
         brandSubtitle.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        brandSubtitle.setForeground(new java.awt.Color(160, 165, 172));
+        brandSubtitle.setForeground(new java.awt.Color(203, 213, 225));
         brandSubtitle.setText("| Layanan Pemesanan Tiket Customer");
         brandPanel.add(brandSubtitle);
 
@@ -351,25 +351,25 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
-        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
         mainContentPanel.setLayout(new java.awt.BorderLayout(0, 14));
 
-        heroBannerPanel.setBackground(new java.awt.Color(24, 27, 32));
+        heroBannerPanel.setBackground(new java.awt.Color(0, 26, 58));
         heroBannerPanel.setPreferredSize(new java.awt.Dimension(0, 90));
         heroBannerPanel.setLayout(new javax.swing.BoxLayout(heroBannerPanel, javax.swing.BoxLayout.Y_AXIS));
 
         promoTag.setFont(new java.awt.Font("Inter", 1, 11)); // NOI18N
-        promoTag.setForeground(new java.awt.Color(214, 169, 75));
+        promoTag.setForeground(new java.awt.Color(245, 166, 35));
         promoTag.setText("PREMIERE ENTERTAINMENT");
         heroBannerPanel.add(promoTag);
 
         promoTitle.setFont(new java.awt.Font("Inter", 1, 17)); // NOI18N
-        promoTitle.setForeground(new java.awt.Color(245, 241, 232));
+        promoTitle.setForeground(new java.awt.Color(255, 255, 255));
         promoTitle.setText("Nikmati Film Pilihan Terbaik dengan Kualitas Studio Premium");
         heroBannerPanel.add(promoTitle);
 
         promoDesc.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        promoDesc.setForeground(new java.awt.Color(160, 165, 172));
+        promoDesc.setForeground(new java.awt.Color(203, 213, 225));
         promoDesc.setText("Pilih kursi favorit Anda sekarang secara langsung & bayar mudah via QRIS / Tunai.");
         heroBannerPanel.add(promoDesc);
 
@@ -413,14 +413,14 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
 
         moviesScrollPane.setBorder(null);
 
-        moviesGridPanel.setBackground(new java.awt.Color(18, 19, 22));
+        moviesGridPanel.setBackground(new java.awt.Color(245, 247, 250));
         moviesGridPanel.setLayout(new java.awt.GridLayout(0, 3, 16, 16));
         moviesScrollPane.setViewportView(moviesGridPanel);
 
         centerContainer.add(moviesScrollPane, java.awt.BorderLayout.CENTER);
 
         resultCountLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        resultCountLabel.setForeground(new java.awt.Color(160, 165, 172));
+        resultCountLabel.setForeground(new java.awt.Color(100, 116, 139));
         resultCountLabel.setText("Menampilkan film...");
         centerContainer.add(resultCountLabel, java.awt.BorderLayout.SOUTH);
 

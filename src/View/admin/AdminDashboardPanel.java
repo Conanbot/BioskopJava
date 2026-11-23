@@ -57,7 +57,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10));
         statusLabel = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(23, 25, 27));
+        setBackground(new java.awt.Color(245, 247, 250));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(28, 32, 28, 32));
         setPreferredSize(new java.awt.Dimension(770, 560));
         setLayout(new java.awt.BorderLayout(0, 24));
@@ -66,13 +66,13 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 24)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
         titleLabel.setText("Dashboard Admin");
         headerPanel.add(titleLabel);
         headerPanel.add(filler1);
 
         subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        subtitleLabel.setForeground(new java.awt.Color(208, 203, 192));
+        subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         subtitleLabel.setText("Ringkasan operasional dan data transaksi sistem booking bioskop.");
         headerPanel.add(subtitleLabel);
 
@@ -81,73 +81,73 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         statsPanel.setOpaque(false);
         statsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 20));
 
-        filmsCard.setBackground(new java.awt.Color(35, 38, 41));
-        filmsCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
+        filmsCard.setBackground(new java.awt.Color(255, 255, 255));
+        filmsCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
         filmsCard.setPreferredSize(new java.awt.Dimension(220, 110));
         filmsCard.setLayout(new javax.swing.BoxLayout(filmsCard, javax.swing.BoxLayout.Y_AXIS));
 
         filmsCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        filmsCardTitle.setForeground(new java.awt.Color(208, 203, 192));
+        filmsCardTitle.setForeground(new java.awt.Color(100, 116, 139));
         filmsCardTitle.setText("Total Film");
         filmsCard.add(filmsCardTitle);
         filmsCard.add(filler2);
 
         totalFilmsValue.setFont(new java.awt.Font("Inter", 1, 28)); // NOI18N
-        totalFilmsValue.setForeground(new java.awt.Color(214, 169, 75));
+        totalFilmsValue.setForeground(new java.awt.Color(0, 26, 58));
         totalFilmsValue.setText("—");
         filmsCard.add(totalFilmsValue);
 
         statsPanel.add(filmsCard);
 
-        schedulesCard.setBackground(new java.awt.Color(35, 38, 41));
-        schedulesCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
+        schedulesCard.setBackground(new java.awt.Color(255, 255, 255));
+        schedulesCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
         schedulesCard.setPreferredSize(new java.awt.Dimension(220, 110));
         schedulesCard.setLayout(new javax.swing.BoxLayout(schedulesCard, javax.swing.BoxLayout.Y_AXIS));
 
         schedulesCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        schedulesCardTitle.setForeground(new java.awt.Color(208, 203, 192));
+        schedulesCardTitle.setForeground(new java.awt.Color(100, 116, 139));
         schedulesCardTitle.setText("Jadwal Hari Ini");
         schedulesCard.add(schedulesCardTitle);
         schedulesCard.add(filler3);
 
         totalSchedulesTodayValue.setFont(new java.awt.Font("Inter", 1, 28)); // NOI18N
-        totalSchedulesTodayValue.setForeground(new java.awt.Color(214, 169, 75));
+        totalSchedulesTodayValue.setForeground(new java.awt.Color(0, 26, 58));
         totalSchedulesTodayValue.setText("—");
         schedulesCard.add(totalSchedulesTodayValue);
 
         statsPanel.add(schedulesCard);
 
-        bookingsCard.setBackground(new java.awt.Color(35, 38, 41));
-        bookingsCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
+        bookingsCard.setBackground(new java.awt.Color(255, 255, 255));
+        bookingsCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
         bookingsCard.setPreferredSize(new java.awt.Dimension(220, 110));
         bookingsCard.setLayout(new javax.swing.BoxLayout(bookingsCard, javax.swing.BoxLayout.Y_AXIS));
 
         bookingsCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        bookingsCardTitle.setForeground(new java.awt.Color(208, 203, 192));
+        bookingsCardTitle.setForeground(new java.awt.Color(100, 116, 139));
         bookingsCardTitle.setText("Total Booking");
         bookingsCard.add(bookingsCardTitle);
         bookingsCard.add(filler4);
 
         totalBookingsValue.setFont(new java.awt.Font("Inter", 1, 28)); // NOI18N
-        totalBookingsValue.setForeground(new java.awt.Color(214, 169, 75));
+        totalBookingsValue.setForeground(new java.awt.Color(0, 26, 58));
         totalBookingsValue.setText("—");
         bookingsCard.add(totalBookingsValue);
 
         statsPanel.add(bookingsCard);
 
-        revenueCard.setBackground(new java.awt.Color(35, 38, 41));
-        revenueCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 133, 119)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
+        revenueCard.setBackground(new java.awt.Color(255, 255, 255));
+        revenueCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
         revenueCard.setPreferredSize(new java.awt.Dimension(220, 110));
         revenueCard.setLayout(new javax.swing.BoxLayout(revenueCard, javax.swing.BoxLayout.Y_AXIS));
 
         revenueCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        revenueCardTitle.setForeground(new java.awt.Color(208, 203, 192));
+        revenueCardTitle.setForeground(new java.awt.Color(100, 116, 139));
         revenueCardTitle.setText("Total Pendapatan (Rp)");
         revenueCard.add(revenueCardTitle);
         revenueCard.add(filler5);
 
         totalRevenueValue.setFont(new java.awt.Font("Inter", 1, 28)); // NOI18N
-        totalRevenueValue.setForeground(new java.awt.Color(214, 169, 75));
+        totalRevenueValue.setForeground(new java.awt.Color(0, 26, 58));
         totalRevenueValue.setText("—");
         revenueCard.add(totalRevenueValue);
 
@@ -158,16 +158,16 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         footerPanel.setOpaque(false);
         footerPanel.setLayout(new javax.swing.BoxLayout(footerPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        refreshButton.setBackground(new java.awt.Color(214, 169, 75));
+        refreshButton.setBackground(new java.awt.Color(0, 26, 58));
         refreshButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        refreshButton.setForeground(new java.awt.Color(23, 25, 27));
+        refreshButton.setForeground(new java.awt.Color(245, 247, 250));
         refreshButton.setText("Refresh Data");
         refreshButton.setMaximumSize(new java.awt.Dimension(180, 44));
         footerPanel.add(refreshButton);
         footerPanel.add(filler6);
 
         statusLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        statusLabel.setForeground(new java.awt.Color(208, 203, 192));
+        statusLabel.setForeground(new java.awt.Color(100, 116, 139));
         statusLabel.setText(" ");
         footerPanel.add(statusLabel);
 

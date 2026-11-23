@@ -59,7 +59,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         mainContentPanel.setBorder(new EmptyBorder(18, 22, 16, 22));
 
         infoCardPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(50, 56, 66), 1),
+                BorderFactory.createLineBorder(new Color(226, 232, 240), 1),
                 new EmptyBorder(14, 16, 14, 16)
         ));
 
@@ -71,8 +71,8 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         synopsisArea.setForeground(BaseCinemaFrame.CINEMA_TEXT);
         synopsisArea.setFont(SwingTheme.font(Font.PLAIN, 13));
 
-        styleBadge(durationBadge, new Color(45, 52, 60), BaseCinemaFrame.CINEMA_TEXT);
-        styleBadge(genreBadge, new Color(45, 52, 60), BaseCinemaFrame.CINEMA_TEXT);
+        styleBadge(durationBadge, new Color(241, 245, 249), BaseCinemaFrame.CINEMA_TEXT);
+        styleBadge(genreBadge, new Color(241, 245, 249), BaseCinemaFrame.CINEMA_TEXT);
         styleBadge(ratingBadge, BaseCinemaFrame.CINEMA_RED, Color.WHITE);
 
         SwingTheme.styleButton(backButton, false);
@@ -147,7 +147,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
 
         JLabel dateLbl = new JLabel(dateStr + " • Jam " + timeStr);
         dateLbl.setFont(SwingTheme.font(Font.BOLD, 14));
-        dateLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+        dateLbl.setForeground(SwingTheme.NAVY);
         dateLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel subLbl = new JLabel("Studio: " + s.getStudioName() + "  |  Sisa Kursi: " + s.getAvailableSeats() + " / " + s.getTotalSeats());
@@ -213,28 +213,28 @@ public class FilmDetailFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detail Film - Bioskop Nusantara");
-        setBackground(new java.awt.Color(18, 19, 22));
+        setBackground(new java.awt.Color(245, 247, 250));
         setMinimumSize(new java.awt.Dimension(600, 480));
         setPreferredSize(new java.awt.Dimension(760, 680));
 
-        headerPanel.setBackground(new java.awt.Color(27, 30, 35));
+        headerPanel.setBackground(new java.awt.Color(0, 26, 58));
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
         headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 14));
 
         headerTitle.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        headerTitle.setForeground(new java.awt.Color(214, 169, 75));
+        headerTitle.setForeground(new java.awt.Color(245, 166, 35));
         headerTitle.setText("INFORMASI DETAIL FILM");
         headerPanel.add(headerTitle);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
-        mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
         mainContentPanel.setLayout(new java.awt.BorderLayout(0, 16));
 
-        infoCardPanel.setBackground(new java.awt.Color(34, 38, 44));
+        infoCardPanel.setBackground(new java.awt.Color(255, 255, 255));
         infoCardPanel.setLayout(new java.awt.BorderLayout(18, 0));
 
-        posterPanel.setBackground(new java.awt.Color(22, 24, 28));
+        posterPanel.setBackground(new java.awt.Color(241, 245, 249));
         posterPanel.setPreferredSize(new java.awt.Dimension(130, 160));
         posterPanel.setLayout(new java.awt.BorderLayout());
 
@@ -249,7 +249,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         descPanel.setLayout(new javax.swing.BoxLayout(descPanel, javax.swing.BoxLayout.Y_AXIS));
 
         filmTitleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
-        filmTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        filmTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         filmTitleLabel.setText("Judul Film");
         descPanel.add(filmTitleLabel);
 
@@ -281,13 +281,13 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         schedulesSectionPanel.setLayout(new java.awt.BorderLayout(0, 8));
 
         sectionTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        sectionTitleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        sectionTitleLabel.setForeground(new java.awt.Color(15, 23, 42));
         sectionTitleLabel.setText("Pilih Jadwal Penayangan:");
         schedulesSectionPanel.add(sectionTitleLabel, java.awt.BorderLayout.NORTH);
 
         schedulesScrollPane.setBorder(null);
 
-        schedulesListContainer.setBackground(new java.awt.Color(18, 19, 22));
+        schedulesListContainer.setBackground(new java.awt.Color(245, 247, 250));
         schedulesListContainer.setLayout(new javax.swing.BoxLayout(schedulesListContainer, javax.swing.BoxLayout.Y_AXIS));
         schedulesScrollPane.setViewportView(schedulesListContainer);
 

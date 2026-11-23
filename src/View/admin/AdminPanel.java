@@ -56,81 +56,81 @@ public class AdminPanel extends javax.swing.JPanel {
         schedulePanel = new View.admin.ScheduleManagementPanel();
         cancelRefundPanel = new View.admin.AdminCancelRefundPanel();
 
-        setBackground(new java.awt.Color(23, 25, 27));
+        setBackground(new java.awt.Color(245, 247, 250));
         setPreferredSize(new java.awt.Dimension(960, 600));
         setLayout(new java.awt.BorderLayout());
 
-        sidebarPanel.setBackground(new java.awt.Color(35, 38, 41));
+        sidebarPanel.setBackground(new java.awt.Color(0, 26, 58));
         sidebarPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 14, 20, 14));
         sidebarPanel.setPreferredSize(new java.awt.Dimension(190, 0));
         sidebarPanel.setLayout(new javax.swing.BoxLayout(sidebarPanel, javax.swing.BoxLayout.Y_AXIS));
 
         adminTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        adminTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
+        adminTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         adminTitleLabel.setText("Admin");
         sidebarPanel.add(adminTitleLabel);
         sidebarPanel.add(filler1);
 
         usernameLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
-        usernameLabel.setForeground(new java.awt.Color(208, 203, 192));
+        usernameLabel.setForeground(new java.awt.Color(148, 163, 184));
         usernameLabel.setText("@admin");
         sidebarPanel.add(usernameLabel);
         sidebarPanel.add(filler2);
 
         menuLabel.setFont(new java.awt.Font("Inter", 1, 11)); // NOI18N
-        menuLabel.setForeground(new java.awt.Color(208, 203, 192));
+        menuLabel.setForeground(new java.awt.Color(148, 163, 184));
         menuLabel.setText("MENU");
         sidebarPanel.add(menuLabel);
         sidebarPanel.add(filler3);
 
-        dashboardButton.setBackground(new java.awt.Color(214, 169, 75));
+        dashboardButton.setBackground(new java.awt.Color(245, 166, 35));
         dashboardButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        dashboardButton.setForeground(new java.awt.Color(23, 25, 27));
+        dashboardButton.setForeground(new java.awt.Color(245, 247, 250));
         dashboardButton.setText("Dashboard");
         dashboardButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         dashboardButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));
         sidebarPanel.add(dashboardButton);
         sidebarPanel.add(filler4);
 
-        filmButton.setBackground(new java.awt.Color(35, 38, 41));
+        filmButton.setBackground(new java.awt.Color(0, 26, 58));
         filmButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        filmButton.setForeground(new java.awt.Color(245, 241, 232));
+        filmButton.setForeground(new java.awt.Color(226, 232, 240));
         filmButton.setText("Film");
         filmButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         filmButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));
         sidebarPanel.add(filmButton);
         sidebarPanel.add(fillerFilm);
 
-        studioButton.setBackground(new java.awt.Color(35, 38, 41));
+        studioButton.setBackground(new java.awt.Color(0, 26, 58));
         studioButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        studioButton.setForeground(new java.awt.Color(245, 241, 232));
+        studioButton.setForeground(new java.awt.Color(226, 232, 240));
         studioButton.setText("Studio");
         studioButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         studioButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));
         sidebarPanel.add(studioButton);
         sidebarPanel.add(filler5);
 
-        scheduleButton.setBackground(new java.awt.Color(35, 38, 41));
+        scheduleButton.setBackground(new java.awt.Color(0, 26, 58));
         scheduleButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        scheduleButton.setForeground(new java.awt.Color(245, 241, 232));
+        scheduleButton.setForeground(new java.awt.Color(226, 232, 240));
         scheduleButton.setText("Jadwal Tayang");
         scheduleButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         scheduleButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));
         sidebarPanel.add(scheduleButton);
         sidebarPanel.add(filler6);
 
-        cancelRefundButton.setBackground(new java.awt.Color(35, 38, 41));
+        cancelRefundButton.setBackground(new java.awt.Color(0, 26, 58));
         cancelRefundButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        cancelRefundButton.setForeground(new java.awt.Color(245, 241, 232));
+        cancelRefundButton.setForeground(new java.awt.Color(226, 232, 240));
         cancelRefundButton.setText("Batalkan / Refund");
         cancelRefundButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         cancelRefundButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));
         sidebarPanel.add(cancelRefundButton);
         sidebarPanel.add(glueFiller);
 
-        logoutButton.setBackground(new java.awt.Color(35, 38, 41));
+        logoutButton.setBackground(new java.awt.Color(0, 26, 58));
         logoutButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        logoutButton.setForeground(new java.awt.Color(245, 241, 232));
+        logoutButton.setForeground(new java.awt.Color(226, 232, 240));
         logoutButton.setText("Logout");
         logoutButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         logoutButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));
@@ -138,7 +138,7 @@ public class AdminPanel extends javax.swing.JPanel {
 
         add(sidebarPanel, java.awt.BorderLayout.WEST);
 
-        innerCards.setBackground(new java.awt.Color(23, 25, 27));
+        innerCards.setBackground(new java.awt.Color(245, 247, 250));
         innerCards.setLayout(new java.awt.CardLayout());
         innerCards.add(dashboardPanel, "dashboard");
         innerCards.add(filmPanel, "film");

@@ -49,7 +49,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8));
         statusLabel = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(23, 25, 27));
+        setBackground(new java.awt.Color(245, 247, 250));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 28, 24, 28));
         setPreferredSize(new java.awt.Dimension(770, 560));
         setLayout(new java.awt.BorderLayout(0, 16));
@@ -61,13 +61,13 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         titlePanel.setLayout(new javax.swing.BoxLayout(titlePanel, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(245, 241, 232));
+        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
         titleLabel.setText("Kelola Studio");
         titlePanel.add(titleLabel);
         titlePanel.add(filler1);
 
         subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        subtitleLabel.setForeground(new java.awt.Color(208, 203, 192));
+        subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         subtitleLabel.setText("Tambah, edit, atau hapus data studio.");
         titlePanel.add(subtitleLabel);
 
@@ -76,9 +76,9 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         actionPanel.setOpaque(false);
         actionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 8, 0));
 
-        refreshButton.setBackground(new java.awt.Color(35, 38, 41));
+        refreshButton.setBackground(new java.awt.Color(255, 255, 255));
         refreshButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        refreshButton.setForeground(new java.awt.Color(245, 241, 232));
+        refreshButton.setForeground(new java.awt.Color(15, 23, 42));
         refreshButton.setText("Refresh");
         actionPanel.add(refreshButton);
 
@@ -86,14 +86,14 @@ public class StudioManagementPanel extends javax.swing.JPanel {
 
         add(headerPanel, java.awt.BorderLayout.NORTH);
 
-        tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(80, 76, 68)));
+        tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
-        table.setBackground(new java.awt.Color(35, 38, 41));
+        table.setBackground(new java.awt.Color(255, 255, 255));
         table.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        table.setForeground(new java.awt.Color(245, 241, 232));
-        table.setGridColor(new java.awt.Color(60, 56, 50));
+        table.setForeground(new java.awt.Color(15, 23, 42));
+        table.setGridColor(new java.awt.Color(226, 232, 240));
         table.setRowHeight(34);
-        table.setSelectionForeground(new java.awt.Color(245, 241, 232));
+        table.setSelectionForeground(new java.awt.Color(15, 23, 42));
         tableScrollPane.setViewportView(table);
 
         add(tableScrollPane, java.awt.BorderLayout.CENTER);
@@ -104,21 +104,21 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         buttonRow.setOpaque(false);
         buttonRow.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
 
-        addButton.setBackground(new java.awt.Color(214, 169, 75));
+        addButton.setBackground(new java.awt.Color(0, 26, 58));
         addButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        addButton.setForeground(new java.awt.Color(23, 25, 27));
+        addButton.setForeground(new java.awt.Color(245, 247, 250));
         addButton.setText("Tambah");
         buttonRow.add(addButton);
 
-        editButton.setBackground(new java.awt.Color(35, 38, 41));
+        editButton.setBackground(new java.awt.Color(255, 255, 255));
         editButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        editButton.setForeground(new java.awt.Color(245, 241, 232));
+        editButton.setForeground(new java.awt.Color(15, 23, 42));
         editButton.setText("Edit");
         buttonRow.add(editButton);
 
-        deleteButton.setBackground(new java.awt.Color(35, 38, 41));
+        deleteButton.setBackground(new java.awt.Color(255, 255, 255));
         deleteButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        deleteButton.setForeground(new java.awt.Color(245, 241, 232));
+        deleteButton.setForeground(new java.awt.Color(15, 23, 42));
         deleteButton.setText("Hapus");
         buttonRow.add(deleteButton);
 
@@ -126,7 +126,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         footerPanel.add(filler2);
 
         statusLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        statusLabel.setForeground(new java.awt.Color(208, 203, 192));
+        statusLabel.setForeground(new java.awt.Color(100, 116, 139));
         statusLabel.setText(" ");
         footerPanel.add(statusLabel);
 
@@ -162,7 +162,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         table.getTableHeader().setBackground(SwingTheme.SURFACE);
         table.getTableHeader().setForeground(SwingTheme.MUTED_TEXT);
         table.getTableHeader().setFont(SwingTheme.font(Font.BOLD, 12));
-        table.setSelectionBackground(new java.awt.Color(214, 169, 75, 60));
+        table.setSelectionBackground(new java.awt.Color(0, 26, 58, 30));
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         table.getColumnModel().getColumn(0).setPreferredWidth(50);

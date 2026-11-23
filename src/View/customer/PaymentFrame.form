@@ -65,7 +65,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="4b" green="a9" red="d6" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f4b3; KASIR &amp; PEMBAYARAN TIKET"/>
+            <Property name="text" type="java.lang.String" value="KASIR &amp; PEMBAYARAN TIKET"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -213,7 +213,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="payButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Konfirmasi Pembayaran &#x2714;"/>
+                <Property name="text" type="java.lang.String" value="Konfirmasi Pembayaran "/>
               </Properties>
             </Component>
           </SubComponents>

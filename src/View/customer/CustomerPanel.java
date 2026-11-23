@@ -187,7 +187,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         title.setFont(SwingTheme.font(Font.BOLD, 14));
         title.setForeground(BaseCinemaFrame.CINEMA_GOLD);
 
-        JLabel info = new JLabel("🎭 " + film.getGenre() + " • ⏱ " + film.getDurationMinutes() + " mnt • 🔞 " + film.getAgeRating());
+        JLabel info = new JLabel(film.getGenre() + " • " + film.getDurationMinutes() + " mnt • " + film.getAgeRating());
         info.setFont(SwingTheme.font(Font.PLAIN, 12));
         info.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
@@ -196,7 +196,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         left.add(info);
         card.add(left, BorderLayout.CENTER);
 
-        JButton bookBtn = BaseCinemaFrame.createCinemaButton("Detail & Pesan ➔", true);
+        JButton bookBtn = BaseCinemaFrame.createCinemaButton("Detail & Pesan", true);
         bookBtn.setPreferredSize(new Dimension(140, 36));
         bookBtn.addActionListener(e -> {
             FilmDetailFrame detailFrame = new FilmDetailFrame(film);
@@ -215,7 +215,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         if (userGreetingLabel == null) return;
         User user = SessionManager.getInstance().getCurrentUser();
         if (user != null) {
-            userGreetingLabel.setText("👤 Login sebagai: " + user.getUsername() + " (" + user.getRole() + ")");
+            userGreetingLabel.setText("Login sebagai: " + user.getUsername() + " (" + user.getRole() + ")");
         } else {
             userGreetingLabel.setText("Status: Belum login");
         }

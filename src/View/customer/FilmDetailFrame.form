@@ -61,7 +61,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="4b" green="a9" red="d6" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f3ac; INFORMASI DETAIL FILM"/>
+            <Property name="text" type="java.lang.String" value="INFORMASI DETAIL FILM"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -121,7 +121,7 @@
                       <Font name="Inter" size="44" style="0"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="&#x1f3ac;"/>
+                    <Property name="text" type="java.lang.String" value=""/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -169,17 +169,17 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="durationBadge">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&#x23f1; 120 Menit"/>
+                        <Property name="text" type="java.lang.String" value="120 Menit"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="genreBadge">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&#x1f3ad; Action"/>
+                        <Property name="text" type="java.lang.String" value="Action"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="ratingBadge">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&#x1f51e; 13+"/>
+                        <Property name="text" type="java.lang.String" value="13+"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -273,7 +273,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="backButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x2b05; Kembali ke Katalog"/>
+                <Property name="text" type="java.lang.String" value="Kembali ke Katalog"/>
               </Properties>
             </Component>
           </SubComponents>

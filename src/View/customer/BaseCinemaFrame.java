@@ -101,9 +101,6 @@ public abstract class BaseCinemaFrame extends JFrame {
         JPanel brandPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
         brandPanel.setOpaque(false);
 
-        JLabel logoIcon = new JLabel("🎬");
-        logoIcon.setFont(SwingTheme.font(Font.PLAIN, 24));
-
         JLabel brandTitle = new JLabel("BIOSKOP NUSANTARA");
         brandTitle.setFont(SwingTheme.font(Font.BOLD, 18));
         brandTitle.setForeground(CINEMA_GOLD);
@@ -112,7 +109,6 @@ public abstract class BaseCinemaFrame extends JFrame {
         brandSubtitle.setFont(SwingTheme.font(Font.PLAIN, 13));
         brandSubtitle.setForeground(CINEMA_MUTED);
 
-        brandPanel.add(logoIcon);
         brandPanel.add(brandTitle);
         brandPanel.add(brandSubtitle);
 

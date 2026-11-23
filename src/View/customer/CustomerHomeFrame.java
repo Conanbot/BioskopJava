@@ -63,17 +63,13 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         // Header style
         headerPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
-                new EmptyBorder(0, 16, 0, 16)
+                new EmptyBorder(0, 18, 0, 18)
         ));
+        mainContentPanel.setBorder(new EmptyBorder(16, 20, 14, 20));
+        logoIcon.setVisible(false);
 
-        BaseCinemaFrame.createCinemaButton("🎟 Riwayat Booking", false);
-        historyButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
-        historyButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
-        historyButton.setFocusPainted(false);
-        historyButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(BaseCinemaFrame.CINEMA_MUTED, 1),
-                new EmptyBorder(8, 14, 8, 14)
-        ));
+        SwingTheme.styleButton(historyButton, false);
+        historyButton.setPreferredSize(new Dimension(160, 38));
         historyButton.addActionListener(e -> {
             User currentUser = SessionManager.getInstance().getCurrentUser();
             if (currentUser == null) {
@@ -133,6 +129,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         // Scroll pane speed
         moviesScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         moviesScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_BG);
+        SwingTheme.applyInterFont(this);
     }
 
     private void styleTabButton(JButton btn, boolean active) {
@@ -210,6 +207,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         }
 
         resultCountLabel.setText("Menampilkan " + films.size() + " film.");
+        SwingTheme.applyInterFont(moviesGridPanel);
         moviesGridPanel.revalidate();
         moviesGridPanel.repaint();
     }
@@ -223,14 +221,15 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         posterArea.setBackground(new Color(20, 22, 26));
         posterArea.setBorder(BorderFactory.createLineBorder(new Color(50, 56, 66), 1));
 
-        JLabel icon = new JLabel("🎬", SwingConstants.CENTER);
-        icon.setFont(new Font("Inter", Font.PLAIN, 40));
+        JLabel icon = new JLabel("POSTER", SwingConstants.CENTER);
+        icon.setFont(SwingTheme.font(Font.BOLD, 13));
+        icon.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         posterArea.add(icon, BorderLayout.CENTER);
 
         JPanel badgePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 4, 4));
         badgePanel.setOpaque(false);
         JLabel ageBadge = new JLabel(" " + film.getAgeRating() + " ");
-        ageBadge.setFont(new Font("Inter", Font.BOLD, 10));
+        ageBadge.setFont(SwingTheme.font(Font.BOLD, 10));
         ageBadge.setOpaque(true);
         ageBadge.setBackground(BaseCinemaFrame.CINEMA_RED);
         ageBadge.setForeground(Color.WHITE);
@@ -244,17 +243,17 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         info.setOpaque(false);
 
         JLabel titleLbl = new JLabel(film.getTitle());
-        titleLbl.setFont(new Font("Inter", Font.BOLD, 15));
+        titleLbl.setFont(SwingTheme.font(Font.BOLD, 15));
         titleLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
         titleLbl.setAlignmentX(LEFT_ALIGNMENT);
 
-        JLabel genreLbl = new JLabel("🎭 " + film.getGenre());
-        genreLbl.setFont(new Font("Inter", Font.PLAIN, 12));
+        JLabel genreLbl = new JLabel("Genre: " + film.getGenre());
+        genreLbl.setFont(SwingTheme.font(Font.PLAIN, 12));
         genreLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         genreLbl.setAlignmentX(LEFT_ALIGNMENT);
 
-        JLabel durLbl = new JLabel("⏱ " + film.getDurationMinutes() + " Menit");
-        durLbl.setFont(new Font("Inter", Font.PLAIN, 12));
+        JLabel durLbl = new JLabel("Durasi: " + film.getDurationMinutes() + " Menit");
+        durLbl.setFont(SwingTheme.font(Font.PLAIN, 12));
         durLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         durLbl.setAlignmentX(LEFT_ALIGNMENT);
 
@@ -265,7 +264,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         info.add(durLbl);
         card.add(info, BorderLayout.CENTER);
 
-        JButton detailBtn = BaseCinemaFrame.createCinemaButton("Lihat Jadwal & Pesan ➔", true);
+        JButton detailBtn = BaseCinemaFrame.createCinemaButton("Lihat Jadwal & Pesan", true);
         detailBtn.setFont(new Font("Inter", Font.BOLD, 12));
         detailBtn.setPreferredSize(new Dimension(0, 36));
         detailBtn.addActionListener(e -> {
@@ -326,7 +325,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         brandPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 14));
 
         logoIcon.setFont(new java.awt.Font("Inter", 0, 24)); // NOI18N
-        logoIcon.setText("🎬");
+        logoIcon.setText("POSTER");
         brandPanel.add(logoIcon);
 
         brandTitle.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
@@ -345,7 +344,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         headerRightPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 12));
 
         historyButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        historyButton.setText("🎟 Riwayat Booking");
+        historyButton.setText("Riwayat Booking");
         headerRightPanel.add(historyButton);
 
         headerPanel.add(headerRightPanel, java.awt.BorderLayout.EAST);
@@ -361,7 +360,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
 
         promoTag.setFont(new java.awt.Font("Inter", 1, 11)); // NOI18N
         promoTag.setForeground(new java.awt.Color(214, 169, 75));
-        promoTag.setText("⭐ PREMIERE ENTERTAINMENT");
+        promoTag.setText("PREMIERE ENTERTAINMENT");
         heroBannerPanel.add(promoTag);
 
         promoTitle.setFont(new java.awt.Font("Inter", 1, 17)); // NOI18N
@@ -399,7 +398,7 @@ public class CustomerHomeFrame extends javax.swing.JFrame {
         searchControlsPanel.setOpaque(false);
         searchControlsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 0));
 
-        searchIcon.setText("🔍");
+        searchIcon.setText("Cari:");
         searchControlsPanel.add(searchIcon);
 
         searchField.setColumns(18);

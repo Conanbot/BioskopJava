@@ -4,6 +4,8 @@
  */
 package View.customer;
 
+import View.theme.SwingTheme;
+
 import Controler.AlertUtil;
 import Controler.SessionManager;
 import Model.dao.ScheduleDao;
@@ -111,9 +113,11 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
 
         backButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
         backButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
-        backButton.setFont(new Font("Inter", Font.BOLD, 13));
+        backButton.setFont(SwingTheme.font(Font.BOLD, 13));
         backButton.setFocusPainted(false);
         backButton.addActionListener(e -> dispose());
+
+        SwingTheme.applyInterFont(this);
     }
 
     private void loadSeatDataAndBuildGrid() {
@@ -360,7 +364,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
-        headerTitleLabel.setText("🎬 DENAH & PEMILIHAN KURSI STUDIO");
+        headerTitleLabel.setText("DENAH & PEMILIHAN KURSI STUDIO");
         headerPanel.add(headerTitleLabel);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
@@ -417,7 +421,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         summaryCardPanel.add(totalPriceLabel);
         summaryCardPanel.add(filler2);
 
-        proceedPaymentButton.setText("Lanjut ke Pembayaran ➔");
+        proceedPaymentButton.setText("Lanjut ke Pembayaran");
         proceedPaymentButton.setMaximumSize(new java.awt.Dimension(2147483647, 46));
         summaryCardPanel.add(proceedPaymentButton);
         summaryCardPanel.add(filler3);

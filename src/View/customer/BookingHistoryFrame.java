@@ -12,6 +12,7 @@ import Model.entity.User;
 import Model.enums.BookingResolution;
 import Model.enums.BookingStatus;
 import Model.service.BookingService;
+import View.theme.SwingTheme;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -59,16 +60,21 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
         headerPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
-                new EmptyBorder(0, 16, 0, 16)
+                new EmptyBorder(0, 22, 0, 22)
         ));
 
-        refreshButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
-        refreshButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        SwingTheme.styleButton(refreshButton, false);
+        refreshButton.setPreferredSize(new Dimension(105, 38));
         refreshButton.addActionListener(e -> loadHistoryData());
 
-        closeButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
-        closeButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        SwingTheme.styleButton(closeButton, false);
+        closeButton.setPreferredSize(new Dimension(105, 38));
         closeButton.addActionListener(e -> dispose());
+
+        historyScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_BG);
+        historyScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        SwingTheme.applyInterFont(this);
     }
 
     private void loadHistoryData() {
@@ -76,6 +82,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
         if (user == null) {
             JLabel err = new JLabel("Anda belum login. Silakan login terlebih dahulu.", SwingConstants.CENTER);
+            err.setFont(SwingTheme.font(Font.PLAIN, 14));
             err.setForeground(BaseCinemaFrame.CINEMA_MUTED);
             historyListContainer.add(err);
             historyListContainer.revalidate();
@@ -89,28 +96,36 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
             if (items.isEmpty()) {
                 JPanel emptyCard = BaseCinemaFrame.createCardPanel();
-                emptyCard.add(new JLabel("Belum ada transaksi pemesanan tiket yang tercatat."));
+                emptyCard.setMaximumSize(new Dimension(Integer.MAX_VALUE, 64));
+                JLabel emptyLbl = new JLabel("Belum ada transaksi pemesanan tiket yang tercatat.");
+                emptyLbl.setFont(SwingTheme.font(Font.PLAIN, 13));
+                emptyLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
+                emptyCard.add(emptyLbl);
                 historyListContainer.add(emptyCard);
             } else {
                 for (BookingHistoryItem item : items) {
                     historyListContainer.add(createHistoryCard(item));
-                    historyListContainer.add(Box.createVerticalStrut(10));
+                    historyListContainer.add(Box.createVerticalStrut(12));
                 }
             }
         } catch (Exception ex) {
             JLabel err = new JLabel("Gagal memuat riwayat: " + ex.getMessage());
+            err.setFont(SwingTheme.font(Font.PLAIN, 13));
             err.setForeground(BaseCinemaFrame.CINEMA_RED);
             historyListContainer.add(err);
         }
 
+        SwingTheme.applyInterFont(historyListContainer);
         historyListContainer.revalidate();
         historyListContainer.repaint();
     }
 
     private JPanel createHistoryCard(BookingHistoryItem item) {
         JPanel card = BaseCinemaFrame.createCardPanel();
-        card.setLayout(new BorderLayout(14, 0));
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
+        card.setLayout(new BorderLayout(16, 0));
+        card.setPreferredSize(new Dimension(0, 108));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 108));
+        card.setAlignmentX(LEFT_ALIGNMENT);
 
         JPanel left = new JPanel();
         left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
@@ -118,9 +133,10 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
         JPanel codeRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         codeRow.setOpaque(false);
+        codeRow.setAlignmentX(LEFT_ALIGNMENT);
 
         JLabel codeLbl = new JLabel(item.booking().bookingCode());
-        codeLbl.setFont(new Font("Inter", Font.BOLD, 15));
+        codeLbl.setFont(SwingTheme.font(Font.BOLD, 15));
         codeLbl.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
         JLabel statusBadge = createStatusBadge(item.booking().status());
@@ -130,35 +146,41 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         String dateStr = item.showDateTime() != null
                 ? item.showDateTime().format(DateTimeFormatter.ofPattern("dd MMM yyyy - HH:mm"))
                 : "-";
-        JLabel detailLbl = new JLabel("🎬 " + item.filmTitle() + " | Studio: " + item.studioName() + " | " + dateStr);
-        detailLbl.setFont(new Font("Inter", Font.PLAIN, 12));
+        JLabel detailLbl = new JLabel(item.filmTitle() + "  •  Studio: " + item.studioName() + "  •  " + dateStr);
+        detailLbl.setFont(SwingTheme.font(Font.PLAIN, 13));
         detailLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
+        detailLbl.setAlignmentX(LEFT_ALIGNMENT);
 
-        JLabel priceLbl = new JLabel(item.booking().ticketCount() + " Tiket | Total: " + String.format("Rp %,.2f", item.totalPrice()));
-        priceLbl.setFont(new Font("Inter", Font.BOLD, 12));
+        JLabel priceLbl = new JLabel(item.booking().ticketCount() + " Tiket  |  Total: " + String.format("Rp %,.2f", item.totalPrice()));
+        priceLbl.setFont(SwingTheme.font(Font.BOLD, 13));
         priceLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+        priceLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         left.add(codeRow);
-        left.add(Box.createVerticalStrut(4));
+        left.add(Box.createVerticalStrut(6));
         left.add(detailLbl);
-        left.add(Box.createVerticalStrut(4));
+        left.add(Box.createVerticalStrut(6));
         left.add(priceLbl);
 
         card.add(left, BorderLayout.CENTER);
 
-        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 14));
+        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 18));
         right.setOpaque(false);
 
         JButton viewTicketBtn = BaseCinemaFrame.createCinemaButton("Lihat Tiket", false);
-        viewTicketBtn.setPreferredSize(new Dimension(110, 34));
+        viewTicketBtn.setPreferredSize(new Dimension(115, 38));
         viewTicketBtn.addActionListener(e -> openTicketDetail(item.booking().bookingCode()));
         right.add(viewTicketBtn);
 
         if (item.booking().status() == BookingStatus.ACTIVE) {
             JButton cancelBtn = BaseCinemaFrame.createCinemaButton("Batalkan / Refund", false);
-            cancelBtn.setBackground(new Color(60, 25, 25));
-            cancelBtn.setForeground(new Color(255, 140, 140));
-            cancelBtn.setPreferredSize(new Dimension(140, 34));
+            cancelBtn.setBackground(new Color(65, 28, 28));
+            cancelBtn.setForeground(new Color(255, 155, 155));
+            cancelBtn.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(145, 65, 65), 1),
+                    new EmptyBorder(8, 14, 8, 14)
+            ));
+            cancelBtn.setPreferredSize(new Dimension(155, 38));
             cancelBtn.addActionListener(e -> handleCancelBooking(item.booking().bookingCode()));
             right.add(cancelBtn);
         }
@@ -210,8 +232,9 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
     private JLabel createStatusBadge(BookingStatus status) {
         JLabel badge = new JLabel(" " + status.name() + " ");
-        badge.setFont(new Font("Inter", Font.BOLD, 10));
+        badge.setFont(SwingTheme.font(Font.BOLD, 11));
         badge.setOpaque(true);
+        badge.setBorder(new EmptyBorder(2, 6, 2, 6));
         if (status == BookingStatus.ACTIVE) {
             badge.setBackground(new Color(40, 167, 69));
             badge.setForeground(Color.WHITE);
@@ -236,6 +259,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
         headerPanel = new javax.swing.JPanel();
         headerTitleLabel = new javax.swing.JLabel();
+        headerActionPanel = new javax.swing.JPanel();
         refreshButton = new javax.swing.JButton();
         mainContentPanel = new javax.swing.JPanel();
         historyScrollPane = new javax.swing.JScrollPane();
@@ -246,27 +270,35 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Riwayat Booking Tiket - Bioskop Nusantara");
         setBackground(new java.awt.Color(18, 19, 22));
-        setMinimumSize(new java.awt.Dimension(650, 480));
-        setPreferredSize(new java.awt.Dimension(820, 650));
+        setMinimumSize(new java.awt.Dimension(780, 500));
+        setPreferredSize(new java.awt.Dimension(920, 620));
 
         headerPanel.setBackground(new java.awt.Color(27, 30, 35));
-        headerPanel.setPreferredSize(new java.awt.Dimension(0, 56));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
         headerPanel.setLayout(new java.awt.BorderLayout());
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
-        headerTitleLabel.setText("🎟 RIWAYAT PEMESANAN TIKET");
+        headerTitleLabel.setText("RIWAYAT PEMESANAN TIKET");
         headerPanel.add(headerTitleLabel, java.awt.BorderLayout.WEST);
 
-        refreshButton.setText("🔄 Refresh");
-        headerPanel.add(refreshButton, java.awt.BorderLayout.EAST);
+        headerActionPanel.setOpaque(false);
+        headerActionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 12));
+
+        refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        refreshButton.setText("Refresh");
+        headerActionPanel.add(refreshButton);
+
+        headerPanel.add(headerActionPanel, java.awt.BorderLayout.EAST);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
         mainContentPanel.setBackground(new java.awt.Color(18, 19, 22));
+        mainContentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(18, 22, 16, 22));
         mainContentPanel.setLayout(new java.awt.BorderLayout(0, 14));
 
         historyScrollPane.setBorder(null);
+        historyScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         historyListContainer.setBackground(new java.awt.Color(18, 19, 22));
         historyListContainer.setLayout(new javax.swing.BoxLayout(historyListContainer, javax.swing.BoxLayout.Y_AXIS));
@@ -275,8 +307,9 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         mainContentPanel.add(historyScrollPane, java.awt.BorderLayout.CENTER);
 
         bottomBarPanel.setOpaque(false);
-        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 8));
+        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 4));
 
+        closeButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         closeButton.setText("Tutup");
         bottomBarPanel.add(closeButton);
 
@@ -285,11 +318,13 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         getContentPane().add(mainContentPanel, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton closeButton;
     private javax.swing.JPanel bottomBarPanel;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JPanel headerActionPanel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel headerTitleLabel;
     private javax.swing.JPanel historyListContainer;

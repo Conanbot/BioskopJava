@@ -8,6 +8,7 @@ import Controler.AlertUtil;
 import Model.entity.BookingReceipt;
 import Model.entity.Seat;
 import Model.service.TicketExportService;
+import View.theme.SwingTheme;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -55,14 +56,15 @@ public class ETicketFrame extends javax.swing.JFrame {
 
         headerPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
-                new EmptyBorder(0, 16, 0, 16)
+                new EmptyBorder(0, 18, 0, 18)
         ));
 
         ticketContainerPanel.setBorder(new EmptyBorder(24, 28, 24, 28));
+        ticketScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        ticketScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_SURFACE);
 
-        exportButton.setBackground(BaseCinemaFrame.CINEMA_GOLD);
-        exportButton.setForeground(BaseCinemaFrame.CINEMA_BG);
-        exportButton.setFont(new Font("Inter", Font.BOLD, 13));
+        SwingTheme.styleButton(exportButton, true);
+        exportButton.setPreferredSize(new Dimension(220, 40));
         exportButton.addActionListener(e -> {
             try {
                 File file = exportService.exportToFile(receipt, null);
@@ -75,10 +77,11 @@ public class ETicketFrame extends javax.swing.JFrame {
             }
         });
 
-        closeButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
-        closeButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
-        closeButton.setFont(new Font("Inter", Font.BOLD, 13));
+        SwingTheme.styleButton(closeButton, false);
+        closeButton.setPreferredSize(new Dimension(110, 40));
         closeButton.addActionListener(e -> dispose());
+
+        SwingTheme.applyInterFont(this);
     }
 
     private void populateTicket() {
@@ -89,7 +92,7 @@ public class ETicketFrame extends javax.swing.JFrame {
             return;
         }
 
-        JLabel headerCinema = new JLabel("🎬 BIOSKOP NUSANTARA");
+        JLabel headerCinema = new JLabel("BIOSKOP NUSANTARA");
         headerCinema.setFont(new Font("Inter", Font.BOLD, 18));
         headerCinema.setForeground(BaseCinemaFrame.CINEMA_GOLD);
         headerCinema.setAlignmentX(CENTER_ALIGNMENT);
@@ -162,6 +165,8 @@ public class ETicketFrame extends javax.swing.JFrame {
         barcodeCode.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         barcodeCode.setAlignmentX(CENTER_ALIGNMENT);
         ticketContainerPanel.add(barcodeCode);
+
+        SwingTheme.applyInterFont(ticketContainerPanel);
     }
 
     private JPanel createTicketInfoRow(String label, String value, boolean highlight) {
@@ -232,7 +237,7 @@ public class ETicketFrame extends javax.swing.JFrame {
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
-        headerTitleLabel.setText("🎟 E-TICKET RESMI BIOSKOP");
+        headerTitleLabel.setText("E-TICKET RESMI BIOSKOP");
         headerPanel.add(headerTitleLabel);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
@@ -251,7 +256,7 @@ public class ETicketFrame extends javax.swing.JFrame {
         bottomBarPanel.setBackground(new java.awt.Color(18, 19, 22));
         bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 14, 12));
 
-        exportButton.setText("📥 Simpan / Cetak Tiket (.txt)");
+        exportButton.setText("Simpan / Cetak Tiket (.txt)");
         bottomBarPanel.add(exportButton);
 
         closeButton.setText("Tutup");

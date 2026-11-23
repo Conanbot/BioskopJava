@@ -8,6 +8,7 @@ import Controler.AlertUtil;
 import Model.dao.ScheduleDao;
 import Model.entity.Film;
 import Model.entity.Schedule;
+import View.theme.SwingTheme;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -54,8 +55,9 @@ public class FilmDetailFrame extends javax.swing.JFrame {
 
         headerPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
-                new EmptyBorder(0, 16, 0, 16)
+                new EmptyBorder(0, 18, 0, 18)
         ));
+        mainContentPanel.setBorder(new EmptyBorder(18, 22, 16, 22));
 
         infoCardPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(50, 56, 66), 1),
@@ -63,22 +65,26 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         ));
 
         posterPanel.setBorder(BorderFactory.createLineBorder(BaseCinemaFrame.CINEMA_GOLD, 1));
+        posterIcon.setFont(SwingTheme.font(Font.BOLD, 13));
+        posterIcon.setForeground(BaseCinemaFrame.CINEMA_MUTED);
+        posterIcon.setText("POSTER");
         synopsisArea.setOpaque(false);
         synopsisArea.setForeground(BaseCinemaFrame.CINEMA_TEXT);
-        synopsisArea.setFont(new Font("Inter", Font.PLAIN, 13));
+        synopsisArea.setFont(SwingTheme.font(Font.PLAIN, 13));
 
         styleBadge(durationBadge, new Color(45, 52, 60), BaseCinemaFrame.CINEMA_TEXT);
         styleBadge(genreBadge, new Color(45, 52, 60), BaseCinemaFrame.CINEMA_TEXT);
         styleBadge(ratingBadge, BaseCinemaFrame.CINEMA_RED, Color.WHITE);
 
-        backButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
-        backButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
-        backButton.setFocusPainted(false);
-        backButton.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(BaseCinemaFrame.CINEMA_MUTED, 1),
-                new EmptyBorder(8, 14, 8, 14)
-        ));
+        SwingTheme.styleButton(backButton, false);
+        backButton.setPreferredSize(new Dimension(170, 38));
         backButton.addActionListener(e -> dispose());
+
+        schedulesScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        schedulesScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_BG);
+        schedulesScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        SwingTheme.applyInterFont(this);
     }
 
     private void styleBadge(JLabel badge, Color bg, Color fg) {
@@ -96,9 +102,9 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         }
 
         filmTitleLabel.setText(film.getTitle());
-        durationBadge.setText("⏱ " + film.getDurationMinutes() + " Menit");
-        genreBadge.setText("🎭 " + film.getGenre());
-        ratingBadge.setText("🔞 " + film.getAgeRating());
+        durationBadge.setText(film.getDurationMinutes() + " Menit");
+        genreBadge.setText(film.getGenre());
+        ratingBadge.setText(film.getAgeRating());
         synopsisArea.setText(film.getSynopsis().isEmpty() ? "Belum ada sinopsis." : film.getSynopsis());
 
         schedulesListContainer.removeAll();
@@ -106,12 +112,14 @@ public class FilmDetailFrame extends javax.swing.JFrame {
             List<Schedule> schedules = scheduleDao.findUpcomingByFilmId(film.getId());
             if (schedules.isEmpty()) {
                 JPanel emptyCard = BaseCinemaFrame.createCardPanel();
-                emptyCard.add(new JLabel("Belum ada jadwal penayangan aktif untuk film ini saat ini."));
+                JLabel emptyLbl = new JLabel("Belum ada jadwal penayangan aktif untuk film ini saat ini.");
+                emptyLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
+                emptyCard.add(emptyLbl);
                 schedulesListContainer.add(emptyCard);
             } else {
                 for (Schedule s : schedules) {
                     schedulesListContainer.add(createScheduleCard(s));
-                    schedulesListContainer.add(Box.createVerticalStrut(8));
+                    schedulesListContainer.add(Box.createVerticalStrut(10));
                 }
             }
         } catch (SQLException ex) {
@@ -119,6 +127,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
             err.setForeground(BaseCinemaFrame.CINEMA_RED);
             schedulesListContainer.add(err);
         }
+        SwingTheme.applyInterFont(schedulesListContainer);
         schedulesListContainer.revalidate();
         schedulesListContainer.repaint();
     }
@@ -126,7 +135,9 @@ public class FilmDetailFrame extends javax.swing.JFrame {
     private JPanel createScheduleCard(Schedule s) {
         JPanel card = BaseCinemaFrame.createCardPanel();
         card.setLayout(new BorderLayout(14, 0));
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
+        card.setPreferredSize(new Dimension(0, 84));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 84));
+        card.setAlignmentX(LEFT_ALIGNMENT);
 
         JPanel left = new JPanel();
         left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
@@ -136,27 +147,29 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         String timeStr = s.getShowTime().format(DateTimeFormatter.ofPattern("HH:mm"));
 
         JLabel dateLbl = new JLabel(dateStr + " • Jam " + timeStr);
-        dateLbl.setFont(new Font("Inter", Font.BOLD, 14));
+        dateLbl.setFont(SwingTheme.font(Font.BOLD, 14));
         dateLbl.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+        dateLbl.setAlignmentX(LEFT_ALIGNMENT);
 
-        JLabel subLbl = new JLabel("Studio: " + s.getStudioName() + " | Sisa Kursi: " + s.getAvailableSeats() + " / " + s.getTotalSeats());
-        subLbl.setFont(new Font("Inter", Font.PLAIN, 12));
+        JLabel subLbl = new JLabel("Studio: " + s.getStudioName() + "  |  Sisa Kursi: " + s.getAvailableSeats() + " / " + s.getTotalSeats());
+        subLbl.setFont(SwingTheme.font(Font.PLAIN, 12));
         subLbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
+        subLbl.setAlignmentX(LEFT_ALIGNMENT);
 
         left.add(dateLbl);
-        left.add(Box.createVerticalStrut(4));
+        left.add(Box.createVerticalStrut(6));
         left.add(subLbl);
         card.add(left, BorderLayout.CENTER);
 
-        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 8));
+        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 10));
         right.setOpaque(false);
 
         JLabel priceLbl = new JLabel(String.format("Rp %,.2f", s.getTicketPrice()));
-        priceLbl.setFont(new Font("Inter", Font.BOLD, 15));
+        priceLbl.setFont(SwingTheme.font(Font.BOLD, 15));
         priceLbl.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
-        JButton pickSeatBtn = BaseCinemaFrame.createCinemaButton("Pilih Kursi ➔", true);
-        pickSeatBtn.setPreferredSize(new Dimension(130, 36));
+        JButton pickSeatBtn = BaseCinemaFrame.createCinemaButton("Pilih Kursi", true);
+        pickSeatBtn.setPreferredSize(new Dimension(125, 36));
         pickSeatBtn.addActionListener(e -> {
             SeatSelectionFrame seatFrame = new SeatSelectionFrame(s);
             seatFrame.setVisible(true);
@@ -211,7 +224,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
 
         headerTitle.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitle.setForeground(new java.awt.Color(214, 169, 75));
-        headerTitle.setText("🎬 INFORMASI DETAIL FILM");
+        headerTitle.setText("INFORMASI DETAIL FILM");
         headerPanel.add(headerTitle);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
@@ -228,7 +241,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
 
         posterIcon.setFont(new java.awt.Font("Inter", 0, 44)); // NOI18N
         posterIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        posterIcon.setText("🎬");
+        posterIcon.setText("POSTER");
         posterPanel.add(posterIcon, java.awt.BorderLayout.CENTER);
 
         infoCardPanel.add(posterPanel, java.awt.BorderLayout.WEST);
@@ -244,13 +257,13 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         tagsPanel.setOpaque(false);
         tagsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 4));
 
-        durationBadge.setText("⏱ 120 Menit");
+        durationBadge.setText("120 Menit");
         tagsPanel.add(durationBadge);
 
-        genreBadge.setText("🎭 Action");
+        genreBadge.setText("Action");
         tagsPanel.add(genreBadge);
 
-        ratingBadge.setText("🔞 13+");
+        ratingBadge.setText("13+");
         tagsPanel.add(ratingBadge);
 
         descPanel.add(tagsPanel);
@@ -286,7 +299,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         bottomBarPanel.setOpaque(false);
         bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 6));
 
-        backButton.setText("⬅ Kembali ke Katalog");
+        backButton.setText("Kembali ke Katalog");
         bottomBarPanel.add(backButton);
 
         mainContentPanel.add(bottomBarPanel, java.awt.BorderLayout.SOUTH);

@@ -14,6 +14,7 @@ import Model.exception.SeatAlreadyBookedException;
 import Model.exception.ValidationException;
 import Model.service.BookingService;
 import Model.service.CreateBookingRequest;
+import View.theme.SwingTheme;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -82,8 +83,9 @@ public class PaymentFrame extends javax.swing.JFrame {
 
         headerPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
-                new EmptyBorder(0, 16, 0, 16)
+                new EmptyBorder(0, 18, 0, 18)
         ));
+        mainContentPanel.setBorder(new EmptyBorder(18, 22, 16, 22));
 
         summaryCardPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(45, 50, 58), 1),
@@ -107,14 +109,15 @@ public class PaymentFrame extends javax.swing.JFrame {
             methodCardLayout.show(methodCardsPanel, "CASH");
         });
 
-        cancelButton.setBackground(BaseCinemaFrame.CINEMA_CARD);
-        cancelButton.setForeground(BaseCinemaFrame.CINEMA_TEXT);
+        SwingTheme.styleButton(cancelButton, false);
+        cancelButton.setPreferredSize(new Dimension(110, 40));
         cancelButton.addActionListener(e -> dispose());
 
-        payButton.setBackground(BaseCinemaFrame.CINEMA_GOLD);
-        payButton.setForeground(BaseCinemaFrame.CINEMA_BG);
-        payButton.setFont(new Font("Inter", Font.BOLD, 13));
+        SwingTheme.styleButton(payButton, true);
+        payButton.setPreferredSize(new Dimension(210, 40));
         payButton.addActionListener(e -> executePayment());
+
+        SwingTheme.applyInterFont(this);
     }
 
     private void populateSummary() {
@@ -403,7 +406,7 @@ public class PaymentFrame extends javax.swing.JFrame {
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(214, 169, 75));
-        headerTitleLabel.setText("💳 KASIR & PEMBAYARAN TIKET");
+        headerTitleLabel.setText("KASIR & PEMBAYARAN TIKET");
         headerPanel.add(headerTitleLabel);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
@@ -460,7 +463,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         cancelButton.setText("Batal");
         bottomBarPanel.add(cancelButton);
 
-        payButton.setText("Konfirmasi Pembayaran ✔");
+        payButton.setText("Konfirmasi Pembayaran");
         bottomBarPanel.add(payButton);
 
         mainContentPanel.add(bottomBarPanel, java.awt.BorderLayout.SOUTH);

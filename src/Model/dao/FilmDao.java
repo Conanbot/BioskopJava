@@ -116,6 +116,57 @@ public class FilmDao {
         throw new SQLException("Gagal mendapatkan ID film baru.");
     }
 
+    public boolean update(Film film) throws SQLException {
+        String sql = """
+                UPDATE films
+                SET title = ?, genre = ?, duration_minutes = ?, age_rating = ?, synopsis = ?, status = ?
+                WHERE id = ?
+                """;
+        try (Connection conn = connectionProvider.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, film.getTitle());
+            stmt.setString(2, film.getGenre());
+            stmt.setInt(3, film.getDurationMinutes());
+            stmt.setString(4, film.getAgeRating());
+            stmt.setString(5, film.getSynopsis());
+            stmt.setString(6, film.getStatus());
+            stmt.setLong(7, film.getId());
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    public boolean delete(long id) throws SQLException {
+        String sql = "DELETE FROM films WHERE id = ?";
+        try (Connection conn = connectionProvider.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    public boolean isUsedBySchedule(long filmId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM schedules WHERE film_id = ?";
+        try (Connection conn = connectionProvider.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, filmId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next() && rs.getInt(1) > 0;
+            }
+        }
+    }
+
+    public boolean titleExistsForOther(String title, long excludeId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM films WHERE LOWER(title) = LOWER(?) AND id <> ?";
+        try (Connection conn = connectionProvider.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, title == null ? "" : title.trim());
+            stmt.setLong(2, excludeId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next() && rs.getInt(1) > 0;
+            }
+        }
+    }
+
     /**
      * Memastikan minimal ada film dan jadwal siap tayang untuk demo/layanan customer.
      * Menggunakan JDBC Transaction.

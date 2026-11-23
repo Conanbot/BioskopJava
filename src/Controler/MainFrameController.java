@@ -1,6 +1,7 @@
 package Controler;
 
 import Controler.admin.AdminMainController;
+import Model.dao.FilmDao;
 import Model.dao.ScheduleDao;
 import Model.dao.StudioDao;
 import Model.dao.UserDao;
@@ -79,12 +80,14 @@ public final class MainFrameController {
         // ── Jonathan: Modul Operasional Admin ─────────────────────────────────────
         AdminPanel adminPanel = new AdminPanel();
         BookingService bookingService = new BookingService();
+        FilmDao filmDao = new FilmDao();
         StudioDao studioDao = new StudioDao();
         ScheduleDao scheduleDao = new ScheduleDao();
 
         this.adminMainController = new AdminMainController(
                 adminPanel,
                 bookingService,
+                filmDao,
                 studioDao,
                 scheduleDao,
                 () -> {

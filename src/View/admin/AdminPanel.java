@@ -12,6 +12,7 @@ import javax.swing.JButton;
  */
 public class AdminPanel extends javax.swing.JPanel {
     public static final String CARD_DASHBOARD = "dashboard";
+    public static final String CARD_FILM = "film";
     public static final String CARD_STUDIO = "studio";
     public static final String CARD_SCHEDULE = "schedule";
     public static final String CARD_CANCEL_REFUND = "cancelrefund";
@@ -39,6 +40,8 @@ public class AdminPanel extends javax.swing.JPanel {
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8));
         dashboardButton = new javax.swing.JButton();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6));
+        filmButton = new javax.swing.JButton();
+        fillerFilm = new javax.swing.Box.Filler(new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6));
         studioButton = new javax.swing.JButton();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6));
         scheduleButton = new javax.swing.JButton();
@@ -48,6 +51,7 @@ public class AdminPanel extends javax.swing.JPanel {
         logoutButton = new javax.swing.JButton();
         innerCards = new javax.swing.JPanel();
         dashboardPanel = new View.admin.AdminDashboardPanel();
+        filmPanel = new View.admin.ManageFilm();
         studioPanel = new View.admin.StudioManagementPanel();
         schedulePanel = new View.admin.ScheduleManagementPanel();
         cancelRefundPanel = new View.admin.AdminCancelRefundPanel();
@@ -87,6 +91,15 @@ public class AdminPanel extends javax.swing.JPanel {
         dashboardButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));
         sidebarPanel.add(dashboardButton);
         sidebarPanel.add(filler4);
+
+        filmButton.setBackground(new java.awt.Color(35, 38, 41));
+        filmButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        filmButton.setForeground(new java.awt.Color(245, 241, 232));
+        filmButton.setText("Film");
+        filmButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        filmButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));
+        sidebarPanel.add(filmButton);
+        sidebarPanel.add(fillerFilm);
 
         studioButton.setBackground(new java.awt.Color(35, 38, 41));
         studioButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
@@ -128,6 +141,7 @@ public class AdminPanel extends javax.swing.JPanel {
         innerCards.setBackground(new java.awt.Color(23, 25, 27));
         innerCards.setLayout(new java.awt.CardLayout());
         innerCards.add(dashboardPanel, "dashboard");
+        innerCards.add(filmPanel, "film");
         innerCards.add(studioPanel, "studio");
         innerCards.add(schedulePanel, "schedule");
         innerCards.add(cancelRefundPanel, "cancelrefund");
@@ -136,7 +150,7 @@ public class AdminPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void postInit() {
-        JButton[] navButtons = {dashboardButton, studioButton, scheduleButton, cancelRefundButton, logoutButton};
+        JButton[] navButtons = {dashboardButton, filmButton, studioButton, scheduleButton, cancelRefundButton, logoutButton};
         for (JButton btn : navButtons) {
             SwingTheme.styleNavigationButton(btn);
             btn.setAlignmentX(LEFT_ALIGNMENT);
@@ -148,6 +162,11 @@ public class AdminPanel extends javax.swing.JPanel {
     public void showDashboard() {
         ((CardLayout) innerCards.getLayout()).show(innerCards, CARD_DASHBOARD);
         setActiveButton(dashboardButton);
+    }
+
+    public void showFilm() {
+        ((CardLayout) innerCards.getLayout()).show(innerCards, CARD_FILM);
+        setActiveButton(filmButton);
     }
 
     public void showStudio() {
@@ -166,7 +185,7 @@ public class AdminPanel extends javax.swing.JPanel {
     }
 
     private void setActiveButton(JButton active) {
-        JButton[] all = {dashboardButton, studioButton, scheduleButton, cancelRefundButton, logoutButton};
+        JButton[] all = {dashboardButton, filmButton, studioButton, scheduleButton, cancelRefundButton, logoutButton};
         for (JButton btn : all) {
             SwingTheme.setNavigationActive(btn, btn == active);
         }
@@ -180,6 +199,10 @@ public class AdminPanel extends javax.swing.JPanel {
 
     public AdminDashboardPanel getDashboardPanel() {
         return dashboardPanel;
+    }
+
+    public ManageFilm getFilmPanel() {
+        return filmPanel;
     }
 
     public StudioManagementPanel getStudioPanel() {
@@ -196,6 +219,10 @@ public class AdminPanel extends javax.swing.JPanel {
 
     public JButton getDashboardButton() {
         return dashboardButton;
+    }
+
+    public JButton getFilmButton() {
+        return filmButton;
     }
 
     public JButton getStudioButton() {
@@ -226,6 +253,9 @@ public class AdminPanel extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler fillerFilm;
+    private javax.swing.JButton filmButton;
+    private View.admin.ManageFilm filmPanel;
     private javax.swing.Box.Filler glueFiller;
     private javax.swing.JPanel innerCards;
     private javax.swing.JButton logoutButton;

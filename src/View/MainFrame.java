@@ -64,6 +64,7 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(workspacePanel, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

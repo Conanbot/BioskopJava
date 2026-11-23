@@ -173,6 +173,13 @@ public final class LoginPanel extends javax.swing.JPanel {
         SwingTheme.styleButton(registerButton, false);
         loginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
         registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+
+        usernameField.addActionListener(e -> passwordField.requestFocusInWindow());
+        passwordField.addActionListener(e -> {
+            if (loginButton.isEnabled()) {
+                loginButton.doClick();
+            }
+        });
     }
 
     // ── Getters untuk Controller ──────────────────────────────────────────────

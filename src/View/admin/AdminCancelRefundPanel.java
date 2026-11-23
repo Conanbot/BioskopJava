@@ -55,7 +55,9 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         resolutionCombo = new javax.swing.JComboBox<>();
         buttonPanel = new javax.swing.JPanel();
         processButton = new javax.swing.JButton();
+        btnGap1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0));
         clearButton = new javax.swing.JButton();
+        btnGap2 = new javax.swing.Box.Filler(new java.awt.Dimension(12, 0), new java.awt.Dimension(12, 0), new java.awt.Dimension(12, 0));
         statusLabel = new javax.swing.JLabel();
         tableCard = new javax.swing.JPanel();
         tableTitleLabel = new javax.swing.JLabel();
@@ -67,9 +69,9 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         resultArea = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(245, 247, 250));
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 28, 22, 28));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 28, 24, 28));
         setPreferredSize(new java.awt.Dimension(770, 580));
-        setLayout(new java.awt.BorderLayout(0, 14));
+        setLayout(new java.awt.BorderLayout(0, 16));
 
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new java.awt.BorderLayout());
@@ -97,6 +99,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         refreshButton.setForeground(new java.awt.Color(0, 26, 58));
         refreshButton.setText("Refresh");
+        refreshButton.setPreferredSize(new java.awt.Dimension(105, 38));
         headerActionPanel.add(refreshButton);
 
         headerPanel.add(headerActionPanel, java.awt.BorderLayout.EAST);
@@ -158,19 +161,23 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         formCard.add(resolutionCombo, gridBagConstraints);
 
         buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
+        buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         processButton.setBackground(new java.awt.Color(0, 26, 58));
         processButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         processButton.setForeground(new java.awt.Color(255, 255, 255));
         processButton.setText("Proses");
+        processButton.setPreferredSize(new java.awt.Dimension(115, 38));
         buttonPanel.add(processButton);
+        buttonPanel.add(btnGap1);
 
         clearButton.setBackground(new java.awt.Color(255, 255, 255));
         clearButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         clearButton.setForeground(new java.awt.Color(0, 26, 58));
         clearButton.setText("Reset");
+        clearButton.setPreferredSize(new java.awt.Dimension(95, 38));
         buttonPanel.add(clearButton);
+        buttonPanel.add(btnGap2);
 
         statusLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         statusLabel.setForeground(new java.awt.Color(100, 116, 139));
@@ -374,6 +381,8 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
     private javax.swing.JTextField bookingCodeField;
     private javax.swing.JLabel bookingCodeLabel;
     private javax.swing.JTable bookingsTable;
+    private javax.swing.Box.Filler btnGap1;
+    private javax.swing.Box.Filler btnGap2;
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JButton clearButton;
     private javax.swing.JPanel contentPanel;

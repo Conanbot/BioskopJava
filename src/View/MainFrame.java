@@ -6,7 +6,6 @@ package View;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
 
 /**
  * Main application window formatted as a NetBeans JFrame Form (Matisse GUI Builder).
@@ -28,7 +27,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void postInitStyles() {
-        workspacePanel.setBorder(new EmptyBorder(24, 30, 24, 30));
         setLocationRelativeTo(null);
     }
 

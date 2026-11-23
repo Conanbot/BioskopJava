@@ -68,6 +68,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         errorLabel = new javax.swing.JLabel();
         footerPanel = new javax.swing.JPanel();
         cancelButton = new javax.swing.JButton();
+        btnGap = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0));
         saveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -83,7 +84,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
+        titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Tambah Jadwal Tayang");
         headerPanel.add(titleLabel);
 
@@ -243,18 +244,21 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         contentPanel.add(fieldsPanel, java.awt.BorderLayout.CENTER);
 
         footerPanel.setOpaque(false);
-        footerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 0));
+        footerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         cancelButton.setBackground(new java.awt.Color(255, 255, 255));
-        cancelButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        cancelButton.setForeground(new java.awt.Color(15, 23, 42));
+        cancelButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(0, 26, 58));
         cancelButton.setText("Batal");
+        cancelButton.setPreferredSize(new java.awt.Dimension(105, 40));
         footerPanel.add(cancelButton);
+        footerPanel.add(btnGap);
 
         saveButton.setBackground(new java.awt.Color(0, 26, 58));
-        saveButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        saveButton.setForeground(new java.awt.Color(245, 247, 250));
+        saveButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        saveButton.setForeground(new java.awt.Color(255, 255, 255));
         saveButton.setText("Simpan");
+        saveButton.setPreferredSize(new java.awt.Dimension(115, 40));
         footerPanel.add(saveButton);
 
         contentPanel.add(footerPanel, java.awt.BorderLayout.SOUTH);
@@ -405,6 +409,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler btnGap;
     private javax.swing.JButton cancelButton;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JLabel errorLabel;

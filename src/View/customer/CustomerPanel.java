@@ -65,17 +65,23 @@ public class CustomerPanel extends javax.swing.JPanel {
         userGreetingLabel = new javax.swing.JLabel();
         actionsPanel = new javax.swing.JPanel();
         historyButton = new javax.swing.JButton();
+        headerBtnGap = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0));
         logoutButton = new javax.swing.JButton();
         bodyPanel = new javax.swing.JPanel();
         filterBarPanel = new javax.swing.JPanel();
         tabButtonsPanel = new javax.swing.JPanel();
         tabAllButton = new javax.swing.JButton();
+        tabGap1 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0));
         tabNowButton = new javax.swing.JButton();
+        tabGap2 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0));
         tabSoonButton = new javax.swing.JButton();
         searchControlsPanel = new javax.swing.JPanel();
         searchLabel = new javax.swing.JLabel();
+        searchGap1 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0));
         searchField = new javax.swing.JTextField();
+        searchGap2 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0));
         genreFilterCombo = new javax.swing.JComboBox<>();
+        searchGap3 = new javax.swing.Box.Filler(new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0), new java.awt.Dimension(8, 0));
         refreshButton = new javax.swing.JButton();
         filmsScrollPane = new javax.swing.JScrollPane();
         filmsPreviewGrid = new javax.swing.JPanel();
@@ -83,12 +89,12 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(245, 247, 250));
         setPreferredSize(new java.awt.Dimension(960, 600));
-        setLayout(new java.awt.BorderLayout(0, 14));
+        setLayout(new java.awt.BorderLayout());
 
         headerCard.setBackground(new java.awt.Color(0, 26, 58));
-        headerCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(245, 166, 35)), javax.swing.BorderFactory.createEmptyBorder(14, 20, 14, 20)));
+        headerCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(245, 166, 35)), javax.swing.BorderFactory.createEmptyBorder(14, 24, 14, 24)));
         headerCard.setPreferredSize(new java.awt.Dimension(0, 96));
-        headerCard.setLayout(new java.awt.BorderLayout());
+        headerCard.setLayout(new java.awt.BorderLayout(16, 0));
 
         textPanel.setOpaque(false);
         textPanel.setLayout(new javax.swing.BoxLayout(textPanel, javax.swing.BoxLayout.Y_AXIS));
@@ -113,51 +119,67 @@ public class CustomerPanel extends javax.swing.JPanel {
         headerCard.add(textPanel, java.awt.BorderLayout.CENTER);
 
         actionsPanel.setOpaque(false);
-        actionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 10));
+        actionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 13));
 
         historyButton.setBackground(new java.awt.Color(245, 166, 35));
         historyButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         historyButton.setForeground(new java.awt.Color(0, 26, 58));
         historyButton.setText("Riwayat Tiket");
+        historyButton.setPreferredSize(new java.awt.Dimension(140, 38));
         actionsPanel.add(historyButton);
+        actionsPanel.add(headerBtnGap);
 
         logoutButton.setBackground(new java.awt.Color(255, 255, 255));
         logoutButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         logoutButton.setForeground(new java.awt.Color(0, 26, 58));
         logoutButton.setText("Logout");
+        logoutButton.setPreferredSize(new java.awt.Dimension(95, 38));
         actionsPanel.add(logoutButton);
 
         headerCard.add(actionsPanel, java.awt.BorderLayout.EAST);
 
         add(headerCard, java.awt.BorderLayout.NORTH);
 
+        bodyPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(18, 24, 18, 24));
         bodyPanel.setOpaque(false);
-        bodyPanel.setLayout(new java.awt.BorderLayout(0, 12));
+        bodyPanel.setLayout(new java.awt.BorderLayout(0, 14));
 
         filterBarPanel.setOpaque(false);
         filterBarPanel.setLayout(new java.awt.BorderLayout(12, 0));
 
         tabButtonsPanel.setOpaque(false);
-        tabButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
+        tabButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
+        tabAllButton.setBackground(new java.awt.Color(0, 26, 58));
+        tabAllButton.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        tabAllButton.setForeground(new java.awt.Color(255, 255, 255));
         tabAllButton.setText("Semua Film");
         tabButtonsPanel.add(tabAllButton);
+        tabButtonsPanel.add(tabGap1);
 
+        tabNowButton.setBackground(new java.awt.Color(255, 255, 255));
+        tabNowButton.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        tabNowButton.setForeground(new java.awt.Color(0, 26, 58));
         tabNowButton.setText("Sedang Tayang");
         tabButtonsPanel.add(tabNowButton);
+        tabButtonsPanel.add(tabGap2);
 
+        tabSoonButton.setBackground(new java.awt.Color(255, 255, 255));
+        tabSoonButton.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        tabSoonButton.setForeground(new java.awt.Color(0, 26, 58));
         tabSoonButton.setText("Akan Datang");
         tabButtonsPanel.add(tabSoonButton);
 
         filterBarPanel.add(tabButtonsPanel, java.awt.BorderLayout.WEST);
 
         searchControlsPanel.setOpaque(false);
-        searchControlsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 8, 0));
+        searchControlsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         searchLabel.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
         searchLabel.setForeground(new java.awt.Color(100, 116, 139));
         searchLabel.setText("Cari:");
         searchControlsPanel.add(searchLabel);
+        searchControlsPanel.add(searchGap1);
 
         searchField.setBackground(new java.awt.Color(255, 255, 255));
         searchField.setColumns(15);
@@ -166,6 +188,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         searchField.setToolTipText("Cari judul atau genre film");
         searchField.setPreferredSize(new java.awt.Dimension(175, 36));
         searchControlsPanel.add(searchField);
+        searchControlsPanel.add(searchGap2);
 
         genreFilterCombo.setBackground(new java.awt.Color(255, 255, 255));
         genreFilterCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
@@ -173,8 +196,13 @@ public class CustomerPanel extends javax.swing.JPanel {
         genreFilterCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua Genre", "Action", "Sci-Fi", "Comedy", "Horror", "Drama", "Animation" }));
         genreFilterCombo.setPreferredSize(new java.awt.Dimension(130, 36));
         searchControlsPanel.add(genreFilterCombo);
+        searchControlsPanel.add(searchGap3);
 
+        refreshButton.setBackground(new java.awt.Color(255, 255, 255));
+        refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        refreshButton.setForeground(new java.awt.Color(0, 26, 58));
         refreshButton.setText("Refresh");
+        refreshButton.setPreferredSize(new java.awt.Dimension(92, 36));
         searchControlsPanel.add(refreshButton);
 
         filterBarPanel.add(searchControlsPanel, java.awt.BorderLayout.EAST);
@@ -480,6 +508,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane filmsScrollPane;
     private javax.swing.JPanel filterBarPanel;
     private javax.swing.JComboBox<String> genreFilterCombo;
+    private javax.swing.Box.Filler headerBtnGap;
     private javax.swing.JPanel headerCard;
     private javax.swing.JButton historyButton;
     private javax.swing.JButton logoutButton;
@@ -487,10 +516,15 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel resultCountLabel;
     private javax.swing.JPanel searchControlsPanel;
     private javax.swing.JTextField searchField;
+    private javax.swing.Box.Filler searchGap1;
+    private javax.swing.Box.Filler searchGap2;
+    private javax.swing.Box.Filler searchGap3;
     private javax.swing.JLabel searchLabel;
     private javax.swing.JLabel subtitleLabel;
     private javax.swing.JButton tabAllButton;
     private javax.swing.JPanel tabButtonsPanel;
+    private javax.swing.Box.Filler tabGap1;
+    private javax.swing.Box.Filler tabGap2;
     private javax.swing.JButton tabNowButton;
     private javax.swing.JButton tabSoonButton;
     private javax.swing.JPanel textPanel;

@@ -33,9 +33,10 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
 
         headerPanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 4), new java.awt.Dimension(0, 4), new java.awt.Dimension(0, 4));
         subtitleLabel = new javax.swing.JLabel();
         statsPanel = new javax.swing.JPanel();
+        statsGrid = new javax.swing.JPanel();
         filmsCard = new javax.swing.JPanel();
         filmsCardTitle = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10));
@@ -54,19 +55,19 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         totalRevenueValue = new javax.swing.JLabel();
         footerPanel = new javax.swing.JPanel();
         refreshButton = new javax.swing.JButton();
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10));
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8), new java.awt.Dimension(0, 8));
         statusLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(245, 247, 250));
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(28, 32, 28, 32));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 28, 24, 28));
         setPreferredSize(new java.awt.Dimension(770, 560));
-        setLayout(new java.awt.BorderLayout(0, 24));
+        setLayout(new java.awt.BorderLayout(0, 20));
 
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 24)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
+        titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Dashboard Admin");
         headerPanel.add(titleLabel);
         headerPanel.add(filler1);
@@ -79,11 +80,14 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         add(headerPanel, java.awt.BorderLayout.NORTH);
 
         statsPanel.setOpaque(false);
-        statsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 20));
+        statsPanel.setLayout(new java.awt.BorderLayout());
+
+        statsGrid.setOpaque(false);
+        statsGrid.setLayout(new java.awt.GridLayout(2, 2, 16, 16));
 
         filmsCard.setBackground(new java.awt.Color(255, 255, 255));
         filmsCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
-        filmsCard.setPreferredSize(new java.awt.Dimension(220, 110));
+        filmsCard.setPreferredSize(new java.awt.Dimension(240, 114));
         filmsCard.setLayout(new javax.swing.BoxLayout(filmsCard, javax.swing.BoxLayout.Y_AXIS));
 
         filmsCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
@@ -97,11 +101,11 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         totalFilmsValue.setText("—");
         filmsCard.add(totalFilmsValue);
 
-        statsPanel.add(filmsCard);
+        statsGrid.add(filmsCard);
 
         schedulesCard.setBackground(new java.awt.Color(255, 255, 255));
         schedulesCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
-        schedulesCard.setPreferredSize(new java.awt.Dimension(220, 110));
+        schedulesCard.setPreferredSize(new java.awt.Dimension(240, 114));
         schedulesCard.setLayout(new javax.swing.BoxLayout(schedulesCard, javax.swing.BoxLayout.Y_AXIS));
 
         schedulesCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
@@ -115,11 +119,11 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         totalSchedulesTodayValue.setText("—");
         schedulesCard.add(totalSchedulesTodayValue);
 
-        statsPanel.add(schedulesCard);
+        statsGrid.add(schedulesCard);
 
         bookingsCard.setBackground(new java.awt.Color(255, 255, 255));
         bookingsCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
-        bookingsCard.setPreferredSize(new java.awt.Dimension(220, 110));
+        bookingsCard.setPreferredSize(new java.awt.Dimension(240, 114));
         bookingsCard.setLayout(new javax.swing.BoxLayout(bookingsCard, javax.swing.BoxLayout.Y_AXIS));
 
         bookingsCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
@@ -133,11 +137,11 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         totalBookingsValue.setText("—");
         bookingsCard.add(totalBookingsValue);
 
-        statsPanel.add(bookingsCard);
+        statsGrid.add(bookingsCard);
 
         revenueCard.setBackground(new java.awt.Color(255, 255, 255));
         revenueCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
-        revenueCard.setPreferredSize(new java.awt.Dimension(220, 110));
+        revenueCard.setPreferredSize(new java.awt.Dimension(240, 114));
         revenueCard.setLayout(new javax.swing.BoxLayout(revenueCard, javax.swing.BoxLayout.Y_AXIS));
 
         revenueCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
@@ -151,7 +155,9 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         totalRevenueValue.setText("—");
         revenueCard.add(totalRevenueValue);
 
-        statsPanel.add(revenueCard);
+        statsGrid.add(revenueCard);
+
+        statsPanel.add(statsGrid, java.awt.BorderLayout.NORTH);
 
         add(statsPanel, java.awt.BorderLayout.CENTER);
 
@@ -160,15 +166,18 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
 
         refreshButton.setBackground(new java.awt.Color(0, 26, 58));
         refreshButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        refreshButton.setForeground(new java.awt.Color(245, 247, 250));
+        refreshButton.setForeground(new java.awt.Color(255, 255, 255));
         refreshButton.setText("Refresh Data");
-        refreshButton.setMaximumSize(new java.awt.Dimension(180, 44));
+        refreshButton.setAlignmentX(0.0F);
+        refreshButton.setMaximumSize(new java.awt.Dimension(180, 42));
+        refreshButton.setPreferredSize(new java.awt.Dimension(180, 42));
         footerPanel.add(refreshButton);
         footerPanel.add(filler6);
 
         statusLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
         statusLabel.setForeground(new java.awt.Color(100, 116, 139));
         statusLabel.setText(" ");
+        statusLabel.setAlignmentX(0.0F);
         footerPanel.add(statusLabel);
 
         add(footerPanel, java.awt.BorderLayout.SOUTH);
@@ -244,6 +253,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
     private javax.swing.JLabel revenueCardTitle;
     private javax.swing.JPanel schedulesCard;
     private javax.swing.JLabel schedulesCardTitle;
+    private javax.swing.JPanel statsGrid;
     private javax.swing.JPanel statsPanel;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel subtitleLabel;

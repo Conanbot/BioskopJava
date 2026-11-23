@@ -66,7 +66,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
         formCard.setLayout(new javax.swing.BoxLayout(formCard, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
+        titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Buat Akun Baru");
         titleLabel.setAlignmentX(0.5F);
         formCard.add(titleLabel);

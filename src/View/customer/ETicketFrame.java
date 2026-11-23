@@ -55,8 +55,8 @@ public class ETicketFrame extends javax.swing.JFrame {
         getContentPane().setBackground(BaseCinemaFrame.CINEMA_BG);
 
         headerPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
-                new EmptyBorder(0, 18, 0, 18)
+                BorderFactory.createMatteBorder(0, 0, 3, 0, BaseCinemaFrame.CINEMA_GOLD),
+                new EmptyBorder(0, 24, 0, 24)
         ));
 
         ticketContainerPanel.setBorder(new EmptyBorder(24, 28, 24, 28));
@@ -64,7 +64,7 @@ public class ETicketFrame extends javax.swing.JFrame {
         ticketScrollPane.getViewport().setBackground(Color.WHITE);
 
         SwingTheme.styleButton(exportButton, true);
-        exportButton.setPreferredSize(new Dimension(220, 40));
+        exportButton.setPreferredSize(new Dimension(200, 40));
         exportButton.addActionListener(e -> {
             try {
                 File file = exportService.exportToFile(receipt, null);
@@ -80,6 +80,11 @@ public class ETicketFrame extends javax.swing.JFrame {
         SwingTheme.styleButton(closeButton, false);
         closeButton.setPreferredSize(new Dimension(110, 40));
         closeButton.addActionListener(e -> dispose());
+
+        getRootPane().registerKeyboardAction(
+                e -> dispose(),
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
+                javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         SwingTheme.applyInterFont(this);
     }
@@ -172,7 +177,8 @@ public class ETicketFrame extends javax.swing.JFrame {
     private JPanel createTicketInfoRow(String label, String value, boolean highlight) {
         JPanel row = new JPanel(new BorderLayout());
         row.setOpaque(false);
-        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 26));
+        row.setAlignmentX(CENTER_ALIGNMENT);
+        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 28));
 
         JLabel lbl = new JLabel(label);
         lbl.setFont(new Font("Inter", Font.PLAIN, 13));
@@ -180,7 +186,7 @@ public class ETicketFrame extends javax.swing.JFrame {
 
         JLabel val = new JLabel(value);
         val.setFont(new Font("Inter", highlight ? Font.BOLD : Font.PLAIN, 14));
-        val.setForeground(highlight ? BaseCinemaFrame.CINEMA_GOLD : BaseCinemaFrame.CINEMA_TEXT);
+        val.setForeground(highlight ? SwingTheme.NAVY : BaseCinemaFrame.CINEMA_TEXT);
 
         row.add(lbl, BorderLayout.WEST);
         row.add(val, BorderLayout.EAST);
@@ -232,21 +238,22 @@ public class ETicketFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(580, 720));
 
         headerPanel.setBackground(new java.awt.Color(0, 26, 58));
-        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 22, 0, 22)));
-        headerPanel.setPreferredSize(new java.awt.Dimension(0, 58));
-        headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 16));
+        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(245, 166, 35)), javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
+        headerPanel.setLayout(new java.awt.BorderLayout());
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("E-TICKET RESMI BIOSKOP");
-        headerPanel.add(headerTitleLabel);
+        headerPanel.add(headerTitleLabel, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
         mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
-        mainContentPanel.setLayout(new java.awt.BorderLayout());
+        mainContentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 24, 18, 24));
+        mainContentPanel.setLayout(new java.awt.BorderLayout(0, 14));
 
-        ticketScrollPane.setBorder(null);
+        ticketScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
         ticketScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         ticketContainerPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -256,19 +263,21 @@ public class ETicketFrame extends javax.swing.JFrame {
 
         mainContentPanel.add(ticketScrollPane, java.awt.BorderLayout.CENTER);
 
-        bottomBarPanel.setBackground(new java.awt.Color(245, 247, 250));
-        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 14, 12));
+        bottomBarPanel.setOpaque(false);
+        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 12, 0));
 
         exportButton.setBackground(new java.awt.Color(0, 26, 58));
         exportButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         exportButton.setForeground(new java.awt.Color(255, 255, 255));
         exportButton.setText("Simpan Tiket");
+        exportButton.setPreferredSize(new java.awt.Dimension(200, 40));
         bottomBarPanel.add(exportButton);
 
         closeButton.setBackground(new java.awt.Color(255, 255, 255));
         closeButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         closeButton.setForeground(new java.awt.Color(0, 26, 58));
         closeButton.setText("Tutup");
+        closeButton.setPreferredSize(new java.awt.Dimension(110, 40));
         bottomBarPanel.add(closeButton);
 
         mainContentPanel.add(bottomBarPanel, java.awt.BorderLayout.SOUTH);

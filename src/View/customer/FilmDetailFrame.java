@@ -54,9 +54,9 @@ public class FilmDetailFrame extends javax.swing.JFrame {
 
         headerPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(0, 0, 3, 0, BaseCinemaFrame.CINEMA_GOLD),
-                new EmptyBorder(0, 22, 0, 22)
+                new EmptyBorder(0, 24, 0, 24)
         ));
-        mainContentPanel.setBorder(new EmptyBorder(20, 22, 16, 22));
+        mainContentPanel.setBorder(new EmptyBorder(20, 24, 18, 24));
 
         infoCardPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(226, 232, 240), 1),
@@ -249,24 +249,24 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(760, 680));
 
         headerPanel.setBackground(new java.awt.Color(0, 26, 58));
-        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 22, 0, 22)));
-        headerPanel.setPreferredSize(new java.awt.Dimension(0, 58));
-        headerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 16));
+        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(245, 166, 35)), javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
+        headerPanel.setLayout(new java.awt.BorderLayout());
 
         headerTitle.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitle.setForeground(new java.awt.Color(245, 166, 35));
         headerTitle.setText("INFORMASI DETAIL FILM");
-        headerPanel.add(headerTitle);
+        headerPanel.add(headerTitle, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
         mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
-        mainContentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 22, 16, 22));
-        mainContentPanel.setLayout(new java.awt.BorderLayout());
+        mainContentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 24, 18, 24));
+        mainContentPanel.setLayout(new java.awt.BorderLayout(0, 16));
 
         infoCardPanel.setBackground(new java.awt.Color(255, 255, 255));
         infoCardPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(18, 20, 18, 20)));
-        infoCardPanel.setLayout(new java.awt.BorderLayout());
+        infoCardPanel.setLayout(new java.awt.BorderLayout(20, 0));
 
         posterPanel.setBackground(new java.awt.Color(11, 37, 69));
         posterPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)));
@@ -287,11 +287,14 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         filmTitleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
         filmTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         filmTitleLabel.setText("Judul Film");
+        filmTitleLabel.setAlignmentX(0.0F);
+        filmTitleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
         descPanel.add(filmTitleLabel);
 
         tagsPanel.setAlignmentX(0.0F);
+        tagsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 10, 0));
         tagsPanel.setOpaque(false);
-        tagsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 4));
+        tagsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         durationBadge.setText("120 Menit");
         tagsPanel.add(durationBadge);
@@ -320,10 +323,10 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         mainContentPanel.add(infoCardPanel, java.awt.BorderLayout.NORTH);
 
         schedulesSectionPanel.setOpaque(false);
-        schedulesSectionPanel.setLayout(new java.awt.BorderLayout());
+        schedulesSectionPanel.setLayout(new java.awt.BorderLayout(0, 10));
 
         sectionTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        sectionTitleLabel.setForeground(new java.awt.Color(15, 23, 42));
+        sectionTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         sectionTitleLabel.setText("Pilih Jadwal Penayangan:");
         schedulesSectionPanel.add(sectionTitleLabel, java.awt.BorderLayout.NORTH);
 
@@ -339,12 +342,13 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         mainContentPanel.add(schedulesSectionPanel, java.awt.BorderLayout.CENTER);
 
         bottomBarPanel.setOpaque(false);
-        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 6));
+        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         backButton.setForeground(new java.awt.Color(0, 26, 58));
         backButton.setText("Kembali ke Katalog");
+        backButton.setPreferredSize(new java.awt.Dimension(175, 38));
         bottomBarPanel.add(backButton);
 
         mainContentPanel.add(bottomBarPanel, java.awt.BorderLayout.SOUTH);

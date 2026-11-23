@@ -59,8 +59,8 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         getContentPane().setBackground(BaseCinemaFrame.CINEMA_BG);
 
         headerPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0, 0, 2, 0, BaseCinemaFrame.CINEMA_GOLD),
-                new EmptyBorder(0, 22, 0, 22)
+                BorderFactory.createMatteBorder(0, 0, 3, 0, BaseCinemaFrame.CINEMA_GOLD),
+                new EmptyBorder(0, 24, 0, 24)
         ));
 
         SwingTheme.styleButton(refreshButton, false);
@@ -73,6 +73,11 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
         historyScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_BG);
         historyScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        getRootPane().registerKeyboardAction(
+                e -> dispose(),
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
+                javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         SwingTheme.applyInterFont(this);
     }
@@ -274,8 +279,9 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(920, 620));
 
         headerPanel.setBackground(new java.awt.Color(0, 26, 58));
+        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
-        headerPanel.setLayout(new java.awt.BorderLayout());
+        headerPanel.setLayout(new java.awt.BorderLayout(16, 0));
 
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
@@ -283,10 +289,13 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         headerPanel.add(headerTitleLabel, java.awt.BorderLayout.CENTER);
 
         headerActionPanel.setOpaque(false);
-        headerActionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 12));
+        headerActionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 11));
 
+        refreshButton.setBackground(new java.awt.Color(255, 255, 255));
         refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        refreshButton.setForeground(new java.awt.Color(0, 26, 58));
         refreshButton.setText("Refresh");
+        refreshButton.setPreferredSize(new java.awt.Dimension(105, 38));
         headerActionPanel.add(refreshButton);
 
         headerPanel.add(headerActionPanel, java.awt.BorderLayout.EAST);
@@ -294,8 +303,8 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         getContentPane().add(headerPanel, java.awt.BorderLayout.NORTH);
 
         mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
-        mainContentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(18, 22, 16, 22));
-        mainContentPanel.setLayout(new java.awt.BorderLayout());
+        mainContentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 24, 18, 24));
+        mainContentPanel.setLayout(new java.awt.BorderLayout(0, 14));
 
         historyScrollPane.setBorder(null);
         historyScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -307,10 +316,13 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         mainContentPanel.add(historyScrollPane, java.awt.BorderLayout.CENTER);
 
         bottomBarPanel.setOpaque(false);
-        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 4));
+        bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
+        closeButton.setBackground(new java.awt.Color(255, 255, 255));
         closeButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        closeButton.setForeground(new java.awt.Color(0, 26, 58));
         closeButton.setText("Tutup");
+        closeButton.setPreferredSize(new java.awt.Dimension(105, 38));
         bottomBarPanel.add(closeButton);
 
         mainContentPanel.add(bottomBarPanel, java.awt.BorderLayout.SOUTH);

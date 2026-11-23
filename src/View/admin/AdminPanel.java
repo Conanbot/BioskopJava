@@ -61,31 +61,34 @@ public class AdminPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         sidebarPanel.setBackground(new java.awt.Color(0, 26, 58));
-        sidebarPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 14, 20, 14));
-        sidebarPanel.setPreferredSize(new java.awt.Dimension(190, 0));
+        sidebarPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(24, 16, 20, 16));
+        sidebarPanel.setPreferredSize(new java.awt.Dimension(210, 0));
         sidebarPanel.setLayout(new javax.swing.BoxLayout(sidebarPanel, javax.swing.BoxLayout.Y_AXIS));
 
         adminTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         adminTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
-        adminTitleLabel.setText("Admin");
+        adminTitleLabel.setText("TIX ID Admin");
+        adminTitleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 0));
         sidebarPanel.add(adminTitleLabel);
         sidebarPanel.add(filler1);
 
         usernameLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(148, 163, 184));
         usernameLabel.setText("@admin");
+        usernameLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 0));
         sidebarPanel.add(usernameLabel);
         sidebarPanel.add(filler2);
 
         menuLabel.setFont(new java.awt.Font("Inter", 1, 11)); // NOI18N
         menuLabel.setForeground(new java.awt.Color(148, 163, 184));
         menuLabel.setText("MENU");
+        menuLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 0));
         sidebarPanel.add(menuLabel);
         sidebarPanel.add(filler3);
 
         dashboardButton.setBackground(new java.awt.Color(245, 166, 35));
         dashboardButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        dashboardButton.setForeground(new java.awt.Color(245, 247, 250));
+        dashboardButton.setForeground(new java.awt.Color(0, 26, 58));
         dashboardButton.setText("Dashboard");
         dashboardButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         dashboardButton.setMaximumSize(new java.awt.Dimension(2147483647, 42));

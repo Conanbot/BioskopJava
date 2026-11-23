@@ -462,13 +462,18 @@ public class PaymentFrame extends javax.swing.JFrame {
         qrisRadio.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
         qrisRadio.setForeground(new java.awt.Color(15, 23, 42));
         qrisRadio.setSelected(true);
-        qrisRadio.setText("QRIS (Instan & Non-Tunai)");
+        qrisRadio.setText("QRIS");
+        qrisRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                qrisRadioActionPerformed(evt);
+            }
+        });
         radioPanel.add(qrisRadio);
 
         paymentButtonGroup.add(cashRadio);
         cashRadio.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
         cashRadio.setForeground(new java.awt.Color(15, 23, 42));
-        cashRadio.setText("Tunai (CASH di Kasir)");
+        cashRadio.setText("Tunai");
         radioPanel.add(cashRadio);
 
         methodSectionPanel.add(radioPanel);
@@ -502,6 +507,10 @@ public class PaymentFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void qrisRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qrisRadioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_qrisRadioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottomBarPanel;

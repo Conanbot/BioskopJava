@@ -280,7 +280,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("RIWAYAT PEMESANAN TIKET");
-        headerPanel.add(headerTitleLabel, java.awt.BorderLayout.WEST);
+        headerPanel.add(headerTitleLabel, java.awt.BorderLayout.CENTER);
 
         headerActionPanel.setOpaque(false);
         headerActionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 12));
@@ -295,7 +295,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
 
         mainContentPanel.setBackground(new java.awt.Color(245, 247, 250));
         mainContentPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(18, 22, 16, 22));
-        mainContentPanel.setLayout(new java.awt.BorderLayout(0, 14));
+        mainContentPanel.setLayout(new java.awt.BorderLayout());
 
         historyScrollPane.setBorder(null);
         historyScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

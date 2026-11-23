@@ -64,6 +64,7 @@ public class AdminMainController {
 
         view.getCancelRefundButton().addActionListener(e -> {
             view.showCancelRefund();
+            cancelRefundController.loadTransactions();
         });
 
         view.getLogoutButton().addActionListener(e -> {

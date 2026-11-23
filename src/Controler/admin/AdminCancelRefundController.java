@@ -3,6 +3,7 @@ package Controler.admin;
 import Controler.AlertUtil;
 import Controler.SessionManager;
 import Model.entity.BookingCancellationResult;
+import Model.entity.BookingHistoryItem;
 import Model.enums.BookingResolution;
 import Model.enums.Role;
 import Model.exception.BookingAccessDeniedException;
@@ -13,6 +14,7 @@ import Model.service.BookingService;
 import View.admin.AdminCancelRefundPanel;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JOptionPane;
@@ -36,6 +38,39 @@ public class AdminCancelRefundController {
     private void initListeners() {
         view.getProcessButton().addActionListener(e -> handleProcess());
         view.getClearButton().addActionListener(e -> view.clearForm());
+        view.getRefreshButton().addActionListener(e -> loadTransactions());
+    }
+
+    public void loadTransactions() {
+        SessionManager session = SessionManager.getInstance();
+        if (!session.isLoggedIn() || !session.isAdmin()) {
+            return;
+        }
+        view.setStatusInfo("Memuat daftar transaksi...");
+        long actorUserId = session.getCurrentUserId();
+        Role actorRole = session.getCurrentRole();
+
+        SwingWorker<List<BookingHistoryItem>, Void> worker = new SwingWorker<>() {
+            @Override
+            protected List<BookingHistoryItem> doInBackground() throws Exception {
+                return bookingService.getAllBookingHistory(actorUserId, actorRole);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<BookingHistoryItem> items = get();
+                    view.populateTransactions(items);
+                    view.setStatusInfo("Total transaksi: " + items.size());
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                    view.setStatusError("Gagal memuat daftar transaksi.");
+                } catch (ExecutionException ex) {
+                    view.setStatusError("Gagal memuat data transaksi dari database.");
+                }
+            }
+        };
+        worker.execute();
     }
 
     private void handleProcess() {
@@ -98,6 +133,7 @@ public class AdminCancelRefundController {
                     );
                     view.setResultText(output);
                     view.setStatusSuccess("Booking " + bookingCode + " berhasil di-" + resolution.name() + ".");
+                    loadTransactions();
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                     view.setStatusError("Proses dihentikan.");

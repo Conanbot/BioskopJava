@@ -394,6 +394,38 @@ public class BookingDao {
         return List.copyOf(history);
     }
 
+    public List<BookingHistoryItem> findAllHistory() throws SQLException {
+        String sql = """
+                SELECT b.id, b.booking_code, b.user_id, b.schedule_id, b.status,
+                       b.ticket_count, b.total_price, b.created_at, b.cancelled_at,
+                       s.show_date, s.show_time, f.title, st.name, p.method
+                FROM bookings b
+                JOIN schedules s ON s.id = b.schedule_id
+                JOIN films f ON f.id = s.film_id
+                JOIN studios st ON st.id = s.studio_id
+                JOIN payments p ON p.booking_id = b.id
+                ORDER BY b.created_at DESC, b.id DESC
+                """;
+        List<BookingHistoryItem> history = new ArrayList<>();
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
+            while (result.next()) {
+                Booking booking = mapBooking(result);
+                LocalDateTime showDateTime = LocalDateTime.of(
+                        result.getDate("show_date").toLocalDate(),
+                        result.getTime("show_time").toLocalTime());
+                history.add(new BookingHistoryItem(
+                        booking,
+                        result.getString("title"),
+                        result.getString("name"),
+                        showDateTime,
+                        PaymentMethod.valueOf(result.getString("method"))));
+            }
+        }
+        return List.copyOf(history);
+    }
+
     public DashboardSummary getDashboardSummary() throws SQLException {
         return getDashboardSummary(LocalDate.now(java.time.ZoneId.of("Asia/Jakarta")));
     }

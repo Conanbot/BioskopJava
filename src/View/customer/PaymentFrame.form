@@ -202,8 +202,11 @@
                       <Color blue="2a" green="17" red="f" type="rgb"/>
                     </Property>
                     <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="QRIS (Instan &amp; Non-Tunai)"/>
+                    <Property name="text" type="java.lang.String" value="QRIS"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="qrisRadioActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="cashRadio">
                   <Properties>
@@ -216,7 +219,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="2a" green="17" red="f" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Tunai (CASH di Kasir)"/>
+                    <Property name="text" type="java.lang.String" value="Tunai"/>
                   </Properties>
                 </Component>
               </SubComponents>

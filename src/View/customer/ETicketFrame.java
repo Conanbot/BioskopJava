@@ -262,7 +262,7 @@ public class ETicketFrame extends javax.swing.JFrame {
         exportButton.setBackground(new java.awt.Color(0, 26, 58));
         exportButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         exportButton.setForeground(new java.awt.Color(255, 255, 255));
-        exportButton.setText("Simpan / Cetak Tiket (.txt)");
+        exportButton.setText("Simpan Tiket");
         bottomBarPanel.add(exportButton);
 
         closeButton.setBackground(new java.awt.Color(255, 255, 255));

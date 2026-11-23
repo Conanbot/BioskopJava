@@ -1,15 +1,29 @@
 package View.admin;
 
+import Model.entity.BookingHistoryItem;
 import View.theme.SwingTheme;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Panel Cancel/Refund Booking untuk Admin.
- * Admin memasukkan kode booking, memilih tindakan CANCEL atau REFUND,
- * lalu menekan tombol untuk memproses melalui BookingService.cancelOrRefundBooking().
+ * Dilengkapi tabel daftar transaksi booking: klik baris otomatis mengisi Kode Booking
+ * agar Admin dapat langsung memproses CANCEL atau REFUND.
  */
 public class AdminCancelRefundPanel extends javax.swing.JPanel {
+
+    private static final DateTimeFormatter SHOW_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final String[] COLUMNS = {
+            "Kode Booking", "Film", "Studio", "Jadwal", "Tiket", "Metode", "Total (Rp)", "Status"
+    };
+    private DefaultTableModel tableModel;
 
     public AdminCancelRefundPanel() {
         initComponents();
@@ -27,51 +41,73 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         headerPanel = new javax.swing.JPanel();
+        titlePanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6), new java.awt.Dimension(0, 6));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 4), new java.awt.Dimension(0, 4), new java.awt.Dimension(0, 4));
         subtitleLabel = new javax.swing.JLabel();
+        headerActionPanel = new javax.swing.JPanel();
+        refreshButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
         formCard = new javax.swing.JPanel();
         bookingCodeLabel = new javax.swing.JLabel();
         bookingCodeField = new javax.swing.JTextField();
         resolutionLabel = new javax.swing.JLabel();
         resolutionCombo = new javax.swing.JComboBox<>();
-        warningLabel = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
         processButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
         statusLabel = new javax.swing.JLabel();
+        tableCard = new javax.swing.JPanel();
+        tableTitleLabel = new javax.swing.JLabel();
+        tableScrollPane = new javax.swing.JScrollPane();
+        bookingsTable = new javax.swing.JTable();
         resultCard = new javax.swing.JPanel();
         resultTitleLabel = new javax.swing.JLabel();
         resultScrollPane = new javax.swing.JScrollPane();
         resultArea = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(245, 247, 250));
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(28, 32, 28, 32));
-        setPreferredSize(new java.awt.Dimension(770, 560));
-        setLayout(new java.awt.BorderLayout(0, 20));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(22, 28, 22, 28));
+        setPreferredSize(new java.awt.Dimension(770, 580));
+        setLayout(new java.awt.BorderLayout(0, 14));
 
         headerPanel.setOpaque(false);
-        headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
+        headerPanel.setLayout(new java.awt.BorderLayout());
+
+        titlePanel.setOpaque(false);
+        titlePanel.setLayout(new javax.swing.BoxLayout(titlePanel, javax.swing.BoxLayout.Y_AXIS));
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(15, 23, 42));
+        titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Batalkan / Refund Booking");
-        headerPanel.add(titleLabel);
-        headerPanel.add(filler1);
+        titlePanel.add(titleLabel);
+        titlePanel.add(filler1);
 
         subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
         subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
-        subtitleLabel.setText("Proses pembatalan atau refund booking atas nama Admin.");
-        headerPanel.add(subtitleLabel);
+        subtitleLabel.setText("Klik transaksi pada tabel atau masukkan kode booking untuk memproses Cancel / Refund.");
+        titlePanel.add(subtitleLabel);
+
+        headerPanel.add(titlePanel, java.awt.BorderLayout.WEST);
+
+        headerActionPanel.setOpaque(false);
+        headerActionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
+
+        refreshButton.setBackground(new java.awt.Color(255, 255, 255));
+        refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        refreshButton.setForeground(new java.awt.Color(0, 26, 58));
+        refreshButton.setText("Refresh");
+        headerActionPanel.add(refreshButton);
+
+        headerPanel.add(headerActionPanel, java.awt.BorderLayout.EAST);
 
         add(headerPanel, java.awt.BorderLayout.NORTH);
 
         contentPanel.setOpaque(false);
-        contentPanel.setLayout(new java.awt.BorderLayout(0, 18));
+        contentPanel.setLayout(new java.awt.BorderLayout(0, 14));
 
         formCard.setBackground(new java.awt.Color(255, 255, 255));
-        formCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(20, 24, 20, 24)));
+        formCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(14, 20, 14, 20)));
         formCard.setLayout(new java.awt.GridBagLayout());
 
         bookingCodeLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
@@ -81,95 +117,104 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 12);
         formCard.add(bookingCodeLabel, gridBagConstraints);
 
         bookingCodeField.setBackground(new java.awt.Color(245, 247, 250));
         bookingCodeField.setColumns(20);
         bookingCodeField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         bookingCodeField.setForeground(new java.awt.Color(15, 23, 42));
-        bookingCodeField.setToolTipText("Contoh: BKG-20261119-AB12");
-        bookingCodeField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        bookingCodeField.setToolTipText("Klik baris tabel di bawah atau ketik kode booking");
+        bookingCodeField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(7, 10, 7, 10)));
         bookingCodeField.setCaretColor(new java.awt.Color(15, 23, 42));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 14);
         formCard.add(bookingCodeField, gridBagConstraints);
 
         resolutionLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         resolutionLabel.setForeground(new java.awt.Color(15, 23, 42));
         resolutionLabel.setText("Tindakan");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
         formCard.add(resolutionLabel, gridBagConstraints);
 
-        resolutionCombo.setBackground(new java.awt.Color(245, 247, 250));
-        resolutionCombo.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        resolutionCombo.setBackground(new java.awt.Color(255, 255, 255));
+        resolutionCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
         resolutionCombo.setForeground(new java.awt.Color(15, 23, 42));
-        resolutionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CANCEL", "REFUND" }));
-        resolutionCombo.setPreferredSize(new java.awt.Dimension(180, 42));
+        resolutionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "REFUND", "CANCEL" }));
+        resolutionCombo.setPreferredSize(new java.awt.Dimension(130, 38));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         formCard.add(resolutionCombo, gridBagConstraints);
-
-        warningLabel.setFont(new java.awt.Font("Inter", 2, 12)); // NOI18N
-        warningLabel.setForeground(new java.awt.Color(220, 160, 60));
-        warningLabel.setText("<html><small>Tindakan ini tidak dapat dibatalkan setelah diproses.</small></html>");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
-        formCard.add(warningLabel, gridBagConstraints);
 
         buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 0));
 
         processButton.setBackground(new java.awt.Color(0, 26, 58));
-        processButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        processButton.setForeground(new java.awt.Color(245, 247, 250));
+        processButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        processButton.setForeground(new java.awt.Color(255, 255, 255));
         processButton.setText("Proses");
         buttonPanel.add(processButton);
 
         clearButton.setBackground(new java.awt.Color(255, 255, 255));
-        clearButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        clearButton.setForeground(new java.awt.Color(15, 23, 42));
+        clearButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        clearButton.setForeground(new java.awt.Color(0, 26, 58));
         clearButton.setText("Reset");
         buttonPanel.add(clearButton);
 
+        statusLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        statusLabel.setForeground(new java.awt.Color(100, 116, 139));
+        statusLabel.setText(" ");
+        buttonPanel.add(statusLabel);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         formCard.add(buttonPanel, gridBagConstraints);
 
-        statusLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        statusLabel.setForeground(new java.awt.Color(100, 116, 139));
-        statusLabel.setText(" ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 0, 0, 0);
-        formCard.add(statusLabel, gridBagConstraints);
-
         contentPanel.add(formCard, java.awt.BorderLayout.NORTH);
 
-        resultCard.setBackground(new java.awt.Color(255, 255, 255));
-        resultCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(16, 20, 16, 20)));
-        resultCard.setLayout(new java.awt.BorderLayout(0, 10));
+        tableCard.setBackground(new java.awt.Color(255, 255, 255));
+        tableCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(14, 18, 14, 18)));
+        tableCard.setLayout(new java.awt.BorderLayout(0, 10));
 
-        resultTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        tableTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        tableTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
+        tableTitleLabel.setText("Daftar Transaksi Booking (klik baris untuk memilih)");
+        tableCard.add(tableTitleLabel, java.awt.BorderLayout.NORTH);
+
+        tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
+
+        bookingsTable.setBackground(new java.awt.Color(255, 255, 255));
+        bookingsTable.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        bookingsTable.setForeground(new java.awt.Color(15, 23, 42));
+        bookingsTable.setGridColor(new java.awt.Color(226, 232, 240));
+        bookingsTable.setRowHeight(32);
+        bookingsTable.setSelectionForeground(new java.awt.Color(15, 23, 42));
+        tableScrollPane.setViewportView(bookingsTable);
+
+        tableCard.add(tableScrollPane, java.awt.BorderLayout.CENTER);
+
+        contentPanel.add(tableCard, java.awt.BorderLayout.CENTER);
+
+        resultCard.setBackground(new java.awt.Color(255, 255, 255));
+        resultCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(12, 18, 12, 18)));
+        resultCard.setPreferredSize(new java.awt.Dimension(0, 128));
+        resultCard.setLayout(new java.awt.BorderLayout(0, 8));
+
+        resultTitleLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
         resultTitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         resultTitleLabel.setText("Hasil Proses");
         resultCard.add(resultTitleLabel, java.awt.BorderLayout.NORTH);
@@ -179,31 +224,96 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         resultArea.setEditable(false);
         resultArea.setBackground(new java.awt.Color(245, 247, 250));
         resultArea.setColumns(40);
-        resultArea.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        resultArea.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         resultArea.setForeground(new java.awt.Color(15, 23, 42));
         resultArea.setLineWrap(true);
-        resultArea.setRows(8);
+        resultArea.setRows(4);
         resultArea.setText("Belum ada proses dijalankan.");
         resultArea.setWrapStyleWord(true);
-        resultArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        resultArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 8, 6, 8));
         resultArea.setFocusable(false);
         resultScrollPane.setViewportView(resultArea);
 
         resultCard.add(resultScrollPane, java.awt.BorderLayout.CENTER);
 
-        contentPanel.add(resultCard, java.awt.BorderLayout.CENTER);
+        contentPanel.add(resultCard, java.awt.BorderLayout.SOUTH);
 
         add(contentPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void postInit() {
+        tableModel = new DefaultTableModel(COLUMNS, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        bookingsTable.setModel(tableModel);
+        tableScrollPane.getViewport().setBackground(SwingTheme.SURFACE);
+
+        bookingsTable.getTableHeader().setBackground(SwingTheme.SURFACE);
+        bookingsTable.getTableHeader().setForeground(SwingTheme.MUTED_TEXT);
+        bookingsTable.getTableHeader().setFont(SwingTheme.font(Font.BOLD, 12));
+        bookingsTable.setSelectionBackground(new Color(0, 26, 58, 30));
+        bookingsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Klik baris otomatis mengisi Kode Booking
+        bookingsTable.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int row = bookingsTable.getSelectedRow();
+                if (row >= 0) {
+                    String code = String.valueOf(tableModel.getValueAt(row, 0));
+                    bookingCodeField.setText(code);
+                }
+            }
+        });
+
+        // Double-click baris langsung memicu Proses jika status masih ACTIVE
+        bookingsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = bookingsTable.getSelectedRow();
+                    if (row >= 0 && processButton.isEnabled()) {
+                        String code = String.valueOf(tableModel.getValueAt(row, 0));
+                        bookingCodeField.setText(code);
+                        processButton.doClick();
+                    }
+                }
+            }
+        });
+
+        SwingTheme.styleButton(refreshButton, false);
+        refreshButton.setPreferredSize(new Dimension(105, 38));
         SwingTheme.styleButton(processButton, true);
+        processButton.setPreferredSize(new Dimension(115, 38));
         SwingTheme.styleButton(clearButton, false);
+        clearButton.setPreferredSize(new Dimension(95, 38));
+
         bookingCodeField.addActionListener(e -> {
             if (processButton.isEnabled()) {
                 processButton.doClick();
             }
         });
+    }
+
+    public void populateTransactions(List<BookingHistoryItem> items) {
+        tableModel.setRowCount(0);
+        for (BookingHistoryItem item : items) {
+            String scheduleStr = item.showDateTime() != null
+                    ? item.showDateTime().format(SHOW_FMT)
+                    : "-";
+            tableModel.addRow(new Object[]{
+                    item.booking().bookingCode(),
+                    item.filmTitle(),
+                    item.studioName(),
+                    scheduleStr,
+                    item.booking().ticketCount(),
+                    item.paymentMethod().name(),
+                    String.format("%,.0f", item.totalPrice()),
+                    item.booking().status().name()
+            });
+        }
     }
 
     // ── Getters / State ───────────────────────────────────────────────────────
@@ -218,6 +328,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
 
     public void clearForm() {
         bookingCodeField.setText("");
+        bookingsTable.clearSelection();
         resolutionCombo.setSelectedIndex(0);
         resultArea.setText("Belum ada proses dijalankan.");
         statusLabel.setText(" ");
@@ -238,31 +349,40 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         processButton.setEnabled(true);
     }
 
+    public void setStatusInfo(String message) {
+        statusLabel.setText(message == null ? " " : message);
+        statusLabel.setForeground(SwingTheme.MUTED_TEXT);
+    }
+
     public void setStatusSuccess(String message) {
         statusLabel.setText(message == null ? "Berhasil." : message);
-        statusLabel.setForeground(new java.awt.Color(80, 200, 120));
+        statusLabel.setForeground(new Color(22, 163, 74));
         processButton.setEnabled(true);
     }
 
     public void setStatusError(String message) {
         statusLabel.setText(message == null ? "Terjadi kesalahan." : message);
-        statusLabel.setForeground(new java.awt.Color(220, 80, 80));
+        statusLabel.setForeground(new Color(220, 38, 38));
         processButton.setEnabled(true);
     }
 
     public JButton getProcessButton() { return processButton; }
     public JButton getClearButton() { return clearButton; }
+    public JButton getRefreshButton() { return refreshButton; }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bookingCodeField;
     private javax.swing.JLabel bookingCodeLabel;
+    private javax.swing.JTable bookingsTable;
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JButton clearButton;
     private javax.swing.JPanel contentPanel;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel formCard;
+    private javax.swing.JPanel headerActionPanel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JButton processButton;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JComboBox<String> resolutionCombo;
     private javax.swing.JLabel resolutionLabel;
     private javax.swing.JTextArea resultArea;
@@ -271,7 +391,10 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
     private javax.swing.JLabel resultTitleLabel;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel subtitleLabel;
+    private javax.swing.JPanel tableCard;
+    private javax.swing.JScrollPane tableScrollPane;
+    private javax.swing.JLabel tableTitleLabel;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JLabel warningLabel;
+    private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
 }

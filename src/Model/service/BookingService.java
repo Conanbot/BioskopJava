@@ -245,6 +245,15 @@ public class BookingService {
         return bookingDao.findHistoryByUser(targetUserId);
     }
 
+    public List<BookingHistoryItem> getAllBookingHistory(long actorUserId, Role actorRole)
+            throws SQLException, ValidationException, BookingAccessDeniedException {
+        validateActor(actorUserId, actorRole);
+        if (actorRole != Role.ADMIN) {
+            throw new BookingAccessDeniedException();
+        }
+        return bookingDao.findAllHistory();
+    }
+
     public Optional<BookingReceipt> getBookingDetails(
             String bookingCode, long actorUserId, Role actorRole)
             throws SQLException, ValidationException, BookingAccessDeniedException {

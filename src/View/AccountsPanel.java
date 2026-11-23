@@ -39,10 +39,12 @@ public final class AccountsPanel extends javax.swing.JPanel {
 
     public void showLogin() {
         ((CardLayout) getLayout()).show(this, CARD_LOGIN);
+        loginPanel.focusUsername();
     }
 
     public void showRegister() {
         ((CardLayout) getLayout()).show(this, CARD_REGISTER);
+        registerPanel.focusUsername();
     }
 
     public LoginPanel getLoginPanel() {

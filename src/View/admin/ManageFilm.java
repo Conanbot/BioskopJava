@@ -198,6 +198,14 @@ public class ManageFilm extends javax.swing.JPanel {
         table.getColumnModel().getColumn(5).setPreferredWidth(120);
 
         table.getSelectionModel().addListSelectionListener(e -> updateButtonStates());
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2 && editButton.isEnabled()) {
+                    editButton.doClick();
+                }
+            }
+        });
     }
 
     // ── Data population ───────────────────────────────────────────────────────

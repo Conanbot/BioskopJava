@@ -61,7 +61,12 @@ public class RegisterController {
                 try {
                     User newUser = get();
                     registerPanel.clearAll();
-                    registerPanel.showSuccess("Registrasi berhasil untuk @" + newUser.getUsername() + "! Silakan kembali ke login.");
+                    AlertUtil.showInformation(
+                            registerPanel,
+                            "Registrasi Berhasil",
+                            "Akun @" + newUser.getUsername() + " berhasil dibuat. Silakan masuk dengan password Anda.");
+                    accountsPanel.showLogin();
+                    accountsPanel.getLoginPanel().setUsernameAndFocusPassword(newUser.getUsername());
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                     registerPanel.showError("Proses registrasi dibatalkan.");

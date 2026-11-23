@@ -279,6 +279,11 @@ public final class FilmFormDialog extends javax.swing.JDialog {
             }
         });
         cancelButton.addActionListener(e -> dispose());
+        filmTitleField.addActionListener(e -> genreField.requestFocusInWindow());
+        getRootPane().registerKeyboardAction(
+                e -> dispose(),
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
+                javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         if (editFilm != null) {
             prefillForm(editFilm);

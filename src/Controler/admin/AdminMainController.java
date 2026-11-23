@@ -67,6 +67,15 @@ public class AdminMainController {
         });
 
         view.getLogoutButton().addActionListener(e -> {
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                    view,
+                    "Apakah Anda yakin ingin keluar dari panel Admin?",
+                    "Konfirmasi Logout",
+                    javax.swing.JOptionPane.YES_NO_OPTION,
+                    javax.swing.JOptionPane.QUESTION_MESSAGE);
+            if (confirm != javax.swing.JOptionPane.YES_OPTION) {
+                return;
+            }
             SessionManager.getInstance().clearSession();
             onLogout.run();
         });

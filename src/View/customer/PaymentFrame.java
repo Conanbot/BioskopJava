@@ -106,6 +106,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         cashRadio.addActionListener(e -> {
             selectedMethod = PaymentMethod.CASH;
             methodCardLayout.show(methodCardsPanel, "CASH");
+            javax.swing.SwingUtilities.invokeLater(cashInputField::requestFocusInWindow);
         });
 
         SwingTheme.styleButton(cancelButton, false);
@@ -209,6 +210,11 @@ public class PaymentFrame extends javax.swing.JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                 calculateChange();
+            }
+        });
+        cashInputField.addActionListener(e -> {
+            if (payButton.isEnabled()) {
+                payButton.doClick();
             }
         });
 

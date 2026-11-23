@@ -174,6 +174,14 @@ public class ScheduleManagementPanel extends javax.swing.JPanel {
         table.getColumnModel().getColumn(0).setMaxWidth(70);
 
         table.getSelectionModel().addListSelectionListener(e -> updateButtonStates());
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2 && editButton.isEnabled()) {
+                    editButton.doClick();
+                }
+            }
+        });
     }
 
     // ── Data population ───────────────────────────────────────────────────────

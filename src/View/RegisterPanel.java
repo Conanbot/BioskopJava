@@ -208,6 +208,18 @@ public final class RegisterPanel extends javax.swing.JPanel {
         SwingTheme.styleButton(backToLoginButton, false);
         registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
         backToLoginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+
+        usernameField.addActionListener(e -> passwordField.requestFocusInWindow());
+        passwordField.addActionListener(e -> confirmPasswordField.requestFocusInWindow());
+        confirmPasswordField.addActionListener(e -> {
+            if (registerButton.isEnabled()) {
+                registerButton.doClick();
+            }
+        });
+    }
+
+    public void focusUsername() {
+        javax.swing.SwingUtilities.invokeLater(usernameField::requestFocusInWindow);
     }
 
     // ── Getters untuk Controller ──────────────────────────────────────────────

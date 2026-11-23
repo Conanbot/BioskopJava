@@ -295,6 +295,13 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
             }
         });
         cancelButton.addActionListener(e -> dispose());
+        showDateField.addActionListener(e -> showTimeField.requestFocusInWindow());
+        showTimeField.addActionListener(e -> ticketPriceField.requestFocusInWindow());
+        ticketPriceField.addActionListener(e -> saveButton.doClick());
+        getRootPane().registerKeyboardAction(
+                e -> dispose(),
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
+                javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         if (editSchedule != null) {
             prefillForm(editSchedule);

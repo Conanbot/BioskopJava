@@ -189,6 +189,11 @@ public final class StudioFormDialog extends javax.swing.JDialog {
             }
         });
         cancelButton.addActionListener(e -> dispose());
+        nameField.addActionListener(e -> saveButton.doClick());
+        getRootPane().registerKeyboardAction(
+                e -> dispose(),
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
+                javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         if (editStudio != null) {
             prefillForm(editStudio);

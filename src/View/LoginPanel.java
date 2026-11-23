@@ -188,6 +188,17 @@ public final class LoginPanel extends javax.swing.JPanel {
         return usernameField.getText().trim();
     }
 
+    public void setUsernameAndFocusPassword(String username) {
+        usernameField.setText(username == null ? "" : username.trim());
+        passwordField.setText("");
+        errorLabel.setText(" ");
+        javax.swing.SwingUtilities.invokeLater(passwordField::requestFocusInWindow);
+    }
+
+    public void focusUsername() {
+        javax.swing.SwingUtilities.invokeLater(usernameField::requestFocusInWindow);
+    }
+
     public char[] getPassword() {
         return passwordField.getPassword();
     }

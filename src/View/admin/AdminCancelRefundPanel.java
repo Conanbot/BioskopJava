@@ -199,6 +199,11 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
     private void postInit() {
         SwingTheme.styleButton(processButton, true);
         SwingTheme.styleButton(clearButton, false);
+        bookingCodeField.addActionListener(e -> {
+            if (processButton.isEnabled()) {
+                processButton.doClick();
+            }
+        });
     }
 
     // ── Getters / State ───────────────────────────────────────────────────────

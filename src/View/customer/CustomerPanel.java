@@ -5,26 +5,41 @@ import Controler.SessionManager;
 import Model.dao.FilmDao;
 import Model.entity.Film;
 import Model.entity.User;
+import View.theme.ColorPalette;
 import View.theme.SwingTheme;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 /**
- * Panel Layanan Customer yang terintegrasi di dalam MainFrame.
- * Menyediakan integrasi langsung ke JFrame Portal Customer.
+ * Panel Portal Layanan Customer terpadu bergaya TIX ID di dalam MainFrame.
+ * Mencakup filter tab status, pencarian real-time, filter genre, katalog film dengan placeholder poster,
+ * akses langsung ke detail/pemesanan kursi, riwayat tiket, dan logout.
  */
 public class CustomerPanel extends javax.swing.JPanel {
 
     private final FilmDao filmDao = new FilmDao();
+    private List<Film> allFilms = new ArrayList<>();
+    private String selectedStatusTab = "ALL"; // ALL, NOW_SHOWING, COMING_SOON
     private Runnable onLogout;
 
     public CustomerPanel() {
@@ -49,18 +64,29 @@ public class CustomerPanel extends javax.swing.JPanel {
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 2), new java.awt.Dimension(0, 2), new java.awt.Dimension(0, 2));
         userGreetingLabel = new javax.swing.JLabel();
         actionsPanel = new javax.swing.JPanel();
-        launchFrameButton = new javax.swing.JButton();
         historyButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
+        bodyPanel = new javax.swing.JPanel();
+        filterBarPanel = new javax.swing.JPanel();
+        tabButtonsPanel = new javax.swing.JPanel();
+        tabAllButton = new javax.swing.JButton();
+        tabNowButton = new javax.swing.JButton();
+        tabSoonButton = new javax.swing.JButton();
+        searchControlsPanel = new javax.swing.JPanel();
+        searchLabel = new javax.swing.JLabel();
+        searchField = new javax.swing.JTextField();
+        genreFilterCombo = new javax.swing.JComboBox<>();
+        refreshButton = new javax.swing.JButton();
         filmsScrollPane = new javax.swing.JScrollPane();
         filmsPreviewGrid = new javax.swing.JPanel();
+        resultCountLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(245, 247, 250));
-        setPreferredSize(new java.awt.Dimension(860, 540));
-        setLayout(new java.awt.BorderLayout(0, 16));
+        setPreferredSize(new java.awt.Dimension(960, 600));
+        setLayout(new java.awt.BorderLayout(0, 14));
 
         headerCard.setBackground(new java.awt.Color(0, 26, 58));
-        headerCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(45, 50, 58)), javax.swing.BorderFactory.createEmptyBorder(14, 16, 14, 16)));
+        headerCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(245, 166, 35)), javax.swing.BorderFactory.createEmptyBorder(14, 20, 14, 20)));
         headerCard.setPreferredSize(new java.awt.Dimension(0, 96));
         headerCard.setLayout(new java.awt.BorderLayout());
 
@@ -69,13 +95,13 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(245, 166, 35));
-        titleLabel.setText("Layanan Customer - Bioskop Nusantara");
+        titleLabel.setText("TIX ID  •  Bioskop Nusantara");
         textPanel.add(titleLabel);
         textPanel.add(filler1);
 
         subtitleLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
         subtitleLabel.setForeground(new java.awt.Color(203, 213, 225));
-        subtitleLabel.setText("Modul Lengkap: Customer Home • Film Detail • Seat Map • Payment • E-Ticket • Riwayat");
+        subtitleLabel.setText("Pilih film favorit Anda, pesan kursi, dan nikmati tontonan terbaik.");
         textPanel.add(subtitleLabel);
         textPanel.add(filler2);
 
@@ -87,24 +113,17 @@ public class CustomerPanel extends javax.swing.JPanel {
         headerCard.add(textPanel, java.awt.BorderLayout.CENTER);
 
         actionsPanel.setOpaque(false);
-        actionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 6));
+        actionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 10));
 
-        launchFrameButton.setBackground(new java.awt.Color(245, 166, 35));
-        launchFrameButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        launchFrameButton.setForeground(new java.awt.Color(245, 247, 250));
-        launchFrameButton.setText("Buka Portal Customer");
-        launchFrameButton.setPreferredSize(new java.awt.Dimension(200, 42));
-        actionsPanel.add(launchFrameButton);
-
-        historyButton.setBackground(new java.awt.Color(35, 38, 41));
+        historyButton.setBackground(new java.awt.Color(245, 166, 35));
         historyButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        historyButton.setForeground(new java.awt.Color(15, 23, 42));
+        historyButton.setForeground(new java.awt.Color(0, 26, 58));
         historyButton.setText("Riwayat Tiket");
         actionsPanel.add(historyButton);
 
-        logoutButton.setBackground(new java.awt.Color(35, 38, 41));
+        logoutButton.setBackground(new java.awt.Color(255, 255, 255));
         logoutButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
-        logoutButton.setForeground(new java.awt.Color(15, 23, 42));
+        logoutButton.setForeground(new java.awt.Color(0, 26, 58));
         logoutButton.setText("Logout");
         actionsPanel.add(logoutButton);
 
@@ -112,27 +131,79 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         add(headerCard, java.awt.BorderLayout.NORTH);
 
+        bodyPanel.setOpaque(false);
+        bodyPanel.setLayout(new java.awt.BorderLayout(0, 12));
+
+        filterBarPanel.setOpaque(false);
+        filterBarPanel.setLayout(new java.awt.BorderLayout(12, 0));
+
+        tabButtonsPanel.setOpaque(false);
+        tabButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
+
+        tabAllButton.setText("Semua Film");
+        tabButtonsPanel.add(tabAllButton);
+
+        tabNowButton.setText("Sedang Tayang");
+        tabButtonsPanel.add(tabNowButton);
+
+        tabSoonButton.setText("Akan Datang");
+        tabButtonsPanel.add(tabSoonButton);
+
+        filterBarPanel.add(tabButtonsPanel, java.awt.BorderLayout.WEST);
+
+        searchControlsPanel.setOpaque(false);
+        searchControlsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 8, 0));
+
+        searchLabel.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        searchLabel.setForeground(new java.awt.Color(100, 116, 139));
+        searchLabel.setText("Cari:");
+        searchControlsPanel.add(searchLabel);
+
+        searchField.setBackground(new java.awt.Color(255, 255, 255));
+        searchField.setColumns(15);
+        searchField.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        searchField.setForeground(new java.awt.Color(15, 23, 42));
+        searchField.setToolTipText("Cari judul atau genre film");
+        searchField.setPreferredSize(new java.awt.Dimension(175, 36));
+        searchControlsPanel.add(searchField);
+
+        genreFilterCombo.setBackground(new java.awt.Color(255, 255, 255));
+        genreFilterCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        genreFilterCombo.setForeground(new java.awt.Color(15, 23, 42));
+        genreFilterCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua Genre", "Action", "Sci-Fi", "Comedy", "Horror", "Drama", "Animation" }));
+        genreFilterCombo.setPreferredSize(new java.awt.Dimension(130, 36));
+        searchControlsPanel.add(genreFilterCombo);
+
+        refreshButton.setText("Refresh");
+        searchControlsPanel.add(refreshButton);
+
+        filterBarPanel.add(searchControlsPanel, java.awt.BorderLayout.EAST);
+
+        bodyPanel.add(filterBarPanel, java.awt.BorderLayout.NORTH);
+
         filmsScrollPane.setBorder(null);
+        filmsScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         filmsPreviewGrid.setBackground(new java.awt.Color(245, 247, 250));
         filmsPreviewGrid.setLayout(new java.awt.GridLayout(0, 2, 14, 14));
         filmsScrollPane.setViewportView(filmsPreviewGrid);
 
-        add(filmsScrollPane, java.awt.BorderLayout.CENTER);
+        bodyPanel.add(filmsScrollPane, java.awt.BorderLayout.CENTER);
+
+        resultCountLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        resultCountLabel.setForeground(new java.awt.Color(100, 116, 139));
+        resultCountLabel.setText("Menampilkan 0 film.");
+        bodyPanel.add(resultCountLabel, java.awt.BorderLayout.SOUTH);
+
+        add(bodyPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void postInit() {
-        SwingTheme.styleButton(launchFrameButton, true);
-        launchFrameButton.setPreferredSize(new Dimension(195, 40));
-        SwingTheme.styleButton(historyButton, false);
-        historyButton.setPreferredSize(new Dimension(135, 40));
+        // Header action buttons
+        styleHeaderGoldButton(historyButton);
+        historyButton.setPreferredSize(new Dimension(140, 38));
         SwingTheme.styleButton(logoutButton, false);
-        logoutButton.setPreferredSize(new Dimension(95, 40));
-
-        launchFrameButton.addActionListener(e -> {
-            CustomerHomeFrame homeFrame = new CustomerHomeFrame();
-            homeFrame.setVisible(true);
-        });
+        logoutButton.setPreferredSize(new Dimension(95, 38));
 
         historyButton.addActionListener(e -> {
             User currentUser = SessionManager.getInstance().getCurrentUser();
@@ -144,6 +215,15 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
 
         logoutButton.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Apakah Anda yakin ingin keluar dari akun?",
+                    "Konfirmasi Logout",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (confirm != JOptionPane.YES_OPTION) {
+                return;
+            }
             SessionManager.getInstance().clearSession();
             updateGreeting();
             if (onLogout != null) {
@@ -151,59 +231,229 @@ public class CustomerPanel extends javax.swing.JPanel {
             }
         });
 
+        // Filter tabs
+        styleTabButton(tabAllButton, true);
+        styleTabButton(tabNowButton, false);
+        styleTabButton(tabSoonButton, false);
+
+        tabAllButton.addActionListener(e -> {
+            selectedStatusTab = "ALL";
+            applyTabStyle(tabAllButton, tabNowButton, tabSoonButton);
+            filterAndDisplayFilms();
+        });
+        tabNowButton.addActionListener(e -> {
+            selectedStatusTab = "NOW_SHOWING";
+            applyTabStyle(tabNowButton, tabAllButton, tabSoonButton);
+            filterAndDisplayFilms();
+        });
+        tabSoonButton.addActionListener(e -> {
+            selectedStatusTab = "COMING_SOON";
+            applyTabStyle(tabSoonButton, tabAllButton, tabNowButton);
+            filterAndDisplayFilms();
+        });
+
+        // Search & genre filter & refresh
+        searchField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
+                new EmptyBorder(6, 10, 6, 10)));
+        searchField.setCaretColor(SwingTheme.NAVY);
+        searchField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                filterAndDisplayFilms();
+            }
+        });
+
+        genreFilterCombo.addActionListener(e -> filterAndDisplayFilms());
+
+        SwingTheme.styleButton(refreshButton, false);
+        refreshButton.setPreferredSize(new Dimension(92, 36));
+        refreshButton.addActionListener(e -> loadFilmCards());
+
+        filmsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         filmsScrollPane.getViewport().setBackground(BaseCinemaFrame.CINEMA_BG);
+
+        filmDao.ensureDemoDataAvailable();
         loadFilmCards();
     }
 
-    public void loadFilmCards() {
-        filmsPreviewGrid.removeAll();
-        try {
-            List<Film> films = filmDao.findByStatus("NOW_SHOWING");
-            if (films.isEmpty()) {
-                films = filmDao.findAll();
-            }
+    private void styleHeaderGoldButton(JButton btn) {
+        btn.setFont(SwingTheme.font(Font.BOLD, 13));
+        btn.setBackground(BaseCinemaFrame.CINEMA_GOLD);
+        btn.setForeground(SwingTheme.NAVY);
+        btn.setFocusPainted(false);
+        btn.setOpaque(true);
+        btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btn.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BaseCinemaFrame.CINEMA_GOLD, 1),
+                new EmptyBorder(8, 16, 8, 16)));
+    }
 
-            for (Film f : films) {
-                filmsPreviewGrid.add(createMiniCard(f));
-            }
+    private void styleTabButton(JButton btn, boolean active) {
+        btn.setFont(SwingTheme.font(Font.BOLD, 12));
+        btn.setBackground(active ? SwingTheme.NAVY : Color.WHITE);
+        btn.setForeground(active ? Color.WHITE : SwingTheme.NAVY);
+        btn.setFocusPainted(false);
+        btn.setOpaque(true);
+        btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btn.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(active ? SwingTheme.NAVY : new Color(203, 213, 225), 1),
+                new EmptyBorder(8, 14, 8, 14)));
+    }
+
+    private void applyTabStyle(JButton active, JButton... others) {
+        styleTabButton(active, true);
+        for (JButton b : others) {
+            styleTabButton(b, false);
+        }
+    }
+
+    public void loadFilmCards() {
+        try {
+            this.allFilms = filmDao.findAll();
+            filterAndDisplayFilms();
         } catch (SQLException ex) {
+            filmsPreviewGrid.removeAll();
             JLabel err = new JLabel("Gagal memuat film: " + ex.getMessage());
+            err.setFont(SwingTheme.font(Font.PLAIN, 13));
             err.setForeground(BaseCinemaFrame.CINEMA_RED);
             filmsPreviewGrid.add(err);
+            resultCountLabel.setText("Gagal memuat daftar film.");
+            filmsPreviewGrid.revalidate();
+            filmsPreviewGrid.repaint();
         }
+    }
+
+    private void filterAndDisplayFilms() {
+        String keyword = searchField.getText().trim().toLowerCase();
+        String selectedGenre = (String) genreFilterCombo.getSelectedItem();
+
+        List<Film> filtered = allFilms.stream()
+                .filter(film -> {
+                    if ("ALL".equals(selectedStatusTab)) {
+                        return !"ARCHIVED".equalsIgnoreCase(film.getStatus());
+                    }
+                    return selectedStatusTab.equalsIgnoreCase(film.getStatus());
+                })
+                .filter(film -> {
+                    if (keyword.isEmpty()) {
+                        return true;
+                    }
+                    return film.getTitle().toLowerCase().contains(keyword)
+                            || film.getGenre().toLowerCase().contains(keyword);
+                })
+                .filter(film -> {
+                    if (selectedGenre == null || "Semua Genre".equalsIgnoreCase(selectedGenre)) {
+                        return true;
+                    }
+                    return film.getGenre().toLowerCase().contains(selectedGenre.toLowerCase());
+                })
+                .collect(Collectors.toList());
+
+        filmsPreviewGrid.removeAll();
+        if (filtered.isEmpty()) {
+            JPanel emptyCard = BaseCinemaFrame.createCardPanel();
+            emptyCard.setLayout(new FlowLayout(FlowLayout.CENTER, 12, 24));
+            JLabel emptyLbl = new JLabel("Tidak ada film yang cocok dengan filter pencarian.");
+            emptyLbl.setFont(SwingTheme.font(Font.PLAIN, 13));
+            emptyLbl.setForeground(ColorPalette.MUTED_TEXT);
+            emptyCard.add(emptyLbl);
+            filmsPreviewGrid.add(emptyCard);
+        } else {
+            for (Film f : filtered) {
+                filmsPreviewGrid.add(createMiniCard(f));
+            }
+        }
+
+        resultCountLabel.setText("Menampilkan " + filtered.size() + " film.");
+        SwingTheme.applyInterFont(filmsPreviewGrid);
         filmsPreviewGrid.revalidate();
         filmsPreviewGrid.repaint();
     }
 
     private JPanel createMiniCard(Film film) {
         JPanel card = BaseCinemaFrame.createCardPanel();
-        card.setLayout(new BorderLayout(12, 0));
+        card.setLayout(new BorderLayout(16, 0));
+        card.setPreferredSize(new Dimension(380, 184));
 
-        JPanel left = new JPanel();
-        left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
-        left.setOpaque(false);
+        // ── Poster Placeholder (rasio portrait 2:3 ala TIX ID) ────────────────
+        JPanel posterBox = new JPanel(new BorderLayout());
+        posterBox.setPreferredSize(new Dimension(104, 150));
+        posterBox.setBackground(new Color(11, 37, 69));
+        posterBox.setBorder(BorderFactory.createLineBorder(new Color(203, 213, 225), 1));
+
+        JPanel badgeRow = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 6));
+        badgeRow.setOpaque(false);
+        JLabel ageBadge = new JLabel(" " + film.getAgeRating() + " ");
+        ageBadge.setFont(SwingTheme.font(Font.BOLD, 10));
+        ageBadge.setOpaque(true);
+        ageBadge.setBackground(BaseCinemaFrame.CINEMA_GOLD);
+        ageBadge.setForeground(SwingTheme.NAVY);
+        badgeRow.add(ageBadge);
+
+        JLabel posterPlaceholderLbl = new JLabel("POSTER", SwingConstants.CENTER);
+        posterPlaceholderLbl.setFont(SwingTheme.font(Font.BOLD, 12));
+        posterPlaceholderLbl.setForeground(new Color(148, 163, 184));
+
+        JLabel statusChip = new JLabel(
+                "NOW_SHOWING".equalsIgnoreCase(film.getStatus()) ? "SEDANG TAYANG" : "AKAN DATANG",
+                SwingConstants.CENTER);
+        statusChip.setFont(SwingTheme.font(Font.BOLD, 9));
+        statusChip.setForeground(BaseCinemaFrame.CINEMA_GOLD);
+        statusChip.setBorder(new EmptyBorder(0, 4, 8, 4));
+
+        posterBox.add(badgeRow, BorderLayout.NORTH);
+        posterBox.add(posterPlaceholderLbl, BorderLayout.CENTER);
+        posterBox.add(statusChip, BorderLayout.SOUTH);
+        card.add(posterBox, BorderLayout.WEST);
+
+        // ── Info Film & Tombol Aksi ───────────────────────────────────────────
+        JPanel rightContent = new JPanel(new BorderLayout(0, 10));
+        rightContent.setOpaque(false);
+
+        JPanel textInfo = new JPanel();
+        textInfo.setLayout(new BoxLayout(textInfo, BoxLayout.Y_AXIS));
+        textInfo.setOpaque(false);
 
         JLabel title = new JLabel(film.getTitle());
-        title.setFont(SwingTheme.font(Font.BOLD, 14));
+        title.setFont(SwingTheme.font(Font.BOLD, 16));
         title.setForeground(SwingTheme.NAVY);
+        title.setAlignmentX(LEFT_ALIGNMENT);
 
-        JLabel info = new JLabel(film.getGenre() + " • " + film.getDurationMinutes() + " mnt • " + film.getAgeRating());
+        JLabel info = new JLabel(film.getGenre() + " • " + film.getDurationMinutes() + " mnt");
         info.setFont(SwingTheme.font(Font.PLAIN, 12));
         info.setForeground(BaseCinemaFrame.CINEMA_MUTED);
+        info.setAlignmentX(LEFT_ALIGNMENT);
 
-        left.add(title);
-        left.add(Box.createVerticalStrut(4));
-        left.add(info);
-        card.add(left, BorderLayout.CENTER);
+        String rawSynopsis = film.getSynopsis() == null ? "" : film.getSynopsis().trim();
+        String shortSynopsis = rawSynopsis.length() > 85
+                ? rawSynopsis.substring(0, 82) + "..."
+                : rawSynopsis;
+        JLabel synopsisLbl = new JLabel("<html><body style='width:220px'>" + shortSynopsis + "</body></html>");
+        synopsisLbl.setFont(SwingTheme.font(Font.PLAIN, 12));
+        synopsisLbl.setForeground(new Color(71, 85, 105));
+        synopsisLbl.setAlignmentX(LEFT_ALIGNMENT);
+
+        textInfo.add(title);
+        textInfo.add(Box.createVerticalStrut(4));
+        textInfo.add(info);
+        textInfo.add(Box.createVerticalStrut(8));
+        textInfo.add(synopsisLbl);
+        rightContent.add(textInfo, BorderLayout.CENTER);
+
+        JPanel actionRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        actionRow.setOpaque(false);
 
         JButton bookBtn = BaseCinemaFrame.createCinemaButton("Detail & Pesan", true);
-        bookBtn.setPreferredSize(new Dimension(140, 36));
+        bookBtn.setPreferredSize(new Dimension(145, 36));
         bookBtn.addActionListener(e -> {
             FilmDetailFrame detailFrame = new FilmDetailFrame(film);
             detailFrame.setVisible(true);
         });
+        actionRow.add(bookBtn);
+        rightContent.add(actionRow, BorderLayout.SOUTH);
 
-        card.add(bookBtn, BorderLayout.EAST);
+        card.add(rightContent, BorderLayout.CENTER);
         return card;
     }
 
@@ -223,15 +473,26 @@ public class CustomerPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionsPanel;
+    private javax.swing.JPanel bodyPanel;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JPanel filmsPreviewGrid;
     private javax.swing.JScrollPane filmsScrollPane;
+    private javax.swing.JPanel filterBarPanel;
+    private javax.swing.JComboBox<String> genreFilterCombo;
     private javax.swing.JPanel headerCard;
     private javax.swing.JButton historyButton;
-    private javax.swing.JButton launchFrameButton;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JButton refreshButton;
+    private javax.swing.JLabel resultCountLabel;
+    private javax.swing.JPanel searchControlsPanel;
+    private javax.swing.JTextField searchField;
+    private javax.swing.JLabel searchLabel;
     private javax.swing.JLabel subtitleLabel;
+    private javax.swing.JButton tabAllButton;
+    private javax.swing.JPanel tabButtonsPanel;
+    private javax.swing.JButton tabNowButton;
+    private javax.swing.JButton tabSoonButton;
     private javax.swing.JPanel textPanel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel userGreetingLabel;

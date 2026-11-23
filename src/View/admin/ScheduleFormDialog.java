@@ -83,7 +83,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Tambah Jadwal Tayang");
         headerPanel.add(titleLabel);
@@ -93,7 +93,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         fieldsPanel.setOpaque(false);
         fieldsPanel.setLayout(new java.awt.GridBagLayout());
 
-        filmLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        filmLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         filmLabel.setForeground(new java.awt.Color(15, 23, 42));
         filmLabel.setText("Film");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -104,7 +104,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(filmLabel, gridBagConstraints);
 
         filmCombo.setBackground(new java.awt.Color(245, 247, 250));
-        filmCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        filmCombo.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         filmCombo.setForeground(new java.awt.Color(15, 23, 42));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -114,7 +114,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(filmCombo, gridBagConstraints);
 
-        studioLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        studioLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         studioLabel.setForeground(new java.awt.Color(15, 23, 42));
         studioLabel.setText("Studio");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -125,7 +125,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(studioLabel, gridBagConstraints);
 
         studioCombo.setBackground(new java.awt.Color(245, 247, 250));
-        studioCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        studioCombo.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         studioCombo.setForeground(new java.awt.Color(15, 23, 42));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -135,7 +135,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(studioCombo, gridBagConstraints);
 
-        showDateLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        showDateLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         showDateLabel.setForeground(new java.awt.Color(15, 23, 42));
         showDateLabel.setText("Tanggal (yyyy-MM-dd)");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -147,7 +147,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
 
         showDateField.setBackground(new java.awt.Color(245, 247, 250));
         showDateField.setColumns(14);
-        showDateField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        showDateField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         showDateField.setForeground(new java.awt.Color(15, 23, 42));
         showDateField.setText("yyyy-MM-dd");
         showDateField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
@@ -160,7 +160,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(showDateField, gridBagConstraints);
 
-        showTimeLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        showTimeLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         showTimeLabel.setForeground(new java.awt.Color(15, 23, 42));
         showTimeLabel.setText("Jam (HH:mm)");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -172,7 +172,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
 
         showTimeField.setBackground(new java.awt.Color(245, 247, 250));
         showTimeField.setColumns(8);
-        showTimeField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        showTimeField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         showTimeField.setForeground(new java.awt.Color(15, 23, 42));
         showTimeField.setText("HH:mm");
         showTimeField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
@@ -185,7 +185,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(showTimeField, gridBagConstraints);
 
-        ticketPriceLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        ticketPriceLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         ticketPriceLabel.setForeground(new java.awt.Color(15, 23, 42));
         ticketPriceLabel.setText("Harga Tiket (Rp)");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -197,7 +197,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
 
         ticketPriceField.setBackground(new java.awt.Color(245, 247, 250));
         ticketPriceField.setColumns(14);
-        ticketPriceField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        ticketPriceField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         ticketPriceField.setForeground(new java.awt.Color(15, 23, 42));
         ticketPriceField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         ticketPriceField.setCaretColor(new java.awt.Color(15, 23, 42));
@@ -209,7 +209,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(ticketPriceField, gridBagConstraints);
 
-        totalSeatsCaptionLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        totalSeatsCaptionLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         totalSeatsCaptionLabel.setForeground(new java.awt.Color(15, 23, 42));
         totalSeatsCaptionLabel.setText("Total Kursi");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -219,7 +219,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(totalSeatsCaptionLabel, gridBagConstraints);
 
-        totalSeatsLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        totalSeatsLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         totalSeatsLabel.setForeground(new java.awt.Color(0, 26, 58));
         totalSeatsLabel.setText("—");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -230,7 +230,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(totalSeatsLabel, gridBagConstraints);
 
-        errorLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        errorLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         errorLabel.setForeground(new java.awt.Color(220, 80, 80));
         errorLabel.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -247,7 +247,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         footerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         cancelButton.setBackground(new java.awt.Color(255, 255, 255));
-        cancelButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        cancelButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(0, 26, 58));
         cancelButton.setText("Batal");
         cancelButton.setPreferredSize(new java.awt.Dimension(105, 40));
@@ -255,7 +255,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
         footerPanel.add(btnGap);
 
         saveButton.setBackground(new java.awt.Color(0, 26, 58));
-        saveButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        saveButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         saveButton.setForeground(new java.awt.Color(255, 255, 255));
         saveButton.setText("Simpan");
         saveButton.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -311,7 +311,7 @@ public final class ScheduleFormDialog extends javax.swing.JDialog {
             prefillForm(editSchedule);
         }
 
-        SwingTheme.applyInterFont(this);
+        SwingTheme.applyFont(this);
         pack();
         setLocationRelativeTo(owner);
     }

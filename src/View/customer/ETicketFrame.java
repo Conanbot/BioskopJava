@@ -86,7 +86,7 @@ public class ETicketFrame extends javax.swing.JFrame {
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
-        SwingTheme.applyInterFont(this);
+        SwingTheme.applyFont(this);
     }
 
     private void populateTicket() {
@@ -103,7 +103,7 @@ public class ETicketFrame extends javax.swing.JFrame {
         headerCinema.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel subHeader = new JLabel("OFFICIAL CINEMA PASS / E-TICKET");
-        subHeader.setFont(new Font("Inter", Font.PLAIN, 12));
+        subHeader.setFont(new Font("Poppins", Font.PLAIN, 12));
         subHeader.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         subHeader.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -115,11 +115,11 @@ public class ETicketFrame extends javax.swing.JFrame {
         JPanel codeRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         codeRow.setOpaque(false);
         JLabel codeLabel = new JLabel("KODE: " + receipt.booking().bookingCode());
-        codeLabel.setFont(new Font("Inter", Font.BOLD, 20));
+        codeLabel.setFont(new Font("Poppins", Font.BOLD, 20));
         codeLabel.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
         JLabel statusBadge = new JLabel(" " + receipt.booking().status().name() + " ");
-        statusBadge.setFont(new Font("Inter", Font.BOLD, 12));
+        statusBadge.setFont(new Font("Poppins", Font.BOLD, 12));
         statusBadge.setOpaque(true);
         statusBadge.setBackground(new Color(40, 167, 69));
         statusBadge.setForeground(Color.WHITE);
@@ -160,18 +160,18 @@ public class ETicketFrame extends javax.swing.JFrame {
         ticketContainerPanel.add(Box.createVerticalStrut(18));
 
         JLabel barcodeVisual = new JLabel("||||| ||| ||||||| ||| |||| |||||||| ||||||", SwingConstants.CENTER);
-        barcodeVisual.setFont(new Font("Inter", Font.BOLD, 22));
+        barcodeVisual.setFont(new Font("Poppins", Font.BOLD, 22));
         barcodeVisual.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         barcodeVisual.setAlignmentX(CENTER_ALIGNMENT);
         ticketContainerPanel.add(barcodeVisual);
 
         JLabel barcodeCode = new JLabel(receipt.booking().bookingCode(), SwingConstants.CENTER);
-        barcodeCode.setFont(new Font("Inter", Font.PLAIN, 12));
+        barcodeCode.setFont(new Font("Poppins", Font.PLAIN, 12));
         barcodeCode.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         barcodeCode.setAlignmentX(CENTER_ALIGNMENT);
         ticketContainerPanel.add(barcodeCode);
 
-        SwingTheme.applyInterFont(ticketContainerPanel);
+        SwingTheme.applyFont(ticketContainerPanel);
     }
 
     private JPanel createTicketInfoRow(String label, String value, boolean highlight) {
@@ -181,11 +181,11 @@ public class ETicketFrame extends javax.swing.JFrame {
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 28));
 
         JLabel lbl = new JLabel(label);
-        lbl.setFont(new Font("Inter", Font.PLAIN, 13));
+        lbl.setFont(new Font("Poppins", Font.PLAIN, 13));
         lbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         JLabel val = new JLabel(value);
-        val.setFont(new Font("Inter", highlight ? Font.BOLD : Font.PLAIN, 14));
+        val.setFont(new Font("Poppins", highlight ? Font.BOLD : Font.PLAIN, 14));
         val.setForeground(highlight ? SwingTheme.NAVY : BaseCinemaFrame.CINEMA_TEXT);
 
         row.add(lbl, BorderLayout.WEST);
@@ -242,7 +242,7 @@ public class ETicketFrame extends javax.swing.JFrame {
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
         headerPanel.setLayout(new java.awt.BorderLayout());
 
-        headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        headerTitleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("E-TICKET RESMI BIOSKOP");
         headerPanel.add(headerTitleLabel, java.awt.BorderLayout.CENTER);
@@ -267,14 +267,14 @@ public class ETicketFrame extends javax.swing.JFrame {
         bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 12, 0));
 
         exportButton.setBackground(new java.awt.Color(0, 26, 58));
-        exportButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        exportButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         exportButton.setForeground(new java.awt.Color(255, 255, 255));
         exportButton.setText("Simpan Tiket");
         exportButton.setPreferredSize(new java.awt.Dimension(200, 40));
         bottomBarPanel.add(exportButton);
 
         closeButton.setBackground(new java.awt.Color(255, 255, 255));
-        closeButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        closeButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         closeButton.setForeground(new java.awt.Color(0, 26, 58));
         closeButton.setText("Tutup");
         closeButton.setPreferredSize(new java.awt.Dimension(110, 40));

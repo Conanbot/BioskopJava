@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,15 +27,19 @@ import javax.swing.border.Border;
 import javax.swing.plaf.FontUIResource;
 
 public final class SwingTheme {
-    private static final String[] BUNDLED_INTER_FONTS = {
-            "/resources/fonts/Inter_18pt-Regular.ttf",
-            "/resources/fonts/Inter_18pt-Bold.ttf",
-            "/resources/fonts/Inter_18pt-Italic.ttf",
-            "/resources/fonts/Inter_18pt-BoldItalic.ttf"
+    private static final String[] BUNDLED_POPPINS_FONTS = {
+            "/resources/fonts/Poppins-Regular.ttf",
+            "/resources/fonts/Poppins-Bold.ttf",
+            "/resources/fonts/Poppins-Italic.ttf",
+            "/resources/fonts/Poppins-BoldItalic.ttf"
     };
 
-    private static volatile String activeFontFamily = "Inter";
+    private static volatile String activeFontFamily = "Poppins";
     private static volatile boolean fontsLoaded = false;
+    private static volatile Font regularFont;
+    private static volatile Font boldFont;
+    private static volatile Font italicFont;
+    private static volatile Font boldItalicFont;
 
     public static final Color NAVY = ColorPalette.NAVY;
     public static final Color BACKGROUND = ColorPalette.BACKGROUND;
@@ -51,7 +56,7 @@ public final class SwingTheme {
 
     public static void install() {
         loadBundledFonts();
-        installGlobalFont(activeFontFamily);
+        installGlobalFont();
         UIManager.put("OptionPane.background", SURFACE);
         UIManager.put("OptionPane.messageForeground", TEXT);
         UIManager.put("Panel.background", SURFACE);
@@ -70,28 +75,53 @@ public final class SwingTheme {
     }
 
     public static Font font(int style, int size) {
-        return new Font(getFontFamily(), style, size);
+        loadBundledFonts();
+        Font base;
+        if ((style & (Font.BOLD | Font.ITALIC)) == (Font.BOLD | Font.ITALIC)) {
+            base = boldItalicFont;
+        } else if ((style & Font.BOLD) != 0) {
+            base = boldFont;
+        } else if ((style & Font.ITALIC) != 0) {
+            base = italicFont;
+        } else {
+            base = regularFont;
+        }
+        if (base != null) {
+            return base.deriveFont((float) size);
+        }
+        return new Font(activeFontFamily, style, size);
     }
 
-    public static void applyInterFont(Component root) {
+    private static int resolveStyle(Font f) {
+        int style = f.getStyle();
+        String name = f.getFontName().toLowerCase(Locale.ROOT);
+        if (name.contains("bold")) {
+            style |= Font.BOLD;
+        }
+        if (name.contains("italic")) {
+            style |= Font.ITALIC;
+        }
+        return style;
+    }
+
+    public static void applyFont(Component root) {
         if (root == null) {
             return;
         }
-        String family = getFontFamily();
         Font current = root.getFont();
         if (current != null) {
-            root.setFont(new Font(family, current.getStyle(), current.getSize()));
+            root.setFont(font(resolveStyle(current), current.getSize()));
         }
         if (root instanceof JTable table && table.getTableHeader() != null) {
             Font headerFont = table.getTableHeader().getFont();
             if (headerFont != null) {
                 table.getTableHeader().setFont(
-                        new Font(family, headerFont.getStyle(), headerFont.getSize()));
+                        font(resolveStyle(headerFont), headerFont.getSize()));
             }
         }
         if (root instanceof Container container) {
             for (Component child : container.getComponents()) {
-                applyInterFont(child);
+                applyFont(child);
             }
         }
     }
@@ -102,13 +132,20 @@ public final class SwingTheme {
         }
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String registeredFamily = null;
-        for (String resourcePath : BUNDLED_INTER_FONTS) {
+        for (int i = 0; i < BUNDLED_POPPINS_FONTS.length; i++) {
+            String resourcePath = BUNDLED_POPPINS_FONTS[i];
             try (InputStream stream = SwingTheme.class.getResourceAsStream(resourcePath)) {
                 if (stream == null) {
                     continue;
                 }
                 Font loaded = Font.createFont(Font.TRUETYPE_FONT, stream);
                 ge.registerFont(loaded);
+                switch (i) {
+                    case 0 -> regularFont = loaded;
+                    case 1 -> boldFont = loaded;
+                    case 2 -> italicFont = loaded;
+                    case 3 -> boldItalicFont = loaded;
+                }
                 if (registeredFamily == null) {
                     registeredFamily = loaded.getFamily();
                 }
@@ -122,7 +159,7 @@ public final class SwingTheme {
         fontsLoaded = true;
     }
 
-    private static void installGlobalFont(String fontFamily) {
+    private static void installGlobalFont() {
         UIDefaults defaults = UIManager.getDefaults();
         Enumeration<Object> keys = defaults.keys();
         while (keys.hasMoreElements()) {
@@ -130,9 +167,7 @@ public final class SwingTheme {
             Object value = defaults.get(key);
             if (value instanceof FontUIResource existingFont) {
                 defaults.put(key, new FontUIResource(
-                        fontFamily,
-                        existingFont.getStyle(),
-                        existingFont.getSize()));
+                        font(resolveStyle(existingFont), existingFont.getSize())));
             }
         }
     }

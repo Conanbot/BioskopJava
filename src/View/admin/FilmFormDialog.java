@@ -70,7 +70,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Tambah Film Baru");
         headerPanel.add(titleLabel);
@@ -80,7 +80,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.setOpaque(false);
         fieldsPanel.setLayout(new java.awt.GridBagLayout());
 
-        filmTitleLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        filmTitleLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         filmTitleLabel.setForeground(new java.awt.Color(15, 23, 42));
         filmTitleLabel.setText("Judul Film");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -92,7 +92,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
 
         filmTitleField.setBackground(new java.awt.Color(245, 247, 250));
         filmTitleField.setColumns(24);
-        filmTitleField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        filmTitleField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         filmTitleField.setForeground(new java.awt.Color(15, 23, 42));
         filmTitleField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         filmTitleField.setCaretColor(new java.awt.Color(15, 23, 42));
@@ -104,7 +104,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(filmTitleField, gridBagConstraints);
 
-        genreLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        genreLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         genreLabel.setForeground(new java.awt.Color(15, 23, 42));
         genreLabel.setText("Genre");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -116,7 +116,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
 
         genreField.setBackground(new java.awt.Color(245, 247, 250));
         genreField.setColumns(24);
-        genreField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        genreField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         genreField.setForeground(new java.awt.Color(15, 23, 42));
         genreField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         genreField.setCaretColor(new java.awt.Color(15, 23, 42));
@@ -128,7 +128,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(genreField, gridBagConstraints);
 
-        durationLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        durationLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         durationLabel.setForeground(new java.awt.Color(15, 23, 42));
         durationLabel.setText("Durasi (menit)");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -138,7 +138,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(durationLabel, gridBagConstraints);
 
-        durationSpinner.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        durationSpinner.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         durationSpinner.setModel(new javax.swing.SpinnerNumberModel(120, 1, 600, 1));
         durationSpinner.setPreferredSize(new java.awt.Dimension(110, 38));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -149,7 +149,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(durationSpinner, gridBagConstraints);
 
-        ageRatingLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        ageRatingLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         ageRatingLabel.setForeground(new java.awt.Color(15, 23, 42));
         ageRatingLabel.setText("Rating Usia");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -160,7 +160,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(ageRatingLabel, gridBagConstraints);
 
         ageRatingCombo.setBackground(new java.awt.Color(245, 247, 250));
-        ageRatingCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        ageRatingCombo.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         ageRatingCombo.setForeground(new java.awt.Color(15, 23, 42));
         ageRatingCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SU", "13+", "17+", "21+" }));
         ageRatingCombo.setPreferredSize(new java.awt.Dimension(140, 38));
@@ -172,7 +172,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(ageRatingCombo, gridBagConstraints);
 
-        statusLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        statusLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         statusLabel.setForeground(new java.awt.Color(15, 23, 42));
         statusLabel.setText("Status");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -183,7 +183,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         fieldsPanel.add(statusLabel, gridBagConstraints);
 
         statusCombo.setBackground(new java.awt.Color(245, 247, 250));
-        statusCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        statusCombo.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         statusCombo.setForeground(new java.awt.Color(15, 23, 42));
         statusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOW_SHOWING", "COMING_SOON", "ARCHIVED" }));
         statusCombo.setPreferredSize(new java.awt.Dimension(180, 38));
@@ -195,7 +195,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(statusCombo, gridBagConstraints);
 
-        synopsisLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        synopsisLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         synopsisLabel.setForeground(new java.awt.Color(15, 23, 42));
         synopsisLabel.setText("Sinopsis");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -210,7 +210,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
 
         synopsisArea.setBackground(new java.awt.Color(245, 247, 250));
         synopsisArea.setColumns(24);
-        synopsisArea.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        synopsisArea.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         synopsisArea.setForeground(new java.awt.Color(15, 23, 42));
         synopsisArea.setLineWrap(true);
         synopsisArea.setRows(4);
@@ -228,7 +228,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(synopsisScrollPane, gridBagConstraints);
 
-        errorLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        errorLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         errorLabel.setForeground(new java.awt.Color(220, 80, 80));
         errorLabel.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -245,7 +245,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         footerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         cancelButton.setBackground(new java.awt.Color(255, 255, 255));
-        cancelButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        cancelButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(0, 26, 58));
         cancelButton.setText("Batal");
         cancelButton.setPreferredSize(new java.awt.Dimension(105, 40));
@@ -253,7 +253,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         footerPanel.add(btnGap);
 
         saveButton.setBackground(new java.awt.Color(0, 26, 58));
-        saveButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        saveButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         saveButton.setForeground(new java.awt.Color(255, 255, 255));
         saveButton.setText("Simpan");
         saveButton.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -293,7 +293,7 @@ public final class FilmFormDialog extends javax.swing.JDialog {
             prefillForm(editFilm);
         }
 
-        SwingTheme.applyInterFont(this);
+        SwingTheme.applyFont(this);
         pack();
         setLocationRelativeTo(owner);
     }

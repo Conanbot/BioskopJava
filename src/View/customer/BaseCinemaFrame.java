@@ -72,7 +72,7 @@ public abstract class BaseCinemaFrame extends JFrame {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            SwingTheme.applyInterFont(this);
+            SwingTheme.applyFont(this);
         }
         super.setVisible(visible);
     }

@@ -79,7 +79,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
-        SwingTheme.applyInterFont(this);
+        SwingTheme.applyFont(this);
     }
 
     private void loadHistoryData() {
@@ -120,7 +120,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
             historyListContainer.add(err);
         }
 
-        SwingTheme.applyInterFont(historyListContainer);
+        SwingTheme.applyFont(historyListContainer);
         historyListContainer.revalidate();
         historyListContainer.repaint();
     }
@@ -283,7 +283,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
         headerPanel.setLayout(new java.awt.BorderLayout(16, 0));
 
-        headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        headerTitleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("RIWAYAT PEMESANAN TIKET");
         headerPanel.add(headerTitleLabel, java.awt.BorderLayout.CENTER);
@@ -292,7 +292,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         headerActionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 11));
 
         refreshButton.setBackground(new java.awt.Color(255, 255, 255));
-        refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        refreshButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         refreshButton.setForeground(new java.awt.Color(0, 26, 58));
         refreshButton.setText("Refresh");
         refreshButton.setPreferredSize(new java.awt.Dimension(105, 38));
@@ -319,7 +319,7 @@ public class BookingHistoryFrame extends javax.swing.JFrame {
         bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         closeButton.setBackground(new java.awt.Color(255, 255, 255));
-        closeButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        closeButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         closeButton.setForeground(new java.awt.Color(0, 26, 58));
         closeButton.setText("Tutup");
         closeButton.setPreferredSize(new java.awt.Dimension(105, 38));

@@ -62,7 +62,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Tambah Studio Baru");
         headerPanel.add(titleLabel);
@@ -72,7 +72,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         fieldsPanel.setOpaque(false);
         fieldsPanel.setLayout(new java.awt.GridBagLayout());
 
-        nameLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        nameLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         nameLabel.setForeground(new java.awt.Color(15, 23, 42));
         nameLabel.setText("Nama Studio");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -84,7 +84,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
 
         nameField.setBackground(new java.awt.Color(245, 247, 250));
         nameField.setColumns(24);
-        nameField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        nameField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         nameField.setForeground(new java.awt.Color(15, 23, 42));
         nameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         nameField.setCaretColor(new java.awt.Color(15, 23, 42));
@@ -96,7 +96,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(nameField, gridBagConstraints);
 
-        rowsLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        rowsLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         rowsLabel.setForeground(new java.awt.Color(15, 23, 42));
         rowsLabel.setText("Jumlah Baris Kursi");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -106,7 +106,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(rowsLabel, gridBagConstraints);
 
-        rowsSpinner.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        rowsSpinner.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         rowsSpinner.setModel(new javax.swing.SpinnerNumberModel(5, 1, 100, 1));
         rowsSpinner.setPreferredSize(new java.awt.Dimension(100, 38));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -117,7 +117,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(rowsSpinner, gridBagConstraints);
 
-        colsLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        colsLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         colsLabel.setForeground(new java.awt.Color(15, 23, 42));
         colsLabel.setText("Jumlah Kolom Kursi");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -127,7 +127,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
         fieldsPanel.add(colsLabel, gridBagConstraints);
 
-        colsSpinner.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        colsSpinner.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         colsSpinner.setModel(new javax.swing.SpinnerNumberModel(10, 1, 100, 1));
         colsSpinner.setPreferredSize(new java.awt.Dimension(100, 38));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -138,7 +138,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 14, 0);
         fieldsPanel.add(colsSpinner, gridBagConstraints);
 
-        errorLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        errorLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         errorLabel.setForeground(new java.awt.Color(220, 80, 80));
         errorLabel.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -155,7 +155,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         footerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         cancelButton.setBackground(new java.awt.Color(255, 255, 255));
-        cancelButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        cancelButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(0, 26, 58));
         cancelButton.setText("Batal");
         cancelButton.setPreferredSize(new java.awt.Dimension(105, 40));
@@ -163,7 +163,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
         footerPanel.add(btnGap);
 
         saveButton.setBackground(new java.awt.Color(0, 26, 58));
-        saveButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        saveButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         saveButton.setForeground(new java.awt.Color(255, 255, 255));
         saveButton.setText("Simpan");
         saveButton.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -203,7 +203,7 @@ public final class StudioFormDialog extends javax.swing.JDialog {
             prefillForm(editStudio);
         }
 
-        SwingTheme.applyInterFont(this);
+        SwingTheme.applyFont(this);
         pack();
         setLocationRelativeTo(owner);
     }

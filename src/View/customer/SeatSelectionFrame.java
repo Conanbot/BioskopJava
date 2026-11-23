@@ -120,7 +120,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
-        SwingTheme.applyInterFont(this);
+        SwingTheme.applyFont(this);
     }
 
     private void loadSeatDataAndBuildGrid() {
@@ -171,7 +171,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
 
                 JButton btn = new JButton(seatCode);
                 btn.setPreferredSize(new Dimension(52, 42));
-                btn.setFont(new Font("Inter", Font.BOLD, 12));
+                btn.setFont(new Font("Poppins", Font.BOLD, 12));
                 btn.setFocusPainted(false);
                 btn.setOpaque(true);
 
@@ -249,17 +249,17 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
 
         JLabel lbl = new JLabel(label);
-        lbl.setFont(new Font("Inter", Font.PLAIN, 13));
+        lbl.setFont(new Font("Poppins", Font.PLAIN, 13));
         lbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         row.add(lbl, BorderLayout.WEST);
 
         if (valueWidget instanceof JLabel labelWidget) {
-            labelWidget.setFont(new Font("Inter", Font.BOLD, 13));
+            labelWidget.setFont(new Font("Poppins", Font.BOLD, 13));
             labelWidget.setForeground(BaseCinemaFrame.CINEMA_TEXT);
             row.add(labelWidget, BorderLayout.EAST);
         } else {
             JLabel val = new JLabel(String.valueOf(valueWidget));
-            val.setFont(new Font("Inter", Font.BOLD, 13));
+            val.setFont(new Font("Poppins", Font.BOLD, 13));
             val.setForeground(BaseCinemaFrame.CINEMA_TEXT);
             row.add(val, BorderLayout.EAST);
         }
@@ -287,7 +287,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         box.setBorder(BorderFactory.createLineBorder(border, 1));
 
         JLabel text = new JLabel(label);
-        text.setFont(new Font("Inter", Font.PLAIN, 12));
+        text.setFont(new Font("Poppins", Font.PLAIN, 12));
         text.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         item.add(box);
@@ -319,7 +319,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
             g2.fillRoundRect(startX, 10, screenWidth, 8, 8, 8);
 
             g2.setColor(new Color(214, 169, 75, 180));
-            g2.setFont(new Font("Inter", Font.BOLD, 11));
+            g2.setFont(new Font("Poppins", Font.BOLD, 11));
             String text = "--- LAYAR BIOSKOP / SCREEN ---";
             int textWidth = g2.getFontMetrics().stringWidth(text);
             g2.drawString(text, (width - textWidth) / 2, 34);
@@ -367,7 +367,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
         headerPanel.setLayout(new java.awt.BorderLayout());
 
-        headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        headerTitleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("DENAH & PEMILIHAN KURSI STUDIO");
         headerPanel.add(headerTitleLabel, java.awt.BorderLayout.CENTER);
@@ -385,12 +385,12 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         infoBarPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 16, 12, 16));
         infoBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
-        infoFilmTitleLabel.setFont(new java.awt.Font("Inter", 1, 15)); // NOI18N
+        infoFilmTitleLabel.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
         infoFilmTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         infoFilmTitleLabel.setText("Judul Film");
         infoBarPanel.add(infoFilmTitleLabel);
 
-        infoScheduleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        infoScheduleLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         infoScheduleLabel.setForeground(new java.awt.Color(203, 213, 225));
         infoScheduleLabel.setText("  •  Studio & Jadwal");
         infoBarPanel.add(infoScheduleLabel);
@@ -412,20 +412,20 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         summaryCardPanel.setPreferredSize(new java.awt.Dimension(290, 0));
         summaryCardPanel.setLayout(new javax.swing.BoxLayout(summaryCardPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        summaryTitleLabel.setFont(new java.awt.Font("Inter", 1, 17)); // NOI18N
+        summaryTitleLabel.setFont(new java.awt.Font("Poppins", 1, 17)); // NOI18N
         summaryTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         summaryTitleLabel.setText("Ringkasan Pesanan");
         summaryTitleLabel.setAlignmentX(0.0F);
         summaryCardPanel.add(summaryTitleLabel);
         summaryCardPanel.add(filler1);
 
-        totalHeaderLabel.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        totalHeaderLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         totalHeaderLabel.setForeground(new java.awt.Color(100, 116, 139));
         totalHeaderLabel.setText("TOTAL HARGA");
         totalHeaderLabel.setAlignmentX(0.0F);
         summaryCardPanel.add(totalHeaderLabel);
 
-        totalPriceLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
+        totalPriceLabel.setFont(new java.awt.Font("Poppins", 1, 22)); // NOI18N
         totalPriceLabel.setForeground(new java.awt.Color(0, 26, 58));
         totalPriceLabel.setText("Rp 0,00");
         totalPriceLabel.setAlignmentX(0.0F);
@@ -433,7 +433,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         summaryCardPanel.add(filler2);
 
         proceedPaymentButton.setBackground(new java.awt.Color(0, 26, 58));
-        proceedPaymentButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        proceedPaymentButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         proceedPaymentButton.setForeground(new java.awt.Color(255, 255, 255));
         proceedPaymentButton.setText("Lanjut ke Pembayaran");
         proceedPaymentButton.setAlignmentX(0.0F);
@@ -442,7 +442,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         summaryCardPanel.add(filler3);
 
         backButton.setBackground(new java.awt.Color(255, 255, 255));
-        backButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        backButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         backButton.setForeground(new java.awt.Color(0, 26, 58));
         backButton.setText("Kembali");
         backButton.setAlignmentX(0.0F);

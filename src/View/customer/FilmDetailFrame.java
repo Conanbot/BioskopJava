@@ -109,11 +109,11 @@ public class FilmDetailFrame extends javax.swing.JFrame {
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
-        SwingTheme.applyInterFont(this);
+        SwingTheme.applyFont(this);
     }
 
     private void styleBadge(JLabel badge, Color bg, Color fg) {
-        badge.setFont(new Font("Inter", Font.BOLD, 11));
+        badge.setFont(new Font("Poppins", Font.BOLD, 11));
         badge.setOpaque(true);
         badge.setBackground(bg);
         badge.setForeground(fg);
@@ -157,7 +157,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
             err.setForeground(BaseCinemaFrame.CINEMA_RED);
             schedulesListContainer.add(err);
         }
-        SwingTheme.applyInterFont(schedulesListContainer);
+        SwingTheme.applyFont(schedulesListContainer);
         schedulesListContainer.revalidate();
         schedulesListContainer.repaint();
     }
@@ -253,7 +253,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
         headerPanel.setLayout(new java.awt.BorderLayout());
 
-        headerTitle.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        headerTitle.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         headerTitle.setForeground(new java.awt.Color(245, 166, 35));
         headerTitle.setText("INFORMASI DETAIL FILM");
         headerPanel.add(headerTitle, java.awt.BorderLayout.CENTER);
@@ -273,7 +273,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         posterPanel.setPreferredSize(new java.awt.Dimension(126, 178));
         posterPanel.setLayout(new java.awt.BorderLayout());
 
-        posterIcon.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        posterIcon.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         posterIcon.setForeground(new java.awt.Color(148, 163, 184));
         posterIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         posterIcon.setText("POSTER");
@@ -284,7 +284,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         descPanel.setOpaque(false);
         descPanel.setLayout(new javax.swing.BoxLayout(descPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        filmTitleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
+        filmTitleLabel.setFont(new java.awt.Font("Poppins", 1, 22)); // NOI18N
         filmTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         filmTitleLabel.setText("Judul Film");
         filmTitleLabel.setAlignmentX(0.0F);
@@ -309,7 +309,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
 
         synopsisArea.setEditable(false);
         synopsisArea.setColumns(20);
-        synopsisArea.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        synopsisArea.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         synopsisArea.setForeground(new java.awt.Color(51, 65, 85));
         synopsisArea.setLineWrap(true);
         synopsisArea.setRows(3);
@@ -325,7 +325,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         schedulesSectionPanel.setOpaque(false);
         schedulesSectionPanel.setLayout(new java.awt.BorderLayout(0, 10));
 
-        sectionTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        sectionTitleLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         sectionTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         sectionTitleLabel.setText("Pilih Jadwal Penayangan:");
         schedulesSectionPanel.add(sectionTitleLabel, java.awt.BorderLayout.NORTH);
@@ -345,7 +345,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         backButton.setBackground(new java.awt.Color(255, 255, 255));
-        backButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        backButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         backButton.setForeground(new java.awt.Color(0, 26, 58));
         backButton.setText("Kembali ke Katalog");
         backButton.setPreferredSize(new java.awt.Dimension(175, 38));

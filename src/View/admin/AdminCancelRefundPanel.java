@@ -79,13 +79,13 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         titlePanel.setOpaque(false);
         titlePanel.setLayout(new javax.swing.BoxLayout(titlePanel, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Poppins", 1, 22)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Batalkan / Refund Booking");
         titlePanel.add(titleLabel);
         titlePanel.add(filler1);
 
-        subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        subtitleLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         subtitleLabel.setText("Klik transaksi pada tabel atau masukkan kode booking untuk memproses Cancel / Refund.");
         titlePanel.add(subtitleLabel);
@@ -96,7 +96,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         headerActionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         refreshButton.setBackground(new java.awt.Color(255, 255, 255));
-        refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        refreshButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         refreshButton.setForeground(new java.awt.Color(0, 26, 58));
         refreshButton.setText("Refresh");
         refreshButton.setPreferredSize(new java.awt.Dimension(105, 38));
@@ -113,7 +113,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         formCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(14, 20, 14, 20)));
         formCard.setLayout(new java.awt.GridBagLayout());
 
-        bookingCodeLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        bookingCodeLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         bookingCodeLabel.setForeground(new java.awt.Color(15, 23, 42));
         bookingCodeLabel.setText("Kode Booking");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -125,7 +125,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
 
         bookingCodeField.setBackground(new java.awt.Color(245, 247, 250));
         bookingCodeField.setColumns(20);
-        bookingCodeField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        bookingCodeField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         bookingCodeField.setForeground(new java.awt.Color(15, 23, 42));
         bookingCodeField.setToolTipText("Klik baris tabel di bawah atau ketik kode booking");
         bookingCodeField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(7, 10, 7, 10)));
@@ -138,7 +138,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 14);
         formCard.add(bookingCodeField, gridBagConstraints);
 
-        resolutionLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        resolutionLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         resolutionLabel.setForeground(new java.awt.Color(15, 23, 42));
         resolutionLabel.setText("Tindakan");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -149,7 +149,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         formCard.add(resolutionLabel, gridBagConstraints);
 
         resolutionCombo.setBackground(new java.awt.Color(255, 255, 255));
-        resolutionCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        resolutionCombo.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         resolutionCombo.setForeground(new java.awt.Color(15, 23, 42));
         resolutionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "REFUND", "CANCEL" }));
         resolutionCombo.setPreferredSize(new java.awt.Dimension(130, 38));
@@ -164,7 +164,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         processButton.setBackground(new java.awt.Color(0, 26, 58));
-        processButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        processButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         processButton.setForeground(new java.awt.Color(255, 255, 255));
         processButton.setText("Proses");
         processButton.setPreferredSize(new java.awt.Dimension(115, 38));
@@ -172,14 +172,14 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         buttonPanel.add(btnGap1);
 
         clearButton.setBackground(new java.awt.Color(255, 255, 255));
-        clearButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        clearButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         clearButton.setForeground(new java.awt.Color(0, 26, 58));
         clearButton.setText("Reset");
         clearButton.setPreferredSize(new java.awt.Dimension(95, 38));
         buttonPanel.add(clearButton);
         buttonPanel.add(btnGap2);
 
-        statusLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        statusLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         statusLabel.setForeground(new java.awt.Color(100, 116, 139));
         statusLabel.setText(" ");
         buttonPanel.add(statusLabel);
@@ -197,7 +197,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         tableCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(14, 18, 14, 18)));
         tableCard.setLayout(new java.awt.BorderLayout(0, 10));
 
-        tableTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        tableTitleLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         tableTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         tableTitleLabel.setText("Daftar Transaksi Booking (klik baris untuk memilih)");
         tableCard.add(tableTitleLabel, java.awt.BorderLayout.NORTH);
@@ -205,7 +205,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
         bookingsTable.setBackground(new java.awt.Color(255, 255, 255));
-        bookingsTable.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        bookingsTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         bookingsTable.setForeground(new java.awt.Color(15, 23, 42));
         bookingsTable.setGridColor(new java.awt.Color(226, 232, 240));
         bookingsTable.setRowHeight(32);
@@ -221,7 +221,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         resultCard.setPreferredSize(new java.awt.Dimension(0, 128));
         resultCard.setLayout(new java.awt.BorderLayout(0, 8));
 
-        resultTitleLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        resultTitleLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         resultTitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         resultTitleLabel.setText("Hasil Proses");
         resultCard.add(resultTitleLabel, java.awt.BorderLayout.NORTH);
@@ -231,7 +231,7 @@ public class AdminCancelRefundPanel extends javax.swing.JPanel {
         resultArea.setEditable(false);
         resultArea.setBackground(new java.awt.Color(245, 247, 250));
         resultArea.setColumns(40);
-        resultArea.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        resultArea.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         resultArea.setForeground(new java.awt.Color(15, 23, 42));
         resultArea.setLineWrap(true);
         resultArea.setRows(4);

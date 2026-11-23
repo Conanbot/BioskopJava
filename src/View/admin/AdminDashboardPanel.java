@@ -66,13 +66,13 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new javax.swing.BoxLayout(headerPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Poppins", 1, 22)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Dashboard Admin");
         headerPanel.add(titleLabel);
         headerPanel.add(filler1);
 
-        subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        subtitleLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         subtitleLabel.setText("Ringkasan operasional dan data transaksi sistem booking bioskop.");
         headerPanel.add(subtitleLabel);
@@ -90,13 +90,13 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         filmsCard.setPreferredSize(new java.awt.Dimension(240, 114));
         filmsCard.setLayout(new javax.swing.BoxLayout(filmsCard, javax.swing.BoxLayout.Y_AXIS));
 
-        filmsCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        filmsCardTitle.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         filmsCardTitle.setForeground(new java.awt.Color(100, 116, 139));
         filmsCardTitle.setText("Total Film");
         filmsCard.add(filmsCardTitle);
         filmsCard.add(filler2);
 
-        totalFilmsValue.setFont(new java.awt.Font("Inter", 1, 28)); // NOI18N
+        totalFilmsValue.setFont(new java.awt.Font("Poppins", 1, 28)); // NOI18N
         totalFilmsValue.setForeground(new java.awt.Color(0, 26, 58));
         totalFilmsValue.setText("—");
         filmsCard.add(totalFilmsValue);
@@ -108,13 +108,13 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         schedulesCard.setPreferredSize(new java.awt.Dimension(240, 114));
         schedulesCard.setLayout(new javax.swing.BoxLayout(schedulesCard, javax.swing.BoxLayout.Y_AXIS));
 
-        schedulesCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        schedulesCardTitle.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         schedulesCardTitle.setForeground(new java.awt.Color(100, 116, 139));
         schedulesCardTitle.setText("Jadwal Hari Ini");
         schedulesCard.add(schedulesCardTitle);
         schedulesCard.add(filler3);
 
-        totalSchedulesTodayValue.setFont(new java.awt.Font("Inter", 1, 28)); // NOI18N
+        totalSchedulesTodayValue.setFont(new java.awt.Font("Poppins", 1, 28)); // NOI18N
         totalSchedulesTodayValue.setForeground(new java.awt.Color(0, 26, 58));
         totalSchedulesTodayValue.setText("—");
         schedulesCard.add(totalSchedulesTodayValue);
@@ -126,13 +126,13 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         bookingsCard.setPreferredSize(new java.awt.Dimension(240, 114));
         bookingsCard.setLayout(new javax.swing.BoxLayout(bookingsCard, javax.swing.BoxLayout.Y_AXIS));
 
-        bookingsCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        bookingsCardTitle.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         bookingsCardTitle.setForeground(new java.awt.Color(100, 116, 139));
         bookingsCardTitle.setText("Total Booking");
         bookingsCard.add(bookingsCardTitle);
         bookingsCard.add(filler4);
 
-        totalBookingsValue.setFont(new java.awt.Font("Inter", 1, 28)); // NOI18N
+        totalBookingsValue.setFont(new java.awt.Font("Poppins", 1, 28)); // NOI18N
         totalBookingsValue.setForeground(new java.awt.Color(0, 26, 58));
         totalBookingsValue.setText("—");
         bookingsCard.add(totalBookingsValue);
@@ -144,13 +144,13 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         revenueCard.setPreferredSize(new java.awt.Dimension(240, 114));
         revenueCard.setLayout(new javax.swing.BoxLayout(revenueCard, javax.swing.BoxLayout.Y_AXIS));
 
-        revenueCardTitle.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        revenueCardTitle.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         revenueCardTitle.setForeground(new java.awt.Color(100, 116, 139));
         revenueCardTitle.setText("Total Pendapatan (Rp)");
         revenueCard.add(revenueCardTitle);
         revenueCard.add(filler5);
 
-        totalRevenueValue.setFont(new java.awt.Font("Inter", 1, 28)); // NOI18N
+        totalRevenueValue.setFont(new java.awt.Font("Poppins", 1, 28)); // NOI18N
         totalRevenueValue.setForeground(new java.awt.Color(0, 26, 58));
         totalRevenueValue.setText("—");
         revenueCard.add(totalRevenueValue);
@@ -165,7 +165,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         footerPanel.setLayout(new javax.swing.BoxLayout(footerPanel, javax.swing.BoxLayout.Y_AXIS));
 
         refreshButton.setBackground(new java.awt.Color(0, 26, 58));
-        refreshButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        refreshButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         refreshButton.setForeground(new java.awt.Color(255, 255, 255));
         refreshButton.setText("Refresh Data");
         refreshButton.setAlignmentX(0.0F);
@@ -174,7 +174,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         footerPanel.add(refreshButton);
         footerPanel.add(filler6);
 
-        statusLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        statusLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         statusLabel.setForeground(new java.awt.Color(100, 116, 139));
         statusLabel.setText(" ");
         statusLabel.setAlignmentX(0.0F);

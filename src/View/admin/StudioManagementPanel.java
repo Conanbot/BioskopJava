@@ -62,13 +62,13 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         titlePanel.setOpaque(false);
         titlePanel.setLayout(new javax.swing.BoxLayout(titlePanel, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Poppins", 1, 22)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Kelola Studio");
         titlePanel.add(titleLabel);
         titlePanel.add(filler1);
 
-        subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        subtitleLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         subtitleLabel.setText("Tambah, edit, atau hapus data studio.");
         titlePanel.add(subtitleLabel);
@@ -79,7 +79,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         actionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         refreshButton.setBackground(new java.awt.Color(255, 255, 255));
-        refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        refreshButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         refreshButton.setForeground(new java.awt.Color(0, 26, 58));
         refreshButton.setText("Refresh");
         refreshButton.setPreferredSize(new java.awt.Dimension(105, 40));
@@ -92,7 +92,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)));
 
         table.setBackground(new java.awt.Color(255, 255, 255));
-        table.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        table.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         table.setForeground(new java.awt.Color(15, 23, 42));
         table.setGridColor(new java.awt.Color(226, 232, 240));
         table.setRowHeight(34);
@@ -109,7 +109,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         buttonRow.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         addButton.setBackground(new java.awt.Color(0, 26, 58));
-        addButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        addButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         addButton.setForeground(new java.awt.Color(255, 255, 255));
         addButton.setText("Tambah");
         addButton.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -117,7 +117,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         buttonRow.add(btnGap1);
 
         editButton.setBackground(new java.awt.Color(255, 255, 255));
-        editButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        editButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         editButton.setForeground(new java.awt.Color(0, 26, 58));
         editButton.setText("Edit");
         editButton.setPreferredSize(new java.awt.Dimension(105, 40));
@@ -125,7 +125,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         buttonRow.add(btnGap2);
 
         deleteButton.setBackground(new java.awt.Color(255, 255, 255));
-        deleteButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        deleteButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         deleteButton.setForeground(new java.awt.Color(0, 26, 58));
         deleteButton.setText("Hapus");
         deleteButton.setPreferredSize(new java.awt.Dimension(105, 40));
@@ -134,7 +134,7 @@ public class StudioManagementPanel extends javax.swing.JPanel {
         footerPanel.add(buttonRow);
         footerPanel.add(filler2);
 
-        statusLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        statusLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         statusLabel.setForeground(new java.awt.Color(100, 116, 139));
         statusLabel.setText(" ");
         statusLabel.setAlignmentX(0.0F);

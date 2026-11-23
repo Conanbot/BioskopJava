@@ -130,7 +130,7 @@ public class PaymentFrame extends javax.swing.JFrame {
                 javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
                 javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
 
-        SwingTheme.applyInterFont(this);
+        SwingTheme.applyFont(this);
     }
 
     private void populateSummary() {
@@ -153,7 +153,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel qrisInfo = new JLabel("Pindai QR Code berikut menggunakan aplikasi e-Wallet atau Mobile Banking Anda:");
-        qrisInfo.setFont(new Font("Inter", Font.PLAIN, 12));
+        qrisInfo.setFont(new Font("Poppins", Font.PLAIN, 12));
         qrisInfo.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         qrisInfo.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -166,7 +166,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         panel.add(Box.createVerticalStrut(10));
 
         JLabel prompt = new JLabel("Klik 'Konfirmasi Pembayaran' setelah memindai.");
-        prompt.setFont(new Font("Inter", Font.ITALIC, 11));
+        prompt.setFont(new Font("Poppins", Font.ITALIC, 11));
         prompt.setForeground(BaseCinemaFrame.CINEMA_GOLD);
         prompt.setAlignmentX(CENTER_ALIGNMENT);
         panel.add(prompt);
@@ -179,7 +179,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel cashInfo = new JLabel("Masukkan nominal uang tunai yang diterima:");
-        cashInfo.setFont(new Font("Inter", Font.PLAIN, 12));
+        cashInfo.setFont(new Font("Poppins", Font.PLAIN, 12));
         cashInfo.setForeground(BaseCinemaFrame.CINEMA_MUTED);
         cashInfo.setAlignmentX(LEFT_ALIGNMENT);
         panel.add(cashInfo);
@@ -188,7 +188,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         cashInputField.setBackground(new Color(241, 245, 249));
         cashInputField.setForeground(BaseCinemaFrame.CINEMA_TEXT);
         cashInputField.setCaretColor(SwingTheme.NAVY);
-        cashInputField.setFont(new Font("Inter", Font.BOLD, 16));
+        cashInputField.setFont(new Font("Poppins", Font.BOLD, 16));
         cashInputField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(203, 213, 225), 1),
                 new EmptyBorder(8, 12, 8, 12)
@@ -248,10 +248,10 @@ public class PaymentFrame extends javax.swing.JFrame {
         changeRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 
         JLabel changeTitle = new JLabel("Kembalian:");
-        changeTitle.setFont(new Font("Inter", Font.BOLD, 14));
+        changeTitle.setFont(new Font("Poppins", Font.BOLD, 14));
         changeTitle.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
-        changeAmountLabel.setFont(new Font("Inter", Font.BOLD, 16));
+        changeAmountLabel.setFont(new Font("Poppins", Font.BOLD, 16));
         changeAmountLabel.setForeground(SwingTheme.NAVY);
 
         changeRow.add(changeTitle, BorderLayout.WEST);
@@ -343,11 +343,11 @@ public class PaymentFrame extends javax.swing.JFrame {
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
 
         JLabel lbl = new JLabel(label + ": ");
-        lbl.setFont(new Font("Inter", Font.PLAIN, 12));
+        lbl.setFont(new Font("Poppins", Font.PLAIN, 12));
         lbl.setForeground(BaseCinemaFrame.CINEMA_MUTED);
 
         JLabel val = new JLabel(value);
-        val.setFont(new Font("Inter", Font.BOLD, 12));
+        val.setFont(new Font("Poppins", Font.BOLD, 12));
         val.setForeground(BaseCinemaFrame.CINEMA_TEXT);
 
         row.add(lbl, BorderLayout.WEST);
@@ -432,7 +432,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
         headerPanel.setLayout(new java.awt.BorderLayout());
 
-        headerTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        headerTitleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         headerTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         headerTitleLabel.setText("KASIR & PEMBAYARAN TIKET");
         headerPanel.add(headerTitleLabel, java.awt.BorderLayout.CENTER);
@@ -447,14 +447,14 @@ public class PaymentFrame extends javax.swing.JFrame {
         summaryCardPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(226, 232, 240)), javax.swing.BorderFactory.createEmptyBorder(18, 20, 18, 20)));
         summaryCardPanel.setLayout(new javax.swing.BoxLayout(summaryCardPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        summaryTitleLabel.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
+        summaryTitleLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         summaryTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         summaryTitleLabel.setText("Rincian Transaksi");
         summaryTitleLabel.setAlignmentX(0.0F);
         summaryTitleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
         summaryCardPanel.add(summaryTitleLabel);
 
-        totalPayLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        totalPayLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         totalPayLabel.setForeground(new java.awt.Color(0, 26, 58));
         totalPayLabel.setText("TOTAL BAYAR: Rp 0,00");
         totalPayLabel.setAlignmentX(0.0F);
@@ -465,7 +465,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         methodSectionPanel.setOpaque(false);
         methodSectionPanel.setLayout(new javax.swing.BoxLayout(methodSectionPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        methodTitleLabel.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        methodTitleLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         methodTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         methodTitleLabel.setText("Pilih Metode Pembayaran:");
         methodTitleLabel.setAlignmentX(0.0F);
@@ -477,7 +477,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         radioPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 6));
 
         paymentButtonGroup.add(qrisRadio);
-        qrisRadio.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        qrisRadio.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         qrisRadio.setForeground(new java.awt.Color(15, 23, 42));
         qrisRadio.setSelected(true);
         qrisRadio.setText("QRIS");
@@ -491,7 +491,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         radioPanel.add(qrisRadio);
 
         paymentButtonGroup.add(cashRadio);
-        cashRadio.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        cashRadio.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         cashRadio.setForeground(new java.awt.Color(15, 23, 42));
         cashRadio.setText("Tunai");
         cashRadio.setOpaque(false);
@@ -510,7 +510,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         bottomBarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
         cancelButton.setBackground(new java.awt.Color(255, 255, 255));
-        cancelButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        cancelButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(0, 26, 58));
         cancelButton.setText("Batal");
         cancelButton.setPreferredSize(new java.awt.Dimension(110, 40));
@@ -518,7 +518,7 @@ public class PaymentFrame extends javax.swing.JFrame {
         bottomBarPanel.add(buttonGapFiller);
 
         payButton.setBackground(new java.awt.Color(0, 26, 58));
-        payButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        payButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         payButton.setForeground(new java.awt.Color(255, 255, 255));
         payButton.setText("Konfirmasi Pembayaran");
         payButton.setPreferredSize(new java.awt.Dimension(210, 40));

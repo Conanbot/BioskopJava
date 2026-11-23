@@ -65,14 +65,14 @@ public final class RegisterPanel extends javax.swing.JPanel {
         formCard.setPreferredSize(new java.awt.Dimension(420, 500));
         formCard.setLayout(new javax.swing.BoxLayout(formCard, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 22)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Poppins", 1, 22)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(0, 26, 58));
         titleLabel.setText("Buat Akun Baru");
         titleLabel.setAlignmentX(0.5F);
         formCard.add(titleLabel);
         formCard.add(filler1);
 
-        subtitleLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        subtitleLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         subtitleLabel.setForeground(new java.awt.Color(100, 116, 139));
         subtitleLabel.setText("Akun Customer — Sistem Booking Bioskop");
         subtitleLabel.setAlignmentX(0.5F);
@@ -82,7 +82,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
         fieldsPanel.setOpaque(false);
         fieldsPanel.setLayout(new java.awt.GridBagLayout());
 
-        usernameLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(15, 23, 42));
         usernameLabel.setText("Username");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -94,7 +94,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
 
         usernameField.setBackground(new java.awt.Color(245, 247, 250));
         usernameField.setColumns(20);
-        usernameField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        usernameField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         usernameField.setForeground(new java.awt.Color(15, 23, 42));
         usernameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         usernameField.setCaretColor(new java.awt.Color(15, 23, 42));
@@ -107,7 +107,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(usernameField, gridBagConstraints);
 
-        passwordLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        passwordLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(15, 23, 42));
         passwordLabel.setText("Password (min. 6 karakter)");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -119,7 +119,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
 
         passwordField.setBackground(new java.awt.Color(245, 247, 250));
         passwordField.setColumns(20);
-        passwordField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        passwordField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         passwordField.setForeground(new java.awt.Color(15, 23, 42));
         passwordField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         passwordField.setCaretColor(new java.awt.Color(15, 23, 42));
@@ -132,7 +132,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(passwordField, gridBagConstraints);
 
-        confirmPasswordLabel.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        confirmPasswordLabel.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         confirmPasswordLabel.setForeground(new java.awt.Color(15, 23, 42));
         confirmPasswordLabel.setText("Konfirmasi Password");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -144,7 +144,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
 
         confirmPasswordField.setBackground(new java.awt.Color(245, 247, 250));
         confirmPasswordField.setColumns(20);
-        confirmPasswordField.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        confirmPasswordField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         confirmPasswordField.setForeground(new java.awt.Color(15, 23, 42));
         confirmPasswordField.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)), javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         confirmPasswordField.setCaretColor(new java.awt.Color(15, 23, 42));
@@ -160,13 +160,13 @@ public final class RegisterPanel extends javax.swing.JPanel {
         formCard.add(fieldsPanel);
         formCard.add(filler3);
 
-        errorLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        errorLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         errorLabel.setForeground(new java.awt.Color(220, 80, 80));
         errorLabel.setText(" ");
         errorLabel.setAlignmentX(0.5F);
         formCard.add(errorLabel);
 
-        successLabel.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        successLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         successLabel.setForeground(new java.awt.Color(80, 200, 120));
         successLabel.setText(" ");
         successLabel.setAlignmentX(0.5F);
@@ -174,7 +174,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
         formCard.add(filler4);
 
         registerButton.setBackground(new java.awt.Color(0, 26, 58));
-        registerButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        registerButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         registerButton.setForeground(new java.awt.Color(245, 247, 250));
         registerButton.setText("Daftar");
         registerButton.setAlignmentX(0.5F);
@@ -184,7 +184,7 @@ public final class RegisterPanel extends javax.swing.JPanel {
         formCard.add(filler5);
 
         backToLoginButton.setBackground(new java.awt.Color(255, 255, 255));
-        backToLoginButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        backToLoginButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         backToLoginButton.setForeground(new java.awt.Color(15, 23, 42));
         backToLoginButton.setText("Kembali ke Login");
         backToLoginButton.setAlignmentX(0.5F);

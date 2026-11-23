@@ -65,21 +65,21 @@ public class AdminPanel extends javax.swing.JPanel {
         sidebarPanel.setPreferredSize(new java.awt.Dimension(210, 0));
         sidebarPanel.setLayout(new javax.swing.BoxLayout(sidebarPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        adminTitleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        adminTitleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         adminTitleLabel.setForeground(new java.awt.Color(245, 166, 35));
         adminTitleLabel.setText("TIX ID Admin");
         adminTitleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 0));
         sidebarPanel.add(adminTitleLabel);
         sidebarPanel.add(filler1);
 
-        usernameLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(148, 163, 184));
         usernameLabel.setText("@admin");
         usernameLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 0));
         sidebarPanel.add(usernameLabel);
         sidebarPanel.add(filler2);
 
-        menuLabel.setFont(new java.awt.Font("Inter", 1, 11)); // NOI18N
+        menuLabel.setFont(new java.awt.Font("Poppins", 1, 11)); // NOI18N
         menuLabel.setForeground(new java.awt.Color(148, 163, 184));
         menuLabel.setText("MENU");
         menuLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 12, 0, 0));
@@ -87,7 +87,7 @@ public class AdminPanel extends javax.swing.JPanel {
         sidebarPanel.add(filler3);
 
         dashboardButton.setBackground(new java.awt.Color(245, 166, 35));
-        dashboardButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        dashboardButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         dashboardButton.setForeground(new java.awt.Color(0, 26, 58));
         dashboardButton.setText("Dashboard");
         dashboardButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -96,7 +96,7 @@ public class AdminPanel extends javax.swing.JPanel {
         sidebarPanel.add(filler4);
 
         filmButton.setBackground(new java.awt.Color(0, 26, 58));
-        filmButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        filmButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         filmButton.setForeground(new java.awt.Color(226, 232, 240));
         filmButton.setText("Film");
         filmButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -105,7 +105,7 @@ public class AdminPanel extends javax.swing.JPanel {
         sidebarPanel.add(fillerFilm);
 
         studioButton.setBackground(new java.awt.Color(0, 26, 58));
-        studioButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        studioButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         studioButton.setForeground(new java.awt.Color(226, 232, 240));
         studioButton.setText("Studio");
         studioButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -114,7 +114,7 @@ public class AdminPanel extends javax.swing.JPanel {
         sidebarPanel.add(filler5);
 
         scheduleButton.setBackground(new java.awt.Color(0, 26, 58));
-        scheduleButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        scheduleButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         scheduleButton.setForeground(new java.awt.Color(226, 232, 240));
         scheduleButton.setText("Jadwal Tayang");
         scheduleButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -123,7 +123,7 @@ public class AdminPanel extends javax.swing.JPanel {
         sidebarPanel.add(filler6);
 
         cancelRefundButton.setBackground(new java.awt.Color(0, 26, 58));
-        cancelRefundButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        cancelRefundButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         cancelRefundButton.setForeground(new java.awt.Color(226, 232, 240));
         cancelRefundButton.setText("Batalkan / Refund");
         cancelRefundButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -132,7 +132,7 @@ public class AdminPanel extends javax.swing.JPanel {
         sidebarPanel.add(glueFiller);
 
         logoutButton.setBackground(new java.awt.Color(0, 26, 58));
-        logoutButton.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        logoutButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         logoutButton.setForeground(new java.awt.Color(226, 232, 240));
         logoutButton.setText("Logout");
         logoutButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

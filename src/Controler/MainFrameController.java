@@ -99,8 +99,8 @@ public final class MainFrameController {
 
         registerPage(ADMIN, adminPanel);
 
-        // Terapkan font Inter statis (Regular/Bold/Italic) ke seluruh komponen tampilan
-        SwingTheme.applyInterFont(view);
+        // Terapkan font Poppins statis (Regular/Bold/Italic) ke seluruh komponen tampilan
+        SwingTheme.applyFont(view);
 
         // Cek koneksi database di background dan tampilkan hasilnya di terminal
         checkDatabaseConnectionInTerminal(new DatabaseHealthService());

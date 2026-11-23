@@ -99,19 +99,19 @@ public class CustomerPanel extends javax.swing.JPanel {
         textPanel.setOpaque(false);
         textPanel.setLayout(new javax.swing.BoxLayout(textPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        titleLabel.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(245, 166, 35));
         titleLabel.setText("TIX ID  •  Bioskop Nusantara");
         textPanel.add(titleLabel);
         textPanel.add(filler1);
 
-        subtitleLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        subtitleLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         subtitleLabel.setForeground(new java.awt.Color(203, 213, 225));
         subtitleLabel.setText("Pilih film favorit Anda, pesan kursi, dan nikmati tontonan terbaik.");
         textPanel.add(subtitleLabel);
         textPanel.add(filler2);
 
-        userGreetingLabel.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        userGreetingLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         userGreetingLabel.setForeground(new java.awt.Color(245, 166, 35));
         userGreetingLabel.setText("Status: Belum login");
         textPanel.add(userGreetingLabel);
@@ -122,7 +122,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         actionsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 13));
 
         historyButton.setBackground(new java.awt.Color(245, 166, 35));
-        historyButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        historyButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         historyButton.setForeground(new java.awt.Color(0, 26, 58));
         historyButton.setText("Riwayat Tiket");
         historyButton.setPreferredSize(new java.awt.Dimension(140, 38));
@@ -130,7 +130,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         actionsPanel.add(headerBtnGap);
 
         logoutButton.setBackground(new java.awt.Color(255, 255, 255));
-        logoutButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        logoutButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         logoutButton.setForeground(new java.awt.Color(0, 26, 58));
         logoutButton.setText("Logout");
         logoutButton.setPreferredSize(new java.awt.Dimension(95, 38));
@@ -151,21 +151,21 @@ public class CustomerPanel extends javax.swing.JPanel {
         tabButtonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
         tabAllButton.setBackground(new java.awt.Color(0, 26, 58));
-        tabAllButton.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        tabAllButton.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         tabAllButton.setForeground(new java.awt.Color(255, 255, 255));
         tabAllButton.setText("Semua Film");
         tabButtonsPanel.add(tabAllButton);
         tabButtonsPanel.add(tabGap1);
 
         tabNowButton.setBackground(new java.awt.Color(255, 255, 255));
-        tabNowButton.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        tabNowButton.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         tabNowButton.setForeground(new java.awt.Color(0, 26, 58));
         tabNowButton.setText("Sedang Tayang");
         tabButtonsPanel.add(tabNowButton);
         tabButtonsPanel.add(tabGap2);
 
         tabSoonButton.setBackground(new java.awt.Color(255, 255, 255));
-        tabSoonButton.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        tabSoonButton.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         tabSoonButton.setForeground(new java.awt.Color(0, 26, 58));
         tabSoonButton.setText("Akan Datang");
         tabButtonsPanel.add(tabSoonButton);
@@ -175,7 +175,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         searchControlsPanel.setOpaque(false);
         searchControlsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 0));
 
-        searchLabel.setFont(new java.awt.Font("Inter", 1, 12)); // NOI18N
+        searchLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         searchLabel.setForeground(new java.awt.Color(100, 116, 139));
         searchLabel.setText("Cari:");
         searchControlsPanel.add(searchLabel);
@@ -183,7 +183,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         searchField.setBackground(new java.awt.Color(255, 255, 255));
         searchField.setColumns(15);
-        searchField.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        searchField.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         searchField.setForeground(new java.awt.Color(15, 23, 42));
         searchField.setToolTipText("Cari judul atau genre film");
         searchField.setPreferredSize(new java.awt.Dimension(175, 36));
@@ -191,7 +191,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         searchControlsPanel.add(searchGap2);
 
         genreFilterCombo.setBackground(new java.awt.Color(255, 255, 255));
-        genreFilterCombo.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
+        genreFilterCombo.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         genreFilterCombo.setForeground(new java.awt.Color(15, 23, 42));
         genreFilterCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua Genre", "Action", "Sci-Fi", "Comedy", "Horror", "Drama", "Animation" }));
         genreFilterCombo.setPreferredSize(new java.awt.Dimension(130, 36));
@@ -199,7 +199,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         searchControlsPanel.add(searchGap3);
 
         refreshButton.setBackground(new java.awt.Color(255, 255, 255));
-        refreshButton.setFont(new java.awt.Font("Inter", 1, 13)); // NOI18N
+        refreshButton.setFont(new java.awt.Font("Poppins", 1, 13)); // NOI18N
         refreshButton.setForeground(new java.awt.Color(0, 26, 58));
         refreshButton.setText("Refresh");
         refreshButton.setPreferredSize(new java.awt.Dimension(92, 36));
@@ -218,7 +218,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         bodyPanel.add(filmsScrollPane, java.awt.BorderLayout.CENTER);
 
-        resultCountLabel.setFont(new java.awt.Font("Inter", 0, 12)); // NOI18N
+        resultCountLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         resultCountLabel.setForeground(new java.awt.Color(100, 116, 139));
         resultCountLabel.setText("Menampilkan 0 film.");
         bodyPanel.add(resultCountLabel, java.awt.BorderLayout.SOUTH);
@@ -394,7 +394,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         }
 
         resultCountLabel.setText("Menampilkan " + filtered.size() + " film.");
-        SwingTheme.applyInterFont(filmsPreviewGrid);
+        SwingTheme.applyFont(filmsPreviewGrid);
         filmsPreviewGrid.revalidate();
         filmsPreviewGrid.repaint();
     }

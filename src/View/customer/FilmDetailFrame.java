@@ -4,7 +4,6 @@
  */
 package View.customer;
 
-import Controler.AlertUtil;
 import Model.dao.ScheduleDao;
 import Model.entity.Film;
 import Model.entity.Schedule;

@@ -1,7 +1,5 @@
 package Model.entity;
 
-import java.util.Objects;
-
 /**
  * Entitas studio yang sesuai dengan tabel studios di database.
  * seat_rows dan seat_cols menentukan dimensi kursi pada studio.

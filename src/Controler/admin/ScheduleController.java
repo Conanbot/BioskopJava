@@ -10,12 +10,10 @@ import View.admin.ScheduleFormDialog;
 import View.admin.ScheduleManagementPanel;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;

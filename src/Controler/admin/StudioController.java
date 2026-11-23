@@ -7,7 +7,6 @@ import Model.dao.StudioDao;
 import View.admin.StudioFormDialog;
 import View.admin.StudioManagementPanel;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;

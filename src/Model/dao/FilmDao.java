@@ -119,7 +119,7 @@ public class FilmDao {
     public boolean update(Film film) throws SQLException {
         String sql = """
                 UPDATE films
-                SET title = ?, genre = ?, duration_minutes = ?, age_rating = ?, synopsis = ?, status = ?
+                SET title = ?, genre = ?, duration_minutes = ?, age_rating = ?, synopsis = ?, poster_path = ?, status = ?
                 WHERE id = ?
                 """;
         try (Connection conn = connectionProvider.getConnection();
@@ -129,8 +129,9 @@ public class FilmDao {
             stmt.setInt(3, film.getDurationMinutes());
             stmt.setString(4, film.getAgeRating());
             stmt.setString(5, film.getSynopsis());
-            stmt.setString(6, film.getStatus());
-            stmt.setLong(7, film.getId());
+            stmt.setString(6, film.getPosterPath());
+            stmt.setString(7, film.getStatus());
+            stmt.setLong(8, film.getId());
             return stmt.executeUpdate() > 0;
         }
     }

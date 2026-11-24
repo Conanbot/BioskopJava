@@ -132,6 +132,14 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         ratingBadge.setText(film.getAgeRating());
         synopsisArea.setText(film.getSynopsis().isEmpty() ? "Belum ada sinopsis." : film.getSynopsis());
 
+        if (film.getPosterPath() != null && !film.getPosterPath().isBlank()) {
+            javax.swing.ImageIcon icon = View.theme.ImageUtil.loadScaledPoster(film.getPosterPath(), 126, 178);
+            if (icon != null) {
+                posterIcon.setIcon(icon);
+                posterIcon.setText("");
+            }
+        }
+
         schedulesListContainer.removeAll();
         try {
             List<Schedule> schedules = scheduleDao.findUpcomingByFilmId(film.getId());

@@ -115,6 +115,7 @@ public class FilmController {
         String ageRating = dialog.getAgeRating();
         String status = dialog.getFilmStatus();
         String synopsis = dialog.getSynopsis();
+        String posterPath = dialog.getPosterPath();
 
         SwingWorker<Long, Void> worker = new SwingWorker<>() {
             @Override
@@ -122,7 +123,16 @@ public class FilmController {
                 if (filmDao.titleExistsForOther(title, 0)) {
                     throw new IllegalArgumentException("Judul film '" + title + "' sudah terdaftar.");
                 }
-                Film newFilm = new Film(0, title, genre, duration, ageRating, synopsis, status);
+                Film newFilm = new Film(
+                        0,
+                        title,
+                        genre,
+                        duration,
+                        ageRating,
+                        synopsis,
+                        posterPath,
+                        status,
+                        null);
                 return filmDao.insert(newFilm);
             }
 
@@ -169,6 +179,7 @@ public class FilmController {
         String ageRating = dialog.getAgeRating();
         String status = dialog.getFilmStatus();
         String synopsis = dialog.getSynopsis();
+        String posterPath = dialog.getPosterPath();
 
         SwingWorker<Boolean, Void> worker = new SwingWorker<>() {
             @Override
@@ -183,7 +194,7 @@ public class FilmController {
                         duration,
                         ageRating,
                         synopsis,
-                        selected.getPosterPath(),
+                        posterPath,
                         status,
                         selected.getCreatedAt());
                 return filmDao.update(updatedFilm);

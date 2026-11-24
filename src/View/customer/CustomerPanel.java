@@ -423,6 +423,14 @@ public class CustomerPanel extends javax.swing.JPanel {
         posterPlaceholderLbl.setFont(SwingTheme.font(Font.BOLD, 12));
         posterPlaceholderLbl.setForeground(new Color(148, 163, 184));
 
+        if (film.getPosterPath() != null && !film.getPosterPath().isBlank()) {
+            javax.swing.ImageIcon posterImg = View.theme.ImageUtil.loadScaledPoster(film.getPosterPath(), 104, 150);
+            if (posterImg != null) {
+                posterPlaceholderLbl.setIcon(posterImg);
+                posterPlaceholderLbl.setText("");
+            }
+        }
+
         JLabel statusChip = new JLabel(
                 "NOW_SHOWING".equalsIgnoreCase(film.getStatus()) ? "SEDANG TAYANG" : "AKAN DATANG",
                 SwingConstants.CENTER);

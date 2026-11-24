@@ -228,12 +228,53 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
         fieldsPanel.add(synopsisScrollPane, gridBagConstraints);
 
+        posterLabel = new javax.swing.JLabel();
+        posterLabel.setFont(new java.awt.Font("Poppins", 1, 13));
+        posterLabel.setForeground(new java.awt.Color(15, 23, 42));
+        posterLabel.setText("Poster Film");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 4, 12);
+        fieldsPanel.add(posterLabel, gridBagConstraints);
+
+        posterPanelWrapper = new javax.swing.JPanel(new java.awt.BorderLayout(8, 0));
+        posterPanelWrapper.setOpaque(false);
+
+        posterPathField = new javax.swing.JTextField();
+        posterPathField.setBackground(new java.awt.Color(245, 247, 250));
+        posterPathField.setFont(new java.awt.Font("Poppins", 0, 13));
+        posterPathField.setForeground(new java.awt.Color(15, 23, 42));
+        posterPathField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(203, 213, 225)),
+                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
+        posterPathField.setToolTipText("Path atau URL gambar poster");
+        posterPanelWrapper.add(posterPathField, java.awt.BorderLayout.CENTER);
+
+        browsePosterButton = new javax.swing.JButton("Pilih File...");
+        browsePosterButton.setFont(new java.awt.Font("Poppins", 1, 12));
+        browsePosterButton.setBackground(new java.awt.Color(241, 245, 249));
+        browsePosterButton.setForeground(new java.awt.Color(0, 26, 58));
+        browsePosterButton.setPreferredSize(new java.awt.Dimension(110, 38));
+        browsePosterButton.setFocusPainted(false);
+        browsePosterButton.addActionListener(e -> handleBrowsePoster());
+        posterPanelWrapper.add(browsePosterButton, java.awt.BorderLayout.EAST);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
+        fieldsPanel.add(posterPanelWrapper, gridBagConstraints);
+
         errorLabel.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         errorLabel.setForeground(new java.awt.Color(220, 80, 80));
         errorLabel.setText(" ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 0, 0);
@@ -305,6 +346,21 @@ public final class FilmFormDialog extends javax.swing.JDialog {
         ageRatingCombo.setSelectedItem(film.getAgeRating());
         statusCombo.setSelectedItem(film.getStatus());
         synopsisArea.setText(film.getSynopsis());
+        if (film.getPosterPath() != null) {
+            posterPathField.setText(film.getPosterPath());
+        }
+    }
+
+    private void handleBrowsePoster() {
+        javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
+        fileChooser.setDialogTitle("Pilih Gambar Poster Film");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
+                "File Gambar (*.jpg, *.jpeg, *.png, *.webp)", "jpg", "jpeg", "png", "webp"));
+        int res = fileChooser.showOpenDialog(this);
+        if (res == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File selectedFile = fileChooser.getSelectedFile();
+            posterPathField.setText(selectedFile.getAbsolutePath());
+        }
     }
 
     private boolean validateInput() {
@@ -353,6 +409,10 @@ public final class FilmFormDialog extends javax.swing.JDialog {
     public String getAgeRating() { return (String) ageRatingCombo.getSelectedItem(); }
     public String getFilmStatus() { return (String) statusCombo.getSelectedItem(); }
     public String getSynopsis() { return synopsisArea.getText().trim(); }
+    public String getPosterPath() {
+        String path = posterPathField.getText().trim();
+        return path.isEmpty() ? null : path;
+    }
 
     public void showError(String message) {
         errorLabel.setText(message == null ? " " : message);
@@ -381,5 +441,9 @@ public final class FilmFormDialog extends javax.swing.JDialog {
     private javax.swing.JLabel synopsisLabel;
     private javax.swing.JScrollPane synopsisScrollPane;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel posterLabel;
+    private javax.swing.JPanel posterPanelWrapper;
+    private javax.swing.JTextField posterPathField;
+    private javax.swing.JButton browsePosterButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -249,7 +249,7 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(760, 680));
 
         headerPanel.setBackground(new java.awt.Color(0, 26, 58));
-        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(245, 166, 35)), javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
+        headerPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(0, 24, 0, 24)));
         headerPanel.setPreferredSize(new java.awt.Dimension(0, 64));
         headerPanel.setLayout(new java.awt.BorderLayout());
 
@@ -287,7 +287,6 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         filmTitleLabel.setFont(new java.awt.Font("Poppins", 1, 22)); // NOI18N
         filmTitleLabel.setForeground(new java.awt.Color(0, 26, 58));
         filmTitleLabel.setText("Judul Film");
-        filmTitleLabel.setAlignmentX(0.0F);
         filmTitleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
         descPanel.add(filmTitleLabel);
 

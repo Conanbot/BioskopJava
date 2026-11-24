@@ -92,7 +92,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         headerCard.setBackground(new java.awt.Color(0, 26, 58));
-        headerCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(245, 166, 35)), javax.swing.BorderFactory.createEmptyBorder(14, 24, 14, 24)));
+        headerCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createEmptyBorder(14, 24, 14, 24)));
         headerCard.setPreferredSize(new java.awt.Dimension(0, 96));
         headerCard.setLayout(new java.awt.BorderLayout(16, 0));
 
@@ -101,7 +101,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         titleLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(245, 166, 35));
-        titleLabel.setText("TIX ID  •  Bioskop Nusantara");
+        titleLabel.setText("Absolute Cinema");
         textPanel.add(titleLabel);
         textPanel.add(filler1);
 

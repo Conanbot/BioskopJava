@@ -3,23 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/LoginPanel.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/AccountsPanel.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/MainFrame.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/RegisterPanel.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/admin/AdminCancelRefundPanel.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/admin/AdminDashboardPanel.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/admin/AdminPanel.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/admin/ScheduleFormDialog.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/customer/PaymentFrame.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/customer/SeatSelectionFrame.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/theme/SwingTheme.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/customer/FilmDetailFrame.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/customer/ETicketFrame.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/Controler/ConnectionProvider.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/customer/BaseCinemaFrame.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/customer/BookingHistoryFrame.java</file>
-            <file>file:/C:/Users/human/Documents/NetBeansProjects/BioskopJava/src/View/customer/CustomerPanel.java</file>
+            <file>file:/C:/Users/ADVAN/BioskopJava/src/mvcgui/MVCGUI.java</file>
+            <file>file:/C:/Users/ADVAN/BioskopJava/src/Controler/DBConnection.java</file>
+            <file>file:/C:/Users/ADVAN/BioskopJava/src/Controler/MainFrameController.java</file>
+            <file>file:/C:/Users/ADVAN/BioskopJava/src/View/MainFrame.java</file>
         </group>
     </open-files>
 </project-private>

@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageFilm extends javax.swing.JPanel {
 
-    private final String[] COLUMNS = {"ID", "Judul Film", "Genre", "Durasi (mnt)", "Rating", "Status"};
+    private final String[] COLUMNS = {"ID", "Judul Film", "Genre", "Durasi (mnt)", "Rating", "Status", "Poster"};
     private DefaultTableModel tableModel;
     private List<Film> currentFilms = new ArrayList<>();
 
@@ -211,6 +211,7 @@ public class ManageFilm extends javax.swing.JPanel {
         table.getColumnModel().getColumn(3).setPreferredWidth(95);
         table.getColumnModel().getColumn(4).setPreferredWidth(70);
         table.getColumnModel().getColumn(5).setPreferredWidth(120);
+        table.getColumnModel().getColumn(6).setPreferredWidth(130);
 
         table.getSelectionModel().addListSelectionListener(e -> updateButtonStates());
         table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -229,13 +230,20 @@ public class ManageFilm extends javax.swing.JPanel {
         currentFilms = new ArrayList<>(films);
         tableModel.setRowCount(0);
         for (Film f : films) {
+            String posterDisplay = "-";
+            if (f.getPosterPath() != null && !f.getPosterPath().isBlank()) {
+                String p = f.getPosterPath().trim().replace('\\', '/');
+                int slash = p.lastIndexOf('/');
+                posterDisplay = slash >= 0 && slash + 1 < p.length() ? p.substring(slash + 1) : p;
+            }
             tableModel.addRow(new Object[]{
                     f.getId(),
                     f.getTitle(),
                     f.getGenre(),
                     f.getDurationMinutes(),
                     f.getAgeRating(),
-                    f.getStatus()
+                    f.getStatus(),
+                    posterDisplay
             });
         }
         updateButtonStates();

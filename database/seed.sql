@@ -19,12 +19,12 @@ ON DUPLICATE KEY UPDATE name = VALUES(name), seat_rows = VALUES(seat_rows), seat
 
 -- 3. Films
 INSERT INTO films (id, title, genre, duration_minutes, age_rating, synopsis, poster_path, status) VALUES
-(1, 'Dune: Part Two', 'Sci-Fi / Adventure', 166, '13+', 'Paul Atreides bersatu dengan Chani dan Fremen untuk membalas dendam terhadap para konspirator yang menghancurkan keluarganya.', '', 'NOW_SHOWING'),
-(2, 'Godzilla x Kong: The New Empire', 'Action / Sci-Fi', 115, '13+', 'Dua titan kuno, Godzilla dan Kong, bertarung bersama melawan ancaman kolosal tersembunyi di dunia Hollow Earth.', '', 'NOW_SHOWING'),
-(3, 'Kung Fu Panda 4', 'Animation / Comedy', 94, 'SU', 'Po bersiap menjadi Pemimpin Spiritual Lembah Damai sambil mencari penerus Prajurit Naga baru.', '', 'NOW_SHOWING'),
-(4, 'Siksa Kubur', 'Horror / Drama', 117, '17+', 'Sita meragukan konsep agama dan berniat mencari orang paling berdosa untuk membuktikan ketiadaan siksa kubur.', '', 'NOW_SHOWING'),
-(5, 'Deadpool & Wolverine', 'Action / Comedy', 127, '17+', 'Wolverine yang enggan bergabung dengan Deadpool yang eksentrik untuk menyelamatkan multiverse.', '', 'COMING_SOON')
-ON DUPLICATE KEY UPDATE title = VALUES(title), genre = VALUES(genre), duration_minutes = VALUES(duration_minutes), status = VALUES(status);
+(1, 'Dune: Part Two', 'Sci-Fi / Adventure', 166, '13+', 'Paul Atreides bersatu dengan Chani dan Fremen untuk membalas dendam terhadap para konspirator yang menghancurkan keluarganya.', 'poster/dune_part_two.png', 'NOW_SHOWING'),
+(2, 'Godzilla x Kong: The New Empire', 'Action / Sci-Fi', 115, '13+', 'Dua titan kuno, Godzilla dan Kong, bertarung bersama melawan ancaman kolosal tersembunyi di dunia Hollow Earth.', 'poster/godzilla_x_kong.png', 'NOW_SHOWING'),
+(3, 'Kung Fu Panda 4', 'Animation / Comedy', 94, 'SU', 'Po bersiap menjadi Pemimpin Spiritual Lembah Damai sambil mencari penerus Prajurit Naga baru.', 'poster/kung_fu_panda_4.png', 'NOW_SHOWING'),
+(4, 'Siksa Kubur', 'Horror / Drama', 117, '17+', 'Sita meragukan konsep agama dan berniat mencari orang paling berdosa untuk membuktikan ketiadaan siksa kubur.', 'poster/siksa_kubur.png', 'NOW_SHOWING'),
+(5, 'Deadpool & Wolverine', 'Action / Comedy', 127, '17+', 'Wolverine yang enggan bergabung dengan Deadpool yang eksentrik untuk menyelamatkan multiverse.', 'poster/deadpool_wolverine.png', 'COMING_SOON')
+ON DUPLICATE KEY UPDATE title = VALUES(title), genre = VALUES(genre), duration_minutes = VALUES(duration_minutes), poster_path = VALUES(poster_path), status = VALUES(status);
 
 -- 4. Schedules (Hari ini dan besok)
 INSERT INTO schedules (id, film_id, studio_id, show_date, show_time, ticket_price, total_seats, available_seats) VALUES

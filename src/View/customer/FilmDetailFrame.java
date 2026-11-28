@@ -132,6 +132,8 @@ public class FilmDetailFrame extends javax.swing.JFrame {
         ratingBadge.setText(film.getAgeRating());
         synopsisArea.setText(film.getSynopsis().isEmpty() ? "Belum ada sinopsis." : film.getSynopsis());
 
+        posterIcon.setIcon(null);
+        posterIcon.setText("POSTER");
         if (film.getPosterPath() != null && !film.getPosterPath().isBlank()) {
             javax.swing.ImageIcon icon = View.theme.ImageUtil.loadScaledPoster(film.getPosterPath(), 126, 178);
             if (icon != null) {

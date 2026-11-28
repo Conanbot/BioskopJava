@@ -140,6 +140,7 @@ public class FilmController {
             protected void done() {
                 try {
                     get();
+                    View.theme.ImageUtil.clearCacheForPath(posterPath);
                     view.setStatusSuccess("Film '" + title + "' berhasil ditambahkan.");
                     loadFilms();
                 } catch (InterruptedException ex) {
@@ -205,6 +206,7 @@ public class FilmController {
                 try {
                     boolean ok = get();
                     if (ok) {
+                        View.theme.ImageUtil.clearCacheForPath(posterPath);
                         view.setStatusSuccess("Film '" + title + "' berhasil diperbarui.");
                         loadFilms();
                     } else {

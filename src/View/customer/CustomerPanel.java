@@ -402,10 +402,23 @@ public class CustomerPanel extends javax.swing.JPanel {
     private JPanel createMiniCard(Film film) {
         JPanel card = BaseCinemaFrame.createCardPanel();
         card.setLayout(new BorderLayout(16, 0));
-        card.setPreferredSize(new Dimension(380, 184));
+        card.setPreferredSize(new Dimension(380, 194));
 
-        // ── Poster Placeholder (rasio portrait 2:3 ala TIX ID) ────────────────
-        JPanel posterBox = new JPanel(new BorderLayout());
+        // ── Poster Film / Placeholder (rasio portrait 2:3 ala TIX ID) ─────────
+        final javax.swing.ImageIcon posterImg = View.theme.ImageUtil.loadScaledPoster(
+                film.getPosterPath(), 104, 150);
+
+        JPanel posterBox = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                if (posterImg != null) {
+                    g.drawImage(posterImg.getImage(), 0, 0, getWidth(), getHeight(), this);
+                    g.setColor(new Color(0, 26, 58, 200));
+                    g.fillRect(0, getHeight() - 22, getWidth(), 22);
+                }
+            }
+        };
         posterBox.setPreferredSize(new Dimension(104, 150));
         posterBox.setBackground(new Color(11, 37, 69));
         posterBox.setBorder(BorderFactory.createLineBorder(new Color(203, 213, 225), 1));
@@ -419,27 +432,20 @@ public class CustomerPanel extends javax.swing.JPanel {
         ageBadge.setForeground(SwingTheme.NAVY);
         badgeRow.add(ageBadge);
 
-        JLabel posterPlaceholderLbl = new JLabel("POSTER", SwingConstants.CENTER);
-        posterPlaceholderLbl.setFont(SwingTheme.font(Font.BOLD, 12));
-        posterPlaceholderLbl.setForeground(new Color(148, 163, 184));
-
-        if (film.getPosterPath() != null && !film.getPosterPath().isBlank()) {
-            javax.swing.ImageIcon posterImg = View.theme.ImageUtil.loadScaledPoster(film.getPosterPath(), 104, 150);
-            if (posterImg != null) {
-                posterPlaceholderLbl.setIcon(posterImg);
-                posterPlaceholderLbl.setText("");
-            }
-        }
-
         JLabel statusChip = new JLabel(
                 "NOW_SHOWING".equalsIgnoreCase(film.getStatus()) ? "SEDANG TAYANG" : "AKAN DATANG",
                 SwingConstants.CENTER);
         statusChip.setFont(SwingTheme.font(Font.BOLD, 9));
         statusChip.setForeground(BaseCinemaFrame.CINEMA_GOLD);
-        statusChip.setBorder(new EmptyBorder(0, 4, 8, 4));
+        statusChip.setBorder(new EmptyBorder(4, 4, 5, 4));
 
         posterBox.add(badgeRow, BorderLayout.NORTH);
-        posterBox.add(posterPlaceholderLbl, BorderLayout.CENTER);
+        if (posterImg == null) {
+            JLabel posterPlaceholderLbl = new JLabel("POSTER", SwingConstants.CENTER);
+            posterPlaceholderLbl.setFont(SwingTheme.font(Font.BOLD, 12));
+            posterPlaceholderLbl.setForeground(new Color(148, 163, 184));
+            posterBox.add(posterPlaceholderLbl, BorderLayout.CENTER);
+        }
         posterBox.add(statusChip, BorderLayout.SOUTH);
         card.add(posterBox, BorderLayout.WEST);
 
@@ -462,8 +468,8 @@ public class CustomerPanel extends javax.swing.JPanel {
         info.setAlignmentX(LEFT_ALIGNMENT);
 
         String rawSynopsis = film.getSynopsis() == null ? "" : film.getSynopsis().trim();
-        String shortSynopsis = rawSynopsis.length() > 85
-                ? rawSynopsis.substring(0, 82) + "..."
+        String shortSynopsis = rawSynopsis.length() > 70
+                ? rawSynopsis.substring(0, 67) + "..."
                 : rawSynopsis;
         JLabel synopsisLbl = new JLabel("<html><body style='width:220px'>" + shortSynopsis + "</body></html>");
         synopsisLbl.setFont(SwingTheme.font(Font.PLAIN, 12));
